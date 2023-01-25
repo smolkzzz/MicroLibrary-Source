@@ -323,6 +323,7 @@ function Library:Init(Params)
 				GUI.CurrentTab:Deactivate()
 			end
 			Tab.Active = true
+			Tab.Hover = true
 			Library:tween(Tab["51"],{TextTransparency = 0})
 			Library:tween(Tab["51"],{BackgroundTransparency = 0})
 			Library:tween(Tab["52"],{ImageTransparency = 0})
@@ -333,6 +334,7 @@ function Library:Init(Params)
 		
 		function Tab:Deactivate()
 			Tab.Active = false
+			Tab.Hover = false
 			Library:tween(Tab["51"],{TextTransparency = 0.6})
 			Library:tween(Tab["51"],{BackgroundTransparency = 0.6})
 			Library:tween(Tab["52"],{ImageTransparency = 0.6})
