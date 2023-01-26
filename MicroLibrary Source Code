@@ -1381,7 +1381,7 @@ function _G.Library:Init(Params)
 					Keybind["5e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 					Keybind["5e"]["AnchorPoint"] = Vector2.new(1, 0);
 					Keybind["5e"]["Size"] = UDim2.new(0, 30, 1, 0);
-					Keybind["5e"]["Text"] = "'" .. Keybind.Bind .. "'";
+					Keybind["5e"]["Text"] = [[F]];
 					Keybind["5e"]["Name"] = [[Input]];
 					Keybind["5e"]["BackgroundTransparency"] = 1;
 					Keybind["5e"]["Position"] = UDim2.new(1, 0, 0, 0);
