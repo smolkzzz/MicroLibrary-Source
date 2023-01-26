@@ -198,7 +198,7 @@ function _G.Library:Init(Params)
 	UserInputService.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			if CloseHover then
-				GUI["1"].Enabled = not GUI["1"].Enabled
+				GUI["1"]:Destroy()
 				CloseHover = false
 			end
 		elseif input.KeyCode == Enum.KeyCode[Params.Toggle] then
@@ -1421,9 +1421,11 @@ function _G.Library:Init(Params)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
-						if Keybind.WaitingForInput then
-							Keybind["5e"] = input.KeyCode
-							Keybind.WaitingForInput = false
+						if input.UserInputType == Enum.UserInputType.Keyboard then
+							if Keybind.WaitingForInput then
+								Keybind["5e"].Text = input.KeyCode
+								Keybind.WaitingForInput = false
+							end
 						end
 					end)
 					
