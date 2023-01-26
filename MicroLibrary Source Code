@@ -195,7 +195,7 @@ function _G.Library:Init(Params)
 				GUI["1"].Enabled = not GUI["1"].Enabled
 				CloseHover = false
 			end
-		elseif input.Keycode == Enum.KeyCode[Params.Toggle] then
+		elseif input.KeyCode == Enum.KeyCode[Params.Toggle] then
 			GUI["1"].Enabled = not GUI["1"].Enabled
 		end
 	end)
@@ -1416,13 +1416,13 @@ function _G.Library:Init(Params)
 					
 					UserInputService.InputBegan:Connect(function(input)
 						if Keybind.WaitingForInput then
-							Keybind["5e"] = input.Keycode
+							Keybind["5e"] = input.KeyCode
 							Keybind.WaitingForInput = false
 						end
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
-						if input.Keycode == Enum.KeyCode[Keybind.Bind] then
+						if input.KeyCode == Enum.KeyCode[Keybind.Bind] then
 							Params.Callback()
 						end
 					end)
