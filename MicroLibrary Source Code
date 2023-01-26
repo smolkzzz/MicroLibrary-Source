@@ -146,7 +146,7 @@ function _G.Library:Init(Params)
 		GUI["c"]["TextSize"] = 14;
 		GUI["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["c"]["Size"] = UDim2.new(0, 200, 1, -3);
-		GUI["c"]["Text"] = "Micro_G.Library | " .. Params.Name;
+		GUI["c"]["Text"] = "MicroLibrary | " .. Params.Name;
 		GUI["c"]["Name"] = [[Title]];
 		GUI["c"]["Font"] = Enum.Font.Gotham;
 		GUI["c"]["BackgroundTransparency"] = 1;
@@ -193,6 +193,7 @@ function _G.Library:Init(Params)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			if CloseHover then
 				GUI["1"].Enabled = not GUI["1"].Enabled
+				CloseHover = false
 			end
 		elseif input == Enum.KeyCode[Params.Toggle] then
 			GUI["1"].Enabled = not GUI["1"].Enabled
@@ -323,6 +324,7 @@ function _G.Library:Init(Params)
 				GUI.CurrentTab:Deactivate()
 			end
 			Tab.Active = true
+			Tab.Hover = true
 			_G.Library:tween(Tab["51"],{TextTransparency = 0})
 			_G.Library:tween(Tab["51"],{BackgroundTransparency = 0})
 			_G.Library:tween(Tab["52"],{ImageTransparency = 0})
@@ -333,6 +335,7 @@ function _G.Library:Init(Params)
 		
 		function Tab:Deactivate()
 			Tab.Active = false
+			Tab.Hover = false
 			_G.Library:tween(Tab["51"],{TextTransparency = 0.6})
 			_G.Library:tween(Tab["51"],{BackgroundTransparency = 0.6})
 			_G.Library:tween(Tab["52"],{ImageTransparency = 0.6})
@@ -768,6 +771,18 @@ function _G.Library:Init(Params)
 			function Slider:SetCallback(func)
 				Params.Callback = func
 			end	
+				
+				function Slider:SetMinimum(func)
+					Params.Minimum = func
+				end
+				
+				function Slider:SetMaximum(func)
+					Params.Maximum = func
+				end
+				
+				function Slider:SetTitle(txt)
+					Params.Name = txt
+				end
 			-- [[ Logic ]]
 			do
 				Slider["27"].MouseEnter:Connect(function()
@@ -1186,7 +1201,7 @@ function _G.Library:Init(Params)
 					Name = [[Textbox Preview]];
 					RemoveTextOnFocusLost = false;
 					PlaceHolderText = "PlaceHolderText";
-					RemoveTextOnFocus = false;
+					RemoveTextOnClicked = false;
 					Callback = function() end
 				},Params or {})
 				
@@ -1239,7 +1254,7 @@ function _G.Library:Init(Params)
 					Textbox["47"]["BackgroundColor3"] = Color3.fromRGB(99, 99, 99);
 					-- Textbox["47"]["FontFace"] = ;
 					Textbox["47"]["AnchorPoint"] = Vector2.new(0, 1);
-					Textbox["47"]["PlaceholderText"] = [[PlaceHolderText]];
+					Textbox["47"]["PlaceholderText"] = Params.PlaceHolderText;
 					Textbox["47"]["Size"] = UDim2.new(1, -10, 0, 20);
 					Textbox["47"]["Selectable"] = false;
 					Textbox["47"]["Text"] = [[]];
@@ -1277,13 +1292,7 @@ function _G.Library:Init(Params)
 				end
 				
 				-- [[ Logic ]]
-				do
-					Textbox["47"].FocusLost:Connect(function()
-						if Params.RemoveTextOnFocusLost then
-							Textbox["47"].Text = ""
-						end
-					end)
-					
+				do	
 					Textbox["4a"].MouseEnter:Connect(function()
 						Textbox.Hover = true
 					end)
@@ -1296,11 +1305,121 @@ function _G.Library:Init(Params)
 						if input.UserInputType == Enum.UserInputType.MouseButton1 then
 							if Textbox.Hover then
 								Params.Callback(Textbox["47"].Text)
+								if Params.RemoveTextOnClicked then
+									Textbox["47"].Text = ""
+								end
+								Textbox["47"].FocusLost:Connect(function()
+									if Params.RemoveTextOnFocusLost then
+										Textbox["47"].Text = ""
+									end
+								end)
 							end
 						end
 					end)
 				end
 			end	
+			
+			function Tab:Keybind(Params)
+				Params = _G.Library:validate({
+					Name = [[Keybind Preview]];
+					DefaultBind = "F";
+					Callback = function() end
+				},Params or {})
+				
+				local Keybind = {
+					Bind = nil;
+					Hover = false;
+					WaitingForInput = false;
+				}
+				
+				Keybind.Bind = Params.DefaultBind
+				
+				-- [[ Render ]]
+				do
+					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind
+					Keybind["5a"] = Instance.new("Frame", Tab["10"]);
+					Keybind["5a"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+					Keybind["5a"]["Size"] = UDim2.new(1, 0, 0, 30);
+					Keybind["5a"]["Name"] = [[Keybind]];
+
+					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.UICorner
+					Keybind["5b"] = Instance.new("UICorner", Keybind["5a"]);
+					Keybind["5b"]["CornerRadius"] = UDim.new(0, 4);
+
+					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.UIStroke
+					Keybind["5c"] = Instance.new("UIStroke", Keybind["5a"]);
+					Keybind["5c"]["Color"] = Color3.fromRGB(108, 108, 108);
+					Keybind["5c"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+
+					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.Click
+					Keybind["5d"] = Instance.new("TextLabel", Keybind["5a"]);
+					Keybind["5d"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+					Keybind["5d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					-- Keybind["5d"]["FontFace"] = ;
+					Keybind["5d"]["Selectable"] = true;
+					Keybind["5d"]["TextSize"] = 14;
+					Keybind["5d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+					Keybind["5d"]["AnchorPoint"] = Vector2.new(0, 0.5);
+					Keybind["5d"]["Size"] = UDim2.new(1, -35, 1, -10);
+					Keybind["5d"]["Active"] = true;
+					Keybind["5d"]["Text"] = Params.Name;
+					Keybind["5d"]["Name"] = [[Click]];
+					Keybind["5d"]["Font"] = Enum.Font.Ubuntu;
+					Keybind["5d"]["BackgroundTransparency"] = 1;
+					Keybind["5d"]["Position"] = UDim2.new(0, 5, 0.5, 0);
+
+					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.Input
+					Keybind["5e"] = Instance.new("TextLabel", Keybind["5a"]);
+					Keybind["5e"]["TextWrapped"] = true;
+					Keybind["5e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Keybind["5e"]["TextSize"] = 10;
+					Keybind["5e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+					Keybind["5e"]["AnchorPoint"] = Vector2.new(1, 0);
+					Keybind["5e"]["Size"] = UDim2.new(0, 30, 1, 0);
+					Keybind["5e"]["Text"] = Params.DefaultBind;
+					Keybind["5e"]["Name"] = [[Input]];
+					Keybind["5e"]["BackgroundTransparency"] = 1;
+					Keybind["5e"]["Position"] = UDim2.new(1, 0, 0, 0);
+				end
+				
+				-- [[ Methods ]]
+				function Keybind:ChangeBind(func)
+					Keybind.Bind = func
+				end
+				
+				function Keybind:SetTitle(txt)
+					Params.Name = txt
+				end
+				
+				function Keybind:SetCallback(func)
+					Params.Callback = func
+				end
+				
+				-- [[ Logic ]]
+				do
+					Keybind["5a"].MouseEnter:Connect(function()
+						Keybind.Hover = true
+					end)
+					
+					Keybind["5a"].MouseLeave:Connect(function()
+						Keybind.Hover = false
+					end)
+					
+					UserInputService.InputBegan:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.MouseButton1 then
+							if Keybind.Hover then
+								Keybind.WaitingForInput = true
+								Keybind["5e"].Text = "[...]"
+							end
+						elseif Keybind.WaitingForInput then
+							Keybind["5e"] = input
+							Keybind.WaitingForInput = false
+						elseif input == Enum.KeyCode[Keybind.Bind] then
+							Params.Callback()
+						end
+					end)
+				end
+			end
 		end
 		return Tab	
 	end
