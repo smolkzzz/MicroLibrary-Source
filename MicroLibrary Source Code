@@ -4,7 +4,6 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
-local HttpService = game:GetService("HttpService")
 
 -- [[ Variables ]]
 local Client = Players.LocalPlayer
@@ -12,15 +11,15 @@ local Mouse = Client:GetMouse()
 local Viewport = workspace.CurrentCamera.ViewportSize
 local Tweeninfo = TweenInfo.new(.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut)
 
-local Library = {}
+_G.Library = {}
 
-function Library:tween(object,goal,callback)
+function _G.Library:tween(object,goal,callback)
 	local tween = TweenService:Create(object,Tweeninfo,goal)
 	tween.Completed:Connect(callback or function() end)
 	tween:Play()
 end
 
-function Library:validate(defaults, Params)
+function _G.Library:validate(defaults, Params)
 	for i,v in pairs(defaults) do
 		if Params[i] == nil then
 			Params[i] = v
@@ -29,8 +28,8 @@ function Library:validate(defaults, Params)
 	return Params
 end
 
-function Library:Init(Params)
-	Params = Library:validate({
+function _G.Library:Init(Params)
+	Params = _G.Library:validate({
 		Name = game.Name .. " Script";
 		Toggle = "LeftShift";
 	},Params or {})
@@ -41,13 +40,13 @@ function Library:Init(Params)
 	
 	-- [[ Render ]]
 	do
-		-- StarterGui.MicroLibrary
+		-- StarterGui.Micro_G.Library
 		GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Client:WaitForChild("PlayerGui") or CoreGui);
 		GUI["1"]["ResetOnSpawn"] = false;
 		GUI["1"]["IgnoreGuiInset"] = true;
-		GUI["1"]["Name"] = [[MicroLibrary]];
+		GUI["1"]["Name"] = [[Micro_G.Library]];
 
-		-- StarterGui.MicroLibrary.Main
+		-- StarterGui.Micro_G.Library.Main
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
 		GUI["2"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
 		GUI["2"]["AnchorPoint"] = Vector2.new(0,0);
@@ -57,18 +56,18 @@ function Library:Init(Params)
 		GUI["2"]["Active"] = true;
 		GUI["2"]["Draggable"] = true;
 
-		-- StarterGui.MicroLibrary.Main.UICorner
+		-- StarterGui.Micro_G.Library.Main.UICorner
 		GUI["3"] = Instance.new("UICorner", GUI["2"]);
 		GUI["3"]["CornerRadius"] = UDim.new(0, 4);
 
-		-- StarterGui.MicroLibrary.Main.shadowHolder
+		-- StarterGui.Micro_G.Library.Main.shadowHolder
 		GUI["4"] = Instance.new("Frame", GUI["2"]);
 		GUI["4"]["ZIndex"] = 0;
 		GUI["4"]["BackgroundTransparency"] = 1;
 		GUI["4"]["Size"] = UDim2.new(1, 0, 1, 0);
 		GUI["4"]["Name"] = [[shadowHolder]];
 
-		-- StarterGui.MicroLibrary.Main.shadowHolder.umbraShadow
+		-- StarterGui.Micro_G.Library.Main.shadowHolder.umbraShadow
 		GUI["5"] = Instance.new("ImageLabel", GUI["4"]);
 		GUI["5"]["ZIndex"] = 0;
 		GUI["5"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
@@ -82,7 +81,7 @@ function Library:Init(Params)
 		GUI["5"]["BackgroundTransparency"] = 1;
 		GUI["5"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 
-		-- StarterGui.MicroLibrary.Main.shadowHolder.penumbraShadow
+		-- StarterGui.Micro_G.Library.Main.shadowHolder.penumbraShadow
 		GUI["6"] = Instance.new("ImageLabel", GUI["4"]);
 		GUI["6"]["ZIndex"] = 0;
 		GUI["6"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
@@ -96,7 +95,7 @@ function Library:Init(Params)
 		GUI["6"]["BackgroundTransparency"] = 1;
 		GUI["6"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 
-		-- StarterGui.MicroLibrary.Main.shadowHolder.ambientShadow
+		-- StarterGui.Micro_G.Library.Main.shadowHolder.ambientShadow
 		GUI["7"] = Instance.new("ImageLabel", GUI["4"]);
 		GUI["7"]["ZIndex"] = 0;
 		GUI["7"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
@@ -110,18 +109,18 @@ function Library:Init(Params)
 		GUI["7"]["BackgroundTransparency"] = 1;
 		GUI["7"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 
-		-- StarterGui.MicroLibrary.Main.TopBar
+		-- StarterGui.Micro_G.Library.Main.TopBar
 		GUI["8"] = Instance.new("Frame", GUI["2"]);
 		GUI["8"]["BorderSizePixel"] = 0;
 		GUI["8"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
 		GUI["8"]["Size"] = UDim2.new(1, 0, 0, 30);
 		GUI["8"]["Name"] = [[TopBar]];
 
-		-- StarterGui.MicroLibrary.Main.TopBar.UICorner
+		-- StarterGui.Micro_G.Library.Main.TopBar.UICorner
 		GUI["9"] = Instance.new("UICorner", GUI["8"]);
 		GUI["9"]["CornerRadius"] = UDim.new(0, 4);
 
-		-- StarterGui.MicroLibrary.Main.TopBar.Hide
+		-- StarterGui.Micro_G.Library.Main.TopBar.Hide
 		GUI["a"] = Instance.new("Frame", GUI["8"]);
 		GUI["a"]["BorderSizePixel"] = 0;
 		GUI["a"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
@@ -130,7 +129,7 @@ function Library:Init(Params)
 		GUI["a"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["a"]["Name"] = [[Hide]];
 
-		-- StarterGui.MicroLibrary.Main.TopBar.Line
+		-- StarterGui.Micro_G.Library.Main.TopBar.Line
 		GUI["b"] = Instance.new("Frame", GUI["8"]);
 		GUI["b"]["BorderSizePixel"] = 0;
 		GUI["b"]["BackgroundColor3"] = Color3.fromRGB(86, 0, 0);
@@ -139,7 +138,7 @@ function Library:Init(Params)
 		GUI["b"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["b"]["Name"] = [[Line]];
 
-		-- StarterGui.MicroLibrary.Main.TopBar.Title
+		-- StarterGui.Micro_G.Library.Main.TopBar.Title
 		GUI["c"] = Instance.new("TextLabel", GUI["8"]);
 		GUI["c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 		GUI["c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -147,16 +146,16 @@ function Library:Init(Params)
 		GUI["c"]["TextSize"] = 14;
 		GUI["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["c"]["Size"] = UDim2.new(0, 200, 1, -3);
-		GUI["c"]["Text"] = "MicroLibrary | " .. Params.Name;
+		GUI["c"]["Text"] = "Micro_G.Library | " .. Params.Name;
 		GUI["c"]["Name"] = [[Title]];
 		GUI["c"]["Font"] = Enum.Font.Gotham;
 		GUI["c"]["BackgroundTransparency"] = 1;
 
-		-- StarterGui.MicroLibrary.Main.TopBar.Title.UIPadding
+		-- StarterGui.Micro_G.Library.Main.TopBar.Title.UIPadding
 		GUI["d"] = Instance.new("UIPadding", GUI["c"]);
 		GUI["d"]["PaddingLeft"] = UDim.new(0, 2);
 
-		-- StarterGui.MicroLibrary.Main.TopBar.Close
+		-- StarterGui.Micro_G.Library.Main.TopBar.Close
 		GUI["e"] = Instance.new("TextButton", GUI["8"]);
 		GUI["e"]["TextWrapped"] = true;
 		GUI["e"]["AutoButtonColor"] = false;
@@ -173,7 +172,7 @@ function Library:Init(Params)
 		GUI["e"]["Position"] = UDim2.new(1, 0, 0, 0);
 		GUI["e"]["BackgroundTransparency"] = 1;
 
-		-- StarterGui.MicroLibrary.Main.ContentContainer
+		-- StarterGui.Micro_G.Library.Main.ContentContainer
 		GUI["f"] = Instance.new("Frame", GUI["2"]);
 		GUI["f"]["BackgroundColor3"] = Color3.fromRGB(81, 81, 81);
 		GUI["f"]["AnchorPoint"] = Vector2.new(1, 0);
@@ -202,7 +201,7 @@ function Library:Init(Params)
 	
 	-- [[ Navigation ]]
 	do
-		-- StarterGui.MicroLibrary.Main.Navigation
+		-- StarterGui.Micro_G.Library.Main.Navigation
 		GUI["49"] = Instance.new("Frame", GUI["2"]);
 		GUI["49"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
 		GUI["49"]["AnchorPoint"] = Vector2.new(0, 1);
@@ -210,18 +209,18 @@ function Library:Init(Params)
 		GUI["49"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["49"]["Name"] = [[Navigation]];
 
-		-- StarterGui.MicroLibrary.Main.Navigation.UICorner
+		-- StarterGui.Micro_G.Library.Main.Navigation.UICorner
 		GUI["4a"] = Instance.new("UICorner", GUI["49"]);
 		GUI["4a"]["CornerRadius"] = UDim.new(0, 4);
 
-		-- StarterGui.MicroLibrary.Main.Navigation.Hide
+		-- StarterGui.Micro_G.Library.Main.Navigation.Hide
 		GUI["4b"] = Instance.new("Frame", GUI["49"]);
 		GUI["4b"]["BorderSizePixel"] = 0;
 		GUI["4b"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
 		GUI["4b"]["Size"] = UDim2.new(1, 0, 0, 5);
 		GUI["4b"]["Name"] = [[Hide]];
 
-		-- StarterGui.MicroLibrary.Main.Navigation.Hide2
+		-- StarterGui.Micro_G.Library.Main.Navigation.Hide2
 		GUI["4c"] = Instance.new("Frame", GUI["49"]);
 		GUI["4c"]["BorderSizePixel"] = 0;
 		GUI["4c"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
@@ -230,7 +229,7 @@ function Library:Init(Params)
 		GUI["4c"]["Position"] = UDim2.new(1, 0, 0, 0);
 		GUI["4c"]["Name"] = [[Hide2]];
 
-		-- StarterGui.MicroLibrary.Main.Navigation.Tabs
+		-- StarterGui.Micro_G.Library.Main.Navigation.Tabs
 		GUI["4d"] = Instance.new("ScrollingFrame", GUI["49"]);
 		GUI["4d"]["Active"] = true;
 		GUI["4d"]["BorderSizePixel"] = 0;
@@ -242,13 +241,13 @@ function Library:Init(Params)
 		GUI["4d"]["ScrollBarThickness"] = 0;
 		GUI["4d"]["Name"] = [[Tabs]];
 
-		-- StarterGui.MicroLibrary.Main.Navigation.Tabs.UIListLayout
+		-- StarterGui.Micro_G.Library.Main.Navigation.Tabs.UIListLayout
 		GUI["4e"] = Instance.new("UIListLayout", GUI["4d"]);
 		GUI["4e"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end	
 	
 	function GUI:Tab(Params)
-		Params = Library:validate({
+		Params = _G.Library:validate({
 			Name = "Preview Tab";
 			Icon = "rbxassetid://12222879857";
 		},Params or {})
@@ -260,7 +259,7 @@ function Library:Init(Params)
 		
 		-- [[ Render ]]
 		do
-			-- StarterGui.MicroLibrary.Main.Navigation.Tabs.Inactive
+			-- StarterGui.Micro_G.Library.Main.Navigation.Tabs.Inactive
 			Tab["51"] = Instance.new("TextLabel", GUI["4d"]);
 			Tab["51"]["TextWrapped"] = true;
 			Tab["51"]["BorderSizePixel"] = 0;
@@ -281,7 +280,7 @@ function Library:Init(Params)
 			Tab["UIPadding"] = Instance.new("UIPadding",Tab["51"])
 			Tab["UIPadding"]["PaddingLeft"] = UDim.new(0,25)
 
-			-- StarterGui.MicroLibrary.Main.Navigation.Tabs.Inactive.Icon
+			-- StarterGui.Micro_G.Library.Main.Navigation.Tabs.Inactive.Icon
 			Tab["52"] = Instance.new("ImageLabel", Tab["51"]);
 			Tab["52"]["AnchorPoint"] = Vector2.new(1,0);
 			Tab["52"]["ScaleType"] = Enum.ScaleType.Tile;
@@ -292,7 +291,7 @@ function Library:Init(Params)
 			Tab["52"]["Name"] = [[Icon]];
 			Tab["52"]["BackgroundTransparency"] = 1;
 			
-			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab
+			-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab
 			Tab["10"] = Instance.new("ScrollingFrame", GUI["f"]);
 			Tab["10"]["Active"] = true;
 			Tab["10"]["BorderSizePixel"] = 0;
@@ -305,12 +304,12 @@ function Library:Init(Params)
 			Tab["10"]["Name"] = [[HomeTab]];
 			Tab["10"]["Visible"] = false;
 
-			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.UIListLayout
+			-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.UIListLayout
 			Tab["11"] = Instance.new("UIListLayout", Tab["10"]);
 			Tab["11"]["Padding"] = UDim.new(0, 5);
 			Tab["11"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 			
-			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.UIPadding
+			-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.UIPadding
 			Tab["12"] = Instance.new("UIPadding", Tab["10"]);
 			Tab["12"]["PaddingBottom"] = UDim.new(0, 1);
 			Tab["12"]["PaddingLeft"] = UDim.new(0, 1);
@@ -324,10 +323,9 @@ function Library:Init(Params)
 				GUI.CurrentTab:Deactivate()
 			end
 			Tab.Active = true
-			Tab.Hover = true
-			Library:tween(Tab["51"],{TextTransparency = 0})
-			Library:tween(Tab["51"],{BackgroundTransparency = 0})
-			Library:tween(Tab["52"],{ImageTransparency = 0})
+			_G.Library:tween(Tab["51"],{TextTransparency = 0})
+			_G.Library:tween(Tab["51"],{BackgroundTransparency = 0})
+			_G.Library:tween(Tab["52"],{ImageTransparency = 0})
 			Tab["10"].Visible = true
 			
 			GUI.CurrentTab = Tab
@@ -335,10 +333,9 @@ function Library:Init(Params)
 		
 		function Tab:Deactivate()
 			Tab.Active = false
-			Tab.Hover = false
-			Library:tween(Tab["51"],{TextTransparency = 0.6})
-			Library:tween(Tab["51"],{BackgroundTransparency = 0.6})
-			Library:tween(Tab["52"],{ImageTransparency = 0.6})
+			_G.Library:tween(Tab["51"],{TextTransparency = 0.6})
+			_G.Library:tween(Tab["51"],{BackgroundTransparency = 0.6})
+			_G.Library:tween(Tab["52"],{ImageTransparency = 0.6})
 			Tab["10"].Visible = false
 		end
 		
@@ -347,15 +344,15 @@ function Library:Init(Params)
 			Tab["51"].MouseEnter:Connect(function()
 				if not Tab.Active then
 					Tab.Hover = true
-					Library:tween(Tab["51"],{TextTransparency = 0})
-					Library:tween(Tab["52"],{ImageTransparency = 0})
+					_G.Library:tween(Tab["51"],{TextTransparency = 0})
+					_G.Library:tween(Tab["52"],{ImageTransparency = 0})
 				end
 			end)
 			Tab["51"].MouseLeave:Connect(function()
 				if not Tab.Active then
 					Tab.Hover = false
-					Library:tween(Tab["51"],{TextTransparency = 0.6})
-					Library:tween(Tab["52"],{ImageTransparency = 0.6})
+					_G.Library:tween(Tab["51"],{TextTransparency = 0.6})
+					_G.Library:tween(Tab["52"],{ImageTransparency = 0.6})
 				end
 			end)
 			UserInputService.InputBegan:Connect(function(input)
@@ -374,7 +371,7 @@ function Library:Init(Params)
 		-- [[ Render Buttons ]]
 		do
 		function Tab:Button(Params)
-			Params = Library:validate({
+			Params = _G.Library:validate({
 				Name = [[Button Preview]];
 				Callback = function() end;
 			},Params or {})
@@ -386,22 +383,22 @@ function Library:Init(Params)
 			
 			-- [[ Render ]]
 			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Button
 				Button["12"] = Instance.new("Frame", Tab["10"]);
 				Button["12"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 				Button["12"]["Size"] = UDim2.new(1, 0, 0, 30);
 				Button["12"]["Name"] = Params.Name;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Button.UICorner
 				Button["13"] = Instance.new("UICorner", Button["12"]);
 				Button["13"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Button.UIStroke
 				Button["14"] = Instance.new("UIStroke", Button["12"]);
 				Button["14"]["Color"] = Color3.fromRGB(108, 108, 108);
 				Button["14"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.Icon
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Button.Icon
 				Button["15"] = Instance.new("ImageLabel", Button["12"]);
 				Button["15"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Button["15"]["AnchorPoint"] = Vector2.new(1, 0);
@@ -411,7 +408,7 @@ function Library:Init(Params)
 				Button["15"]["BackgroundTransparency"] = 1;
 				Button["15"]["Position"] = UDim2.new(1, 0, 0, 0);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.Click
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Button.Click
 				Button["16"] = Instance.new("TextLabel", Button["12"]);
 				Button["16"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Button["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -442,22 +439,22 @@ function Library:Init(Params)
 			do
 				Button["12"].MouseEnter:Connect(function()
 					Button.Hover = true
-					Library:tween(Button["14"],{Color = Color3.fromRGB(180,180,180)})
+					_G.Library:tween(Button["14"],{Color = Color3.fromRGB(180,180,180)})
 				end)
 				
 				Button["12"].MouseLeave:connect(function()
 					Button.Hover = false
 					
 					if not Button.MouseDown then
-						Library:tween(Button["14"],{Color = Color3.fromRGB(108,108,108)})
+						_G.Library:tween(Button["14"],{Color = Color3.fromRGB(108,108,108)})
 					end
 				end)
 				
 				UserInputService.InputBegan:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover then
 						Button.MouseDown = true
-						Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-						Library:tween(Button["14"],{Color = Color3.fromRGB(200,200,200)})
+						_G.Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
+						_G.Library:tween(Button["14"],{Color = Color3.fromRGB(200,200,200)})
 						Params.Callback()
 					end
 				end)
@@ -468,12 +465,12 @@ function Library:Init(Params)
 						
 						if Button.Hover then
 							-- [[ Hovering State ]]
-							Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-							Library:tween(Button["14"],{Color = Color3.fromRGB(180,180,180)})
+							_G.Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+							_G.Library:tween(Button["14"],{Color = Color3.fromRGB(180,180,180)})
 						else
 							-- [[ Reset ]]
-							Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-							Library:tween(Button["14"],{Color = Color3.fromRGB(108,108,108)})
+							_G.Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+							_G.Library:tween(Button["14"],{Color = Color3.fromRGB(108,108,108)})
 						end
 					end
 				end)
@@ -483,7 +480,7 @@ function Library:Init(Params)
 		end
 		
 		function Tab:Warn(Params)
-			Params = Library:validate({
+			Params = _G.Library:validate({
 				Message = [[Warning Preview]];
 			},Params or {})
 			
@@ -491,22 +488,22 @@ function Library:Init(Params)
 			
 			-- [[ Render ]]
 			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Warning
 				Warning["18"] = Instance.new("Frame", Warning["10"]);
 				Warning["18"]["BackgroundColor3"] = Color3.fromRGB(62, 62, 12);
 				Warning["18"]["Size"] = UDim2.new(1, 0, 0, 30);
 				Warning["18"]["Name"] = [[Warning]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Warning.UICorner
 				Warning["19"] = Instance.new("UICorner", Warning["18"]);
 				Warning["19"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Warning.UIStroke
 				Warning["1a"] = Instance.new("UIStroke", Warning["18"]);
 				Warning["1a"]["Color"] = Color3.fromRGB(89, 89, 17);
 				Warning["1a"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.Icon
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Warning.Icon
 				Warning["1b"] = Instance.new("ImageLabel", Warning["18"]);
 				Warning["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["1b"]["Image"] = [[rbxassetid://12222946364]];
@@ -514,7 +511,7 @@ function Library:Init(Params)
 				Warning["1b"]["Name"] = [[Icon]];
 				Warning["1b"]["BackgroundTransparency"] = 1;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.Text
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Warning.Text
 				Warning["1c"] = Instance.new("TextLabel", Warning["18"]);
 				Warning["1c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Warning["1c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -540,7 +537,7 @@ function Library:Init(Params)
 		end
 		
 		function Tab:Info(Params)
-			Params = Library:validate({
+			Params = _G.Library:validate({
 				Message = [[Info Preview]];
 			},Params or {})
 			
@@ -548,22 +545,22 @@ function Library:Init(Params)
 			
 			-- [[ Render ]]
 			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Info
 				Info["1d"] = Instance.new("Frame", Info["10"]);
 				Info["1d"]["BackgroundColor3"] = Color3.fromRGB(16, 16, 81);
 				Info["1d"]["Size"] = UDim2.new(1, 0, 0, 30);
 				Info["1d"]["Name"] = [[Info]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Info.UICorner
 				Info["1e"] = Instance.new("UICorner", Info["1d"]);
 				Info["1e"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Info.UIStroke
 				Info["1f"] = Instance.new("UIStroke", Info["1d"]);
 				Info["1f"]["Color"] = Color3.fromRGB(30, 30, 153);
 				Info["1f"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.Icon
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Info.Icon
 				Info["20"] = Instance.new("ImageLabel", Info["1d"]);
 				Info["20"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Info["20"]["Image"] = [[rbxassetid://12222971215]];
@@ -571,7 +568,7 @@ function Library:Init(Params)
 				Info["20"]["Name"] = [[Icon]];
 				Info["20"]["BackgroundTransparency"] = 1;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.Text
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Info.Text
 				Info["21"] = Instance.new("TextLabel", Info["1d"]);
 				Info["21"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Info["21"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -597,7 +594,7 @@ function Library:Init(Params)
 		end
 		
 		function Tab:Label(Params)
-			Params = Library:validate({
+			Params = _G.Library:validate({
 				Message = [[Label Preview]];
 			},Params or {})
 			
@@ -605,22 +602,22 @@ function Library:Init(Params)
 			
 			-- [[ Render ]
 			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Label
 				Label["22"] = Instance.new("Frame", Label["10"]);
 				Label["22"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 				Label["22"]["Size"] = UDim2.new(1, 0, 0, 30);
 				Label["22"]["Name"] = [[Label]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Label.UICorner
 				Label["23"] = Instance.new("UICorner", Label["22"]);
 				Label["23"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Label.UIStroke
 				Label["24"] = Instance.new("UIStroke", Label["22"]);
 				Label["24"]["Color"] = Color3.fromRGB(108, 108, 108);
 				Label["24"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.Icon
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Label.Icon
 				Label["25"] = Instance.new("ImageLabel", Label["22"]);
 				Label["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Label["25"]["Image"] = [[rbxassetid://12222991501]];
@@ -628,7 +625,7 @@ function Library:Init(Params)
 				Label["25"]["Name"] = [[Icon]];
 				Label["25"]["BackgroundTransparency"] = 1;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.Text
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Label.Text
 				Label["26"] = Instance.new("TextLabel", Label["22"]);
 				Label["26"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Label["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -655,7 +652,7 @@ function Library:Init(Params)
 		end
 		
 		function Tab:Slider(Params)
-			Params = Library:validate({
+			Params = _G.Library:validate({
 				Name = [[Slide Preview]];
 				Minimum = 0;
 				Maximum = 100;
@@ -671,22 +668,22 @@ function Library:Init(Params)
 			
 			-- [[ Render ]]
 			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider
 				Slider["27"] = Instance.new("Frame", Tab["10"]);
 				Slider["27"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 				Slider["27"]["Size"] = UDim2.new(1, 0, 0, 40);
 				Slider["27"]["Name"] = [[Slider]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.UICorner
 				Slider["28"] = Instance.new("UICorner", Slider["27"]);
 				Slider["28"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.UIStroke
 				Slider["29"] = Instance.new("UIStroke", Slider["27"]);
 				Slider["29"]["Color"] = Color3.fromRGB(108, 108, 108);
 				Slider["29"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.Text
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.Text
 				Slider["2a"] = Instance.new("TextLabel", Slider["27"]);
 				Slider["2a"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Slider["2a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -702,7 +699,7 @@ function Library:Init(Params)
 				Slider["2a"]["BackgroundTransparency"] = 1;
 				Slider["2a"]["Position"] = UDim2.new(0, 5, 0, 5);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.Value
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.Value
 				Slider["2b"] = Instance.new("TextLabel", Slider["27"]);
 				Slider["2b"]["TextWrapped"] = true;
 				Slider["2b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
@@ -721,7 +718,7 @@ function Library:Init(Params)
 				Slider["2b"]["BackgroundTransparency"] = 1;
 				Slider["2b"]["Position"] = UDim2.new(1, -5, 0, 5);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.SliderBack
 				Slider["2c"] = Instance.new("Frame", Slider["27"]);
 				Slider["2c"]["BackgroundColor3"] = Color3.fromRGB(99, 99, 99);
 				Slider["2c"]["AnchorPoint"] = Vector2.new(0, 1);
@@ -729,22 +726,22 @@ function Library:Init(Params)
 				Slider["2c"]["Position"] = UDim2.new(0, 5, 1, -5);
 				Slider["2c"]["Name"] = [[SliderBack]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.SliderBack.UICorner
 				Slider["2d"] = Instance.new("UICorner", Slider["2c"]);
 				Slider["2d"]["CornerRadius"] = UDim.new(100, 100);
 				
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.SliderBack.UIStroke
 				Slider["Stoke"] = Instance.new("UIStroke", Slider["2c"]);
 				Slider["Stoke"]["Color"] = Color3.fromRGB(255, 255, 255);
 				Slider["Stoke"]["Thickness"] = 1
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable
 				Slider["2e"] = Instance.new("Frame", Slider["2c"]);
 				Slider["2e"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
 				Slider["2e"]["Size"] = UDim2.new(0, 100, 1, 0);
 				Slider["2e"]["Name"] = [[Draggable]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable.UICorner
 				Slider["2f"] = Instance.new("UICorner", Slider["2e"]);
 				Slider["2f"]["CornerRadius"] = UDim.new(100, 100);
 			end
@@ -775,26 +772,26 @@ function Library:Init(Params)
 			do
 				Slider["27"].MouseEnter:Connect(function()
 					Slider.Hover = true
-					Library:tween(Slider["2c"],{BackgroundColor3 = Color3.fromRGB(180,180,180)})
-					Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
-					Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(255,255,255)})
+					_G.Library:tween(Slider["2c"],{BackgroundColor3 = Color3.fromRGB(180,180,180)})
+					_G.Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
+					_G.Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(255,255,255)})
 				end)
 
 				Slider["27"].MouseLeave:connect(function()
 					Slider.Hover = false
 
 					if not Slider.MouseDown then
-						Library:tween(Slider["2c"],{BackgroundColor3 = Color3.fromRGB(99,99,99)})
-						Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(175,175,175)})
-						Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(60,60,60)})
+						_G.Library:tween(Slider["2c"],{BackgroundColor3 = Color3.fromRGB(99,99,99)})
+						_G.Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(175,175,175)})
+						_G.Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(60,60,60)})
 					end
 				end)
 
 				UserInputService.InputBegan:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover then
 						Slider.MouseDown = true
-						Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
-						Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(150,150,150)})
+						_G.Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
+						_G.Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(150,150,150)})
 						
 						if not Slider.Connection then
 							Slider.Connection = RunService.RenderStepped:Connect(function()
@@ -810,12 +807,12 @@ function Library:Init(Params)
 
 						if Slider.Hover then
 							-- [[ Hovering State ]]
-							Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(175,175,175)})
-							Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(150,150,150)})
+							_G.Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(175,175,175)})
+							_G.Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(150,150,150)})
 						else
 							-- [[ Reset ]]
-							Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
-							Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(60,60,60)})
+							_G.Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
+							_G.Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(60,60,60)})
 						end
 						
 						if Slider.Connection then Slider.Connection:Disconnect() end
@@ -828,7 +825,7 @@ function Library:Init(Params)
 		end
 		
 		function Tab:Toggle(Params)
-			Params = Library:validate({
+			Params = _G.Library:validate({
 				Name = [[Toggle Preview]];
 				Callback = function(Value) end
 			},Params or {})
@@ -840,22 +837,22 @@ function Library:Init(Params)
 			
 			-- [[ Render ]]
 			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive)
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive)
 				Toggle["51"] = Instance.new("Frame", Tab["10"]);
 				Toggle["51"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 				Toggle["51"]["Size"] = UDim2.new(1, 0, 0, 30);
 				Toggle["51"]["Name"] = [[Toggle]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive).UICorner
 				Toggle["52"] = Instance.new("UICorner", Toggle["51"]);
 				Toggle["52"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive).UIStroke
 				Toggle["53"] = Instance.new("UIStroke", Toggle["51"]);
 				Toggle["53"]["Color"] = Color3.fromRGB(108, 108, 108);
 				Toggle["53"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).Title
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive).Title
 				Toggle["54"] = Instance.new("TextLabel", Toggle["51"]);
 				Toggle["54"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Toggle["54"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -872,7 +869,7 @@ function Library:Init(Params)
 				Toggle["54"]["BackgroundTransparency"] = 1;
 				Toggle["54"]["Position"] = UDim2.new(0, 5, 0.5, 0);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).Value
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive).Value
 				Toggle["55"] = Instance.new("Frame", Toggle["51"]);
 				Toggle["55"]["BackgroundColor3"] = Color3.fromRGB(156, 0, 0);
 				Toggle["55"]["AnchorPoint"] = Vector2.new(1, 0);
@@ -880,11 +877,11 @@ function Library:Init(Params)
 				Toggle["55"]["Position"] = UDim2.new(1, -5, 0, 5);
 				Toggle["55"]["Name"] = [[Value]];
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).Value.UICorner
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive).Value.UICorner
 				Toggle["56"] = Instance.new("UICorner", Toggle["55"]);
 				Toggle["56"]["CornerRadius"] = UDim.new(0, 4);
 
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).Value.UIStroke
+				-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Toggle (Inactive).Value.UIStroke
 				Toggle["57"] = Instance.new("UIStroke", Toggle["55"]);
 				Toggle["57"]["Color"] = Color3.fromRGB(56, 0, 0);
 				Toggle["57"]["Thickness"] = 2;
@@ -894,14 +891,14 @@ function Library:Init(Params)
 			-- [[ Methods ]]
 			function Toggle:Activate()
 				Toggle.Value = true
-				Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
-				Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(0,156,0)})
+				_G.Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
+				_G.Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(0,156,0)})
 				Params.Callback(Toggle.Value)
 			end
 			function Toggle:Deactivate()
 				Toggle.Value = false
-				Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
-				Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(156,0,0)})
+				_G.Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
+				_G.Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(156,0,0)})
 				Params.Callback(Toggle.Value)
 			end
 			
@@ -917,15 +914,15 @@ function Library:Init(Params)
 			do
 				Toggle["55"].MouseEnter:Connect(function()
 					Toggle.Hover = true
-					Library:tween(Toggle["57"],{Color = Color3.fromRGB(255,255,255)})
+					_G.Library:tween(Toggle["57"],{Color = Color3.fromRGB(255,255,255)})
 				end)
 
 				Toggle["55"].MouseLeave:Connect(function()
 					Toggle.Hover = false
 					if Toggle.Value then
-						Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
+						_G.Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
 					else
-						Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
+						_G.Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
 					end
 				end)
 				
@@ -945,7 +942,7 @@ function Library:Init(Params)
 		end
 			
 			function Tab:Dropdown(Params)
-				Params = Library:validate({
+				Params = _G.Library:validate({
 					Name = [[Dropdown Preview]];
 					Items = {};
 					Callback = function() end;
@@ -964,22 +961,22 @@ function Library:Init(Params)
 				
 				-- [[ Render ]]
 				do
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown
 					Dropdown["32"] = Instance.new("Frame", Tab["10"]);
 					Dropdown["32"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Dropdown["32"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Dropdown["32"]["Name"] = [[Dropdown]];
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.UICorner
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.UICorner
 					Dropdown["33"] = Instance.new("UICorner", Dropdown["32"]);
 					Dropdown["33"]["CornerRadius"] = UDim.new(0, 4);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.UIStroke
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.UIStroke
 					Dropdown["34"] = Instance.new("UIStroke", Dropdown["32"]);
 					Dropdown["34"]["Color"] = Color3.fromRGB(108, 108, 108);
 					Dropdown["34"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Icon
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.Icon
 					Dropdown["35"] = Instance.new("ImageLabel", Dropdown["32"]);
 					Dropdown["35"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 					Dropdown["35"]["Selectable"] = true;
@@ -991,7 +988,7 @@ function Library:Init(Params)
 					Dropdown["35"]["BackgroundTransparency"] = 1;
 					Dropdown["35"]["Position"] = UDim2.new(1, -5, 0, 5);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.OptionHolder
 					Dropdown["36"] = Instance.new("ScrollingFrame", Dropdown["32"]);
 					Dropdown["36"]["Active"] = true;
 					Dropdown["36"]["BorderSizePixel"] = 0;
@@ -1006,18 +1003,18 @@ function Library:Init(Params)
 					Dropdown["36"]["Visible"] = true;
 					Dropdown["36"]["Name"] = [[OptionHolder]];
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.UIListLayout
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.UIListLayout
 					Dropdown["37"] = Instance.new("UIListLayout", Dropdown["36"]);
 					Dropdown["37"]["Padding"] = UDim.new(0, 5);
 					Dropdown["37"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.UIPadding
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.UIPadding
 					Dropdown["38"] = Instance.new("UIPadding", Dropdown["36"]);
 					Dropdown["38"]["PaddingTop"] = UDim.new(0, 1);
 					Dropdown["38"]["PaddingRight"] = UDim.new(0, 1);
 					Dropdown["38"]["PaddingBottom"] = UDim.new(0, 1);
 					Dropdown["38"]["PaddingLeft"] = UDim.new(0, 1);
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Click
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.Click
 					Dropdown["42"] = Instance.new("TextLabel", Dropdown["32"]);
 					Dropdown["42"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 					Dropdown["42"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -1049,7 +1046,7 @@ function Library:Init(Params)
 							instance = {};
 							Value = value;
 						}
-						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.Inactive
+						-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.Inactive
 						Dropdown.Items[id].instance["3f"] = Instance.new("TextLabel", Dropdown["36"]);
 						Dropdown.Items[id].instance["3f"]["TextWrapped"] = true;
 						Dropdown.Items[id].instance["3f"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
@@ -1063,34 +1060,34 @@ function Library:Init(Params)
 						Dropdown.Items[id].instance["3f"]["Name"] = [[Inactive]];
 						Dropdown.Items[id].instance["3f"]["Font"] = Enum.Font.Ubuntu;
 
-						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Items[id].Instance.OptionHolder.Inactive.UIStroke
+						-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.Items[id].Instance.OptionHolder.Inactive.UIStroke
 						Dropdown.Items[id].instance["40"] = Instance.new("UIStroke", Dropdown.Items[id].instance["3f"]);
 						Dropdown.Items[id].instance["40"]["Color"] = Color3.fromRGB(255, 255, 255);
 						Dropdown.Items[id].instance["40"]["Transparency"] = 0.800000011920929;
 						Dropdown.Items[id].instance["40"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Items[id].Instance.OptionHolder.Inactive.UICorner
+						-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Dropdown.Items[id].Instance.OptionHolder.Inactive.UICorner
 						Dropdown.Items[id].instance["41"] = Instance.new("UICorner", Dropdown.Items[id].instance["3f"]);
 						Dropdown.Items[id].instance["41"]["CornerRadius"] = UDim.new(0, 4);
 						
 						Dropdown.Items[id].instance["3f"].MouseEnter:Connect(function()
 							Item.Hover = true
-							Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
+							_G.Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
 						end)
 
 						Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
 							Item.Hover = false
 
 							if not Item.MouseDown then
-								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
+								_G.Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
 							end
 						end)
 
 						UserInputService.InputBegan:Connect(function(input)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover then
 								Item.MouseDown = true
-								Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
+								_G.Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
+								_G.Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
 								Params.Callback(value)
 							end
 						end)
@@ -1101,12 +1098,12 @@ function Library:Init(Params)
 
 								if Item.Hover then
 									-- [[ Hovering State ]]
-									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
+									_G.Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+									_G.Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
 								else
 									-- [[ Reset ]]
-									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
+									_G.Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+									_G.Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
 								end
 							end
 						end)
@@ -1145,22 +1142,22 @@ function Library:Init(Params)
 				do
 					Dropdown["42"].MouseEnter:Connect(function()
 						Dropdown.Hover = true
-						Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
+						_G.Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
 					end)
 
 					Dropdown["42"].MouseLeave:Connect(function()
 						Dropdown.Hover = false
 
 						if not Dropdown.MouseDown then
-							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(108,108,108)})
+							_G.Library:tween(Dropdown["34"],{Color = Color3.fromRGB(108,108,108)})
 						end
 					end)
 
 					UserInputService.InputBegan:Connect(function(input)
 						if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover then
 							Dropdown.MouseDown = true
-							Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(200,200,200)})
+							_G.Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
+							_G.Library:tween(Dropdown["34"],{Color = Color3.fromRGB(200,200,200)})
 							Dropdown:Toggle()
 						end
 					end)
@@ -1171,12 +1168,12 @@ function Library:Init(Params)
 
 							if Dropdown.Hover then
 								-- [[ Hovering State ]]
-								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-								Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
+								_G.Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+								_G.Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
 							else
 								-- [[ Reset ]]
-								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-								Library:tween(Dropdown["34"],{Color = Color3.fromRGB(108,108,108)})
+								_G.Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+								_G.Library:tween(Dropdown["34"],{Color = Color3.fromRGB(108,108,108)})
 							end
 						end
 					end)
@@ -1185,7 +1182,7 @@ function Library:Init(Params)
 			end
 			
 			function Tab:TextBox(Params)
-				Params = Library:validate({
+				Params = _G.Library:validate({
 					Name = [[Textbox Preview]];
 					RemoveTextOnFocusLost = false;
 					PlaceHolderText = "PlaceHolderText";
@@ -1199,22 +1196,22 @@ function Library:Init(Params)
 				
 				-- [[ Render ]]
 				do
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox
 					Textbox["43"] = Instance.new("Frame", Tab["10"]);
 					Textbox["43"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Textbox["43"]["Size"] = UDim2.new(1, 0, 0, 50);
 					Textbox["43"]["Name"] = [[Textbox]];
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.UICorner
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.UICorner
 					Textbox["44"] = Instance.new("UICorner", Textbox["43"]);
 					Textbox["44"]["CornerRadius"] = UDim.new(0, 4);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.UIStroke
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.UIStroke
 					Textbox["45"] = Instance.new("UIStroke", Textbox["43"]);
 					Textbox["45"]["Color"] = Color3.fromRGB(108, 108, 108);
 					Textbox["45"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Text
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.Text
 					Textbox["46"] = Instance.new("TextLabel", Textbox["43"]);
 					Textbox["46"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 					Textbox["46"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -1230,7 +1227,7 @@ function Library:Init(Params)
 					Textbox["46"]["BackgroundTransparency"] = 1;
 					Textbox["46"]["Position"] = UDim2.new(0, 5, 0, 5);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Box
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.Box
 					Textbox["47"] = Instance.new("TextBox", Textbox["43"]);
 					Textbox["47"]["Active"] = false;
 					Textbox["47"]["PlaceholderColor3"] = Color3.fromRGB(255, 255, 255);
@@ -1250,16 +1247,16 @@ function Library:Init(Params)
 					Textbox["47"]["Font"] = Enum.Font.Ubuntu;
 					Textbox["47"]["Name"] = [[Box]];
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Box.UICorner
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.Box.UICorner
 					Textbox["48"] = Instance.new("UICorner", Textbox["47"]);
 					Textbox["48"]["CornerRadius"] = UDim.new(0, 4);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Box.UIPadding
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.Box.UIPadding
 					Textbox["49"] = Instance.new("UIPadding", Textbox["47"]);
 					Textbox["49"]["PaddingTop"] = UDim.new(0, 2);
 					Textbox["49"]["PaddingLeft"] = UDim.new(0, 2);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Run
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.Run
 					Textbox["4a"] = Instance.new("TextLabel", Textbox["43"]);
 					Textbox["4a"]["TextWrapped"] = true;
 					Textbox["4a"]["TextScaled"] = true;
@@ -1274,7 +1271,7 @@ function Library:Init(Params)
 					Textbox["4a"]["Font"] = Enum.Font.Ubuntu;
 					Textbox["4a"]["Position"] = UDim2.new(1, -5, 0, 5);
 
-					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Run.UICorner
+					-- StarterGui.Micro_G.Library.Main.ContentContainer.HomeTab.Textbox.Run.UICorner
 					Textbox["4b"] = Instance.new("UICorner", Textbox["4a"]);
 					Textbox["4b"]["CornerRadius"] = UDim.new(0, 4);
 				end
