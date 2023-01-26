@@ -1411,10 +1411,18 @@ function _G.Library:Init(Params)
 								Keybind.WaitingForInput = true
 								Keybind["5e"].Text = "[...]"
 							end
-						elseif Keybind.WaitingForInput then
+						end
+					end)
+					
+					UserInputService.InputBegan:Connect(function(input)
+						if Keybind.WaitingForInput then
 							Keybind["5e"] = input
 							Keybind.WaitingForInput = false
-						elseif input == Enum.KeyCode[Keybind.Bind] then
+						end
+					end)
+					
+					UserInputService.InputBegan:Connect(function(input)
+						if input == Enum.KeyCode[Keybind.Bind] then
 							Params.Callback()
 						end
 					end)
