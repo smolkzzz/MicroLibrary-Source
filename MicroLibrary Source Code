@@ -38,6 +38,16 @@ function _G.Library:Init(Params)
 		CurrentTab = nil;
 	}
 	
+	if RunService:IsStudio() then
+		if Client:WaitForChild("PlayerGui"):FindFirstChild("MicroLibrary") then
+			Client:WaitForChild("PlayerGui"):FindFirstChild("MicroLibrary"):Destroy()
+		end
+	else
+		if CoreGui:FindFirstChild("MicroLibrary") then
+			CoreGui:FindFirstChild("MicroLibrary"):Destroy()
+		end
+	end
+	
 	-- [[ Render ]]
 	do
 		-- StarterGui.Micro_G.Library
@@ -1423,7 +1433,7 @@ function _G.Library:Init(Params)
 					
 					UserInputService.InputBegan:Connect(function(input)
 						if input.KeyCode == Enum.KeyCode[Keybind.Bind] then
-							Params.Callback()
+							Params.Callback(Keybind.Bind)
 						end
 					end)
 				end
