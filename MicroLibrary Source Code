@@ -1337,7 +1337,7 @@ function _G.Library:Init(Params)
 					WaitingForInput = false;
 				}
 				
-				Keybind.Bind = Params.DefaultBind
+				Keybind.Bind = Enum.KeyCode.F
 				
 				-- [[ Render ]]
 				do
