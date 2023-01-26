@@ -38,15 +38,11 @@ function _G.Library:Init(Params)
 		CurrentTab = nil;
 	}
 	
-	if RunService:IsStudio() then
-		if Client:WaitForChild("PlayerGui"):FindFirstChild("MicroLibrary") then
-			Client:WaitForChild("PlayerGui"):FindFirstChild("MicroLibrary"):Destroy()
+	if Client:WaitForChild("PlayerGui"):FindFirstChild("MicroLibrary") then
+		Client:WaitForChild("PlayerGui"):FindFirstChild("MicroLibrary"):Destroy()
+	elseif CoreGui:FindFirstChild("MicroLibrary") then
+		CoreGui:FindFirstChild("MicroLibrary"):Destroy()
 		end
-	else
-		if CoreGui:FindFirstChild("MicroLibrary") then
-			CoreGui:FindFirstChild("MicroLibrary"):Destroy()
-		end
-	end
 	
 	-- [[ Render ]]
 	do
