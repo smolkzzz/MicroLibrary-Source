@@ -471,7 +471,11 @@ function _G.Library:Init(Params)
 			
 			function Button:SetCallback(func)
 				Button.Callback = func
-			end
+				end
+				
+				function Button:Remove()
+					Button["12"]:Destroy()
+				end
 			
 			-- [[ Logic ]]
 			do
@@ -570,7 +574,11 @@ function _G.Library:Init(Params)
 			-- [[ Methods ]]
 			function Warning:SetText(txt)
 				Params.Message = txt
-			end
+				end
+				
+				function Warning:Remove()
+					Warning["18"]:Destroy()
+				end
 			return Warning	
 		end
 		
@@ -627,7 +635,11 @@ function _G.Library:Init(Params)
 			-- [[ Methods ]]
 			function Info:SetText(txt)
 				Params.Message = txt
-			end
+				end
+				
+				function Info:Remove()
+					Info["1d"]:Destroy()
+				end
 			return Info	
 		end
 		
@@ -684,7 +696,10 @@ function _G.Library:Init(Params)
 			-- [[ Methods ]]
 			function Label:SetText(txt)
 				Params.Message = txt
-			end
+				end
+				function Label:Remove()
+					Label["22"]:Destroy()
+				end
 				
 			return Label
 		end
@@ -818,7 +833,11 @@ function _G.Library:Init(Params)
 				function Slider:SetTitle(txt)
 					Params.Name = txt
 				end
-			-- [[ Logic ]]
+				
+				function Slider:Remove()
+					Slider["27"]:Destroy()
+				end
+				-- [[ Logic ]]
 			do
 				Slider["27"].MouseEnter:Connect(function()
 					Slider.Hover = true
@@ -959,7 +978,10 @@ function _G.Library:Init(Params)
 			function Toggle:SetName(txt)
 				Params.Name = txt
 			end
-			
+				
+				function Toggle:Remove()
+					Toggle["51"]:Destroy()
+				end
 			-- [[ Logic ]]
 			do
 				Toggle["55"].MouseEnter:Connect(function()
@@ -1186,6 +1208,10 @@ function _G.Library:Init(Params)
 							Dropdown.Opened = true
 						end
 					end
+					
+					function Dropdown:RemoveElement()
+						Dropdown["12"]:Destroy()
+					end	
 				end
 				
 				-- [[ Logic ]]
@@ -1326,6 +1352,10 @@ function _G.Library:Init(Params)
 					Textbox["4b"]["CornerRadius"] = UDim.new(0, 4);
 				end
 				
+				-- [[ Methods ]]
+				function Textbox:Remove()
+					Textbox["43"]:Destroy()
+				end
 				-- [[ Logic ]]
 				do	
 					Textbox["4a"].MouseEnter:Connect(function()
@@ -1429,6 +1459,9 @@ function _G.Library:Init(Params)
 					Params.Callback = func
 				end
 				
+				function Keybind:Remove()
+					Keybind["5a"]:Destroy()
+				end
 				-- [[ Logic ]]
 				do
 					Keybind["5a"].MouseEnter:Connect(function()
