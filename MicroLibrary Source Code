@@ -33,7 +33,7 @@ function _G.Library:Init(Params)
 		Name = game.Name .. " Script";
 		Toggle = "LeftShift";
 		KeySystem = false;
-		Key = "Hello World!";
+		CorrectKey = "Hello World!";
 		GetkeyLink = "https://link";
 	},Params or {})
 	
@@ -1841,7 +1841,7 @@ end)
 UserInputService.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		if Key.SubmitHover then
-					if GUI["86"].Text == Params.Key then
+					if GUI["86"].Text == Params.CorrectKey then
 						GUI["2"].Visible = true
 						print("Correct Key! You May Enter")
 						GUI["78"]:Destroy()
