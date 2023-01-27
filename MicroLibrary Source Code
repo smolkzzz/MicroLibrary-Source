@@ -1843,7 +1843,10 @@ UserInputService.InputBegan:Connect(function(input)
 		if Key.SubmitHover then
 					if GUI["86"].Text == GUI.Key then
 						GUI["2"].Visible = true
-				GUI["78"]:Destroy()
+						print("Correct Key! You May Enter")
+						GUI["78"]:Destroy()
+					else
+						print("Incorrect Key! You Cant Enter")
 					end
 				elseif Key.GetHover then
 					setclipboard(Params.GetkeyLink)
