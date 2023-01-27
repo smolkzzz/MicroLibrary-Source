@@ -50,7 +50,7 @@ function _G.Library:Init(Params)
 		GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Client:WaitForChild("PlayerGui") or CoreGui);
 		GUI["1"]["ResetOnSpawn"] = false;
 		GUI["1"]["IgnoreGuiInset"] = true;
-		GUI["1"]["Name"] = [[Micro_G.Library]];
+		GUI["1"]["Name"] = [[MicroLibrary]];
 
 		-- StarterGui.Micro_G.Library.Main
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
@@ -252,6 +252,24 @@ function _G.Library:Init(Params)
 		GUI["4e"] = Instance.new("UIListLayout", GUI["4d"]);
 		GUI["4e"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end	
+	
+	-- [[ Notifications ]]
+	do
+		-- StarterGui.MicroLibrary.Notifications
+		GUI["64"] = Instance.new("Frame", GUI["1"]);
+		GUI["64"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["64"]["AnchorPoint"] = Vector2.new(1, 0.5);
+		GUI["64"]["BackgroundTransparency"] = 1;
+		GUI["64"]["Size"] = UDim2.new(0.2166377753019333, 0, 0.9660326242446899, 0);
+		GUI["64"]["ClipsDescendants"] = true;
+		GUI["64"]["Position"] = UDim2.new(0.989168107509613, 0, 0.5, 0);
+		GUI["64"]["Name"] = [[Notifications]];
+
+		-- StarterGui.MicroLibrary.Notifications.UIListLayout
+		GUI["65"] = Instance.new("UIListLayout", GUI["64"]);
+		GUI["65"]["VerticalAlignment"] = Enum.VerticalAlignment.Bottom;
+		GUI["65"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+	end
 	
 	function GUI:Tab(Params)
 		Params = _G.Library:validate({
@@ -662,7 +680,7 @@ function _G.Library:Init(Params)
 		
 		function Tab:Slider(Params)
 			Params = _G.Library:validate({
-				Name = [[Slide Preview]];
+				Name = [[Slider Preview]];
 				Minimum = 0;
 				Maximum = 100;
 				Default = 50;
@@ -1431,6 +1449,161 @@ function _G.Library:Init(Params)
 			end
 		end
 		return Tab	
+	end
+	
+	function GUI:Notify(Params)
+		Params = _G.Library:validate({
+			Title = [[Notification Preview]];
+			Question = [[Question]];
+			Duration = 6;
+			Items = {};
+		},Params or {})
+		
+		local Notify = {
+			Items = {
+				["id"] = {
+					TextColor = Color3.fromRGB(255,255,255);
+					BackgroundColor = Color3.fromRGB(54,54,54);
+					Callback = function() end;
+				};						
+			};
+		}
+		
+		-- [[ Render ]]
+		do
+			-- StarterGui.MicroLibrary.Notifications.Notification
+			Notify["66"] = Instance.new("Frame", GUI["64"]);
+			Notify["66"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+			Notify["66"]["Size"] = UDim2.new(1, 0, 0, 100);
+			Notify["66"]["Name"] = [[Notification]];
+			
+			-- StarterGui.MicroLibrary.Notifications.Notification.UICorner
+			Notify["67"] = Instance.new("UICorner", Notify["66"]);
+			Notify["67"]["CornerRadius"] = UDim.new(0, 4);
+
+			-- StarterGui.MicroLibrary.Notifications.Notification.Title
+			Notify["68"] = Instance.new("TextLabel", Notify["66"]);
+			Notify["68"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+			Notify["68"]["TextYAlignment"] = Enum.TextYAlignment.Top;
+			Notify["68"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			-- Notify["68"]["FontFace"] = ;
+			Notify["68"]["TextSize"] = 13;
+			Notify["68"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			Notify["68"]["Size"] = UDim2.new(0, 200, 0, 20);
+			Notify["68"]["Text"] = Params.Title;
+			Notify["68"]["Name"] = [[Title]];
+			Notify["68"]["Font"] = Enum.Font.Ubuntu;
+			Notify["68"]["BackgroundTransparency"] = 1;
+
+			-- StarterGui.MicroLibrary.Notifications.Notification.Title.UIPadding
+			Notify["69"] = Instance.new("UIPadding", Notify["68"]);
+			Notify["69"]["PaddingTop"] = UDim.new(0, 2);
+			Notify["69"]["PaddingLeft"] = UDim.new(0, 2);
+
+			-- StarterGui.MicroLibrary.Notifications.Notification.Question
+			Notify["6a"] = Instance.new("TextLabel", Notify["66"]);
+			Notify["6a"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+			Notify["6a"]["TextYAlignment"] = Enum.TextYAlignment.Top;
+			Notify["6a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			Notify["6a"]["TextTransparency"] = 0.30000001192092896;
+			-- Notify["6a"]["FontFace"] = ;
+			Notify["6a"]["TextSize"] = 13;
+			Notify["6a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			Notify["6a"]["Size"] = UDim2.new(0, 200, 0, 20);
+			Notify["6a"]["Text"] = Params.Question .. "?";
+			Notify["6a"]["Name"] = [[Question]];
+			Notify["6a"]["Font"] = Enum.Font.Ubuntu;
+			Notify["6a"]["BackgroundTransparency"] = 1;
+			Notify["6a"]["Position"] = UDim2.new(0, 0, 0, 20);
+
+			-- StarterGui.MicroLibrary.Notifications.Notification.Question.UIPadding
+			Notify["6b"] = Instance.new("UIPadding", Notify["6a"]);
+			Notify["6b"]["PaddingTop"] = UDim.new(0, 2);
+			Notify["6b"]["PaddingLeft"] = UDim.new(0, 2);
+
+			-- StarterGui.MicroLibrary.Notifications.Notification.Answers
+			Notify["6c"] = Instance.new("ScrollingFrame", Notify["66"]);
+			Notify["6c"]["CanvasSize"] = UDim2.new(0, 0, 5, 0);
+			Notify["6c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			Notify["6c"]["AnchorPoint"] = Vector2.new(1, 1);
+			Notify["6c"]["BackgroundTransparency"] = 1;
+			Notify["6c"]["Size"] = UDim2.new(1, -20, 1, -60);
+			Notify["6c"]["Selectable"] = false;
+			Notify["6c"]["ScrollBarThickness"] = 0;
+			Notify["6c"]["Position"] = UDim2.new(1, -10, 1, -10);
+			Notify["6c"]["Name"] = [[Answers]];
+			Notify["6c"]["SelectionGroup"] = false;
+
+			-- StarterGui.MicroLibrary.Notifications.Notification.Answers.UIGridLayout
+			Notify["6d"] = Instance.new("UIGridLayout", Notify["6c"]);
+			Notify["6d"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+			Notify["6d"]["CellSize"] = UDim2.new(0.5, -10, 0, 30);
+			Notify["6d"]["CellPadding"] = UDim2.new(0, 10, 0, 10);
+		end
+		
+		-- [[ Methods ]]
+		function Notify:Add(id,TextColor3,BackgroundColor3,Callbackfunc)
+			local Item = {
+				Hover = false;
+				MouseDown = false;
+			}
+			if Notify.Items[id] ~= nil then
+				warn(id .. " Already Exists!")
+				return
+			end
+			Notify.Items[id] = {
+				instance = {};
+				TextColor = TextColor3;
+				BackgroundColor = BackgroundColor3;
+				Callback = Callbackfunc
+			}
+			-- [[ Render ]]
+			do
+				-- StarterGui.MicroLibrary.Notifications.Notification.Answers.Answer
+				Notify.Items[id].instance["6e"] = Instance.new("TextLabel", Notify["6c"]);
+				Notify.Items[id].instance["6e"]["BackgroundColor3"] = BackgroundColor3;
+				-- Item["6e"]["FontFace"] = ;
+				Notify.Items[id].instance["6e"]["Selectable"] = true;
+				Notify.Items[id].instance["6e"]["TextSize"] = 16;
+				Notify.Items[id].instance["6e"]["TextColor3"] = TextColor3;
+				Notify.Items[id].instance["6e"]["Size"] = UDim2.new(0, 200, 0, 50);
+				Notify.Items[id].instance["6e"]["Active"] = true;
+				Notify.Items[id].instance["6e"]["Text"] = id;
+				Notify.Items[id].instance["6e"]["Name"] = [[Answer]];
+				Notify.Items[id].instance["6e"]["Font"] = Enum.Font.Ubuntu;
+
+				-- StarterGui.MicroLibrary.Notifications.Notification.Answers.Answer.UICorner
+				Notify.Items[id].instance["6f"] = Instance.new("UICorner", Notify.Items[id].instance["6e"]);
+				Notify.Items[id].instance["6f"]["CornerRadius"] = UDim.new(0, 4);
+
+				-- StarterGui.MicroLibrary.Notifications.Notification.Answers.UIPadding
+				Notify.Items[id].instance["70"] = Instance.new("UIPadding", Notify.Items[id].instance["6c"]);
+				Notify.Items[id].instance["70"]["PaddingTop"] = UDim.new(0, 10);
+				Notify.Items[id].instance["70"]["PaddingLeft"] = UDim.new(0, 10);
+			end
+			
+			Notify.Items[id].instance["6e"].MouseEnter:Connect(function()
+				Item.Hover = true
+			end)
+			
+			Notify.Items[id].instance["6e"].MouseLeave:Connect(function()
+				Item.Hover = false
+			end)
+			
+			UserInputService.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					if Item.Hover then
+						Notify.Items[id].Callback()
+						Notify["66"]:Destroy()
+					end
+				end
+			end)
+			return Item
+		end
+		
+		task.wait(Params.Duration)
+		Notify:Destroy()
+		return Notify
 	end
 	return GUI
 end
