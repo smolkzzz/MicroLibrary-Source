@@ -1841,7 +1841,7 @@ end)
 UserInputService.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		if Key.SubmitHover then
-					if GUI["86"].Text == GUI.Key then
+					if GUI["86"].Text == Params.Key then
 						GUI["2"].Visible = true
 						print("Correct Key! You May Enter")
 						GUI["78"]:Destroy()
