@@ -1482,7 +1482,7 @@ function _G.Library:Init(Params)
 							if Keybind.WaitingForInput then
 								Keybind.WaitingForInput = false
 								Keybind.Bind = input.KeyCode
-								Keybind["5e"].Text = tostring(input.KeyCOde)
+								Keybind["5e"].Text = tostring(input.KeyCode)
 							end
 						elseif input.KeyCode == Enum.KeyCode[Keybind.Bind] then
 							Params.Callback()						
