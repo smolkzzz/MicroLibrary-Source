@@ -1844,6 +1844,7 @@ UserInputService.InputBegan:Connect(function(input)
 					if GUI["86"].Text == Params.CorrectKey then
 						GUI["2"].Visible = true
 						print("Correct Key! You May Enter")
+						Key.SubmitHover = false
 						GUI["78"]:Destroy()
 					else
 						print("Incorrect Key! You Cant Enter")
