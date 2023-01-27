@@ -1542,7 +1542,9 @@ function _G.Library:Init(Params)
 		end
 		
 		-- [[ Methods ]]
+		local ID
 		function Notify:Add(id,TextColor3,BackgroundColor3,Callbackfunc)
+			ID = id
 			local Item = {
 				Hover = false;
 				MouseDown = false;
@@ -1594,7 +1596,7 @@ function _G.Library:Init(Params)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if Item.Hover then
 						Notify.Items[id].Callback()
-						Notify["66"]:Destroy()
+						Notify.Items[id].instance["6e"]:Destroy()
 					end
 				end
 			end)
@@ -1602,7 +1604,7 @@ function _G.Library:Init(Params)
 		end
 		
 		task.wait(Params.Duration)
-		Notify:Destroy()
+		Notify.Items[ID].instance["6e"]:Destroy()
 		return Notify
 	end
 	return GUI
