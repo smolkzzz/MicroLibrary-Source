@@ -207,7 +207,13 @@ function _G.Library:Init(Params)
 				CloseHover = false
 			end
 		elseif input.KeyCode == Enum.KeyCode[Params.Toggle] then
-			GUI["1"].Enabled = not GUI["1"].Enabled
+			for i,v in pairs(GUI["1"]:GetChildren()) do
+				if v.Name ~= "Notifications" then
+					if v:IsA("Frame") then
+						v.Visible = not v.Visible 
+					end
+				end
+			end
 		end
 	end)
 	
@@ -1468,7 +1474,7 @@ function _G.Library:Init(Params)
 			Items = {
 				["id"] = {
 					TextColor = Color3.fromRGB(255,255,255);
-					BackgroundColor = Color3.fromRGB(54,54,54);
+					BackgroundColor = Color3.fromRGB(54,54,54);					
 					Callback = function() end;
 				};						
 			};
@@ -1856,6 +1862,9 @@ UserInputService.InputBegan:Connect(function(input)
 		end
 	end
 end)
+	end
+	function  GUI:RemoveInterface()
+		GUI["1"]:Destroy()
 	end
 	return GUI
 end
