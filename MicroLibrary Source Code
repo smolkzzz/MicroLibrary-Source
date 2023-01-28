@@ -1440,7 +1440,7 @@ function _G.Library:Init(Params)
 							if Keybind.WaitingForInput then
 								Keybind.WaitingForInput = false
 								Keybind.Bind = input.KeyCode
-								Keybind["5e"].Text = tostring(input.KeyCode):Split("Enum.KeyCode.")
+								Keybind["5e"].Text = tostring(input.KeyCode):split("Enum.KeyCode.")
 							end
 						elseif input.KeyCode == Enum.KeyCode[Keybind.Bind] then
 							Params.Callback()						
@@ -1607,3 +1607,103 @@ function _G.Library:Init(Params)
 	end
 	return GUI
 end
+
+local Window = _G.Library:Init {
+	Name = "Micro";
+	Toggle = "LeftAlt";
+}
+
+-- [[ Tabs % Buttons ]]
+
+local Tab = Window:Tab {
+	Name = "Tab";
+	Icon = "rbxassetid://12222879857";
+}
+
+-- Button
+local Button = Tab:Button {
+	Name = nil;
+	Callback = function()
+		print("I Was Just Pressed")
+	end;
+}
+
+-- Warn
+local Warning = Tab:Warn {
+	Message = "Warning Message";
+}
+
+-- Info
+local Info = Tab:Info {
+	Message = "Info Message";
+}
+
+-- Label
+local Label = Tab:Label {
+	Message = "Label Message";
+}
+
+-- Slider
+local Slider = Tab:Slider {
+	Name = [[Slide Preview]];
+	Minimum = -200;
+	Maximum = 200;
+	Default = 0;
+	Callback = function(Value)
+		print(Value)
+	end;
+}
+
+-- Toggle
+local Toggle = Tab:Toggle {
+	Name = [[Toggle Preview]];
+	Callback = function(Value) 
+		if Value then
+			print("State: True")
+		else
+			print("State: False")
+		end
+	end;
+}
+
+-- [[ Dropdown ]]
+local Dropdown = Tab:Dropdown {
+	Name = [[Dropdown Preview]];
+	Items = {};
+	Callback = function(Option)
+		print(Option)
+	end;
+}
+
+Dropdown:Add("1","1")
+Dropdown:Add("2","2")
+Dropdown:Add("3","3")
+
+-- Adaptive Input (Textbox)
+local Textbox = Tab:TextBox {
+	Name = [[Textbox Preview]];
+	RemoveTextOnFocusLost = false;
+	PlaceHolderText = "PlaceHolderText";
+	RemoveTextOnFocus = false;
+	Callback = function(txt)
+		print(txt)
+	end;
+}
+
+local Button2 = Tab:Button {
+	Name = "Notify";
+	Callback = function()
+		local Notify = Window:Notify {
+			Title = [[Notification Preview]];
+			Question = [[Question]];
+			Duration = 2;
+			Items = {};
+		}
+		Notify:Add("Print Yes",Color3.fromRGB(255,255,255),Color3.fromRGB(0,255,0),function() 
+			print("Yes")
+		end)
+		Notify:Add("Print No",Color3.fromRGB(255,255,255),Color3.fromRGB(255,0,0),function() 
+			print("No")
+		end)
+	end;
+}
