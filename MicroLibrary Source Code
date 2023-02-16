@@ -463,6 +463,10 @@ function Library:Init(Params)
 			function Button:SetCallback(func)
 				Button.Callback = func
 			end
+
+			function Button:Destroy()
+				Button["12"]:Destroy()
+			end
 			
 			-- [[ Logic ]]
 			do
@@ -562,6 +566,10 @@ function Library:Init(Params)
 			function Warning:SetText(txt)
 				Params.Message = txt
 			end
+
+			function Warning:Destroy()
+				Warning["18"]:Destroy()
+			end
 			return Warning	
 		end
 		
@@ -618,6 +626,10 @@ function Library:Init(Params)
 			-- [[ Methods ]]
 			function Info:SetText(txt)
 				Params.Message = txt
+			end
+
+			function Info:Destroy()
+				Info["1d"]:Destroy()
 			end
 			return Info	
 		end
@@ -677,6 +689,9 @@ function Library:Init(Params)
 				Params.Message = txt
 			end
 				
+			function Label:Destroy()
+				Label["22"]:Destroy()
+			end
 			return Label
 		end
 		
@@ -808,6 +823,10 @@ function Library:Init(Params)
 				
 				function Slider:SetTitle(txt)
 					Params.Name = txt
+				end
+
+				function Slider:Destroy()
+					Slider["27"]:Destroy()
 				end
 			-- [[ Logic ]]
 			do
@@ -949,6 +968,10 @@ function Library:Init(Params)
 			
 			function Toggle:SetName(txt)
 				Params.Name = txt
+			end
+
+			function Toggle:Destroy()
+				Toggle["51"]:Destroy()
 			end
 			
 			-- [[ Logic ]]
@@ -1165,6 +1188,10 @@ function Library:Init(Params)
 						end
 					end
 
+					function Dropdown:Destroy()
+						Dropdown["32"]:Destroy()
+					end
+
 					function Dropdown:Toggle()
 						if Dropdown.Opened then
 							
@@ -1316,7 +1343,11 @@ function Library:Init(Params)
 					Textbox["4b"] = Instance.new("UICorner", Textbox["4a"]);
 					Textbox["4b"]["CornerRadius"] = UDim.new(0, 4);
 				end
-				
+
+				-- [[ Methods ]]
+				function Textbox:Destroy()
+					Textbox["43"]:Destroy()
+				end
 				-- [[ Logic ]]
 				do	
 					Textbox["4a"].MouseEnter:Connect(function()
@@ -1418,6 +1449,10 @@ function Library:Init(Params)
 				
 				function Keybind:SetCallback(func)
 					Params.Callback = func
+				end
+
+				function Keybind:Destroy()
+					Keybind["5a"]:Destroy()
 				end
 				
 				-- [[ Logic ]]
