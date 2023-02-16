@@ -11,7 +11,7 @@ local Mouse = Client:GetMouse()
 local Viewport = workspace.CurrentCamera.ViewportSize
 local Tweeninfo = TweenInfo.new(.2,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut)
 
-local Library = {}
+Library = {}
 
 function Library:tween(object,goal,callback)
 	local tween = TweenService:Create(object,Tweeninfo,goal)
