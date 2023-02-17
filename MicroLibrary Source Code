@@ -1896,7 +1896,7 @@ end
 			Key.Close = false
 		end)
 
-		UIS.InputBegan:Connect(function(input)
+		UserInputService.InputBegan:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseButton1 then
 				if Key.Getkey then
 					setclipboard(GUI.GetkeyLink)
