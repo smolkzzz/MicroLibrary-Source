@@ -19,17 +19,17 @@ function Library:tween(object,goal,callback)
 	tween:Play()
 end
 
-function Library:validate(defaults, Params)
+function Library:validate(defaults, Options)
 	for i,v in pairs(defaults) do
-		if Params[i] == nil then
-			Params[i] = v
+		if Options[i] == nil then
+			Options[i] = v
 		end
 	end
-	return Params
+	return Options
 end
 
-function Library:Init(Params)
-	Params = Library:validate({
+function Library:Init(Options)
+	Options = Library:validate({
 		Name = game.Name .. " Script";
 		Toggle = "LeftShift";
 		GameIdNeeded = false;
@@ -40,7 +40,7 @@ function Library:Init(Params)
 		CorrectKey = "Hello World!";
 		GetkeyLink = "https://link";
 		Size = UDim2.new(0,400,0,300);
-	},Params or {})
+	},Options or {})
 	
 	local GUI = {
 		CurrentTab = nil;
@@ -66,7 +66,7 @@ function Library:Init(Params)
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
 		GUI["2"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
 		GUI["2"]["AnchorPoint"] = Vector2.new(0,0);
-		GUI["2"]["Size"] = Params.Size;
+		GUI["2"]["Size"] = Options.Size;
 		GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
 		GUI["2"]["Name"] = [[Main]];
 		GUI["2"]["Active"] = true;
@@ -162,7 +162,7 @@ function Library:Init(Params)
 		GUI["c"]["TextSize"] = 14;
 		GUI["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["c"]["Size"] = UDim2.new(0, 200, 1, -3);
-		GUI["c"]["Text"] = "MicroLibrary | " .. Params.Name;
+		GUI["c"]["Text"] = "MicroLibrary | " .. Options.Name;
 		GUI["c"]["Name"] = [[Title]];
 		GUI["c"]["Font"] = Enum.Font.Gotham;
 		GUI["c"]["BackgroundTransparency"] = 1;
@@ -211,7 +211,7 @@ function Library:Init(Params)
 				GUI["1"]:Destroy()
 				CloseHover = false
 			end
-		elseif input.KeyCode == Enum.KeyCode[Params.Toggle] then
+		elseif input.KeyCode == Enum.KeyCode[Options.Toggle] then
 			GUI["1"].Enabled = not GUI["1"].Enabled
 		end
 	end)
@@ -281,11 +281,11 @@ function Library:Init(Params)
 		GUI["65"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
 	
-	function GUI:Tab(Params)
-		Params = Library:validate({
+	function GUI:Tab(Options)
+		Options = Library:validate({
 			Name = "Preview Tab";
 			Icon = "rbxassetid://12222879857";
-		},Params or {})
+		},Options or {})
 		
 		local Tab = {
 			Hover = false;
@@ -306,7 +306,7 @@ function Library:Init(Params)
 			Tab["51"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			Tab["51"]["Size"] = UDim2.new(1, 0, 0, 25);
 			Tab["51"]["Active"] = true;
-			Tab["51"]["Text"] = Params.Name;
+			Tab["51"]["Text"] = Options.Name;
 			Tab["51"]["Name"] = [[Tab]];
 			Tab["51"]["Font"] = Enum.Font.Ubuntu;
 			Tab["51"]["BackgroundTransparency"] = 0.6000000238418579;
@@ -321,7 +321,7 @@ function Library:Init(Params)
 			Tab["52"]["ScaleType"] = Enum.ScaleType.Tile;
 			Tab["52"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 			Tab["52"]["ImageTransparency"] = 0.6000000238418579;
-			Tab["52"]["Image"] = Params.Icon;
+			Tab["52"]["Image"] = Options.Icon;
 			Tab["52"]["Size"] = UDim2.new(0, 25, 1, 0);
 			Tab["52"]["Name"] = [[Icon]];
 			Tab["52"]["BackgroundTransparency"] = 1;
@@ -407,11 +407,11 @@ function Library:Init(Params)
 		
 		-- [[ Render Buttons ]]
 		do
-		function Tab:Button(Params)
-			Params = Library:validate({
+		function Tab:Button(Options)
+			Options = Library:validate({
 				Name = [[Button Preview]];
 				Callback = function() end;
-			},Params or {})
+			},Options or {})
 			
 			local Button = {
 				Hover = false;
@@ -451,29 +451,39 @@ function Library:Init(Params)
 				Button["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				-- Button["16"]["FontFace"] = ;
 				Button["16"]["Selectable"] = true;
-				Button["16"]["TextSize"] = 14;
+				Button["16"]["TextSize"] = 18;
 				Button["16"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Button["16"]["AnchorPoint"] = Vector2.new(0, 0.5);
 				Button["16"]["Size"] = UDim2.new(1, -35, 1, -10);
 				Button["16"]["Active"] = true;
-				Button["16"]["Text"] = Params.Name;
+				Button["16"]["Text"] = Options.Name;
 				Button["16"]["Name"] = [[Click]];
 				Button["16"]["Font"] = Enum.Font.Ubuntu;
 				Button["16"]["BackgroundTransparency"] = 1;
 				Button["16"]["Position"] = UDim2.new(0, 5, 0.5, 0);
+				Button["16"]["TextWrapped"] = true;
+				Button["16"]["TextYAlignment"] = Enum.TextYAlignment.Top;
 			end
 			
 			-- [[ Methods]]
 			function Button:SetText(txt)
-				Button["16"].Text = txt
+				Options.Name = txt
+				Button:_Update()
 			end
 			
 			function Button:SetCallback(func)
 				Button.Callback = func
 			end
 
-			function Button:Destroy()
-				Button["12"]:Delete()
+			function Button:Delete()
+				Button["12"]:Destroy()
+			end
+
+			function Button:_Update()
+				Button["16"].Text = Options.Name
+				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,math.huge)
+				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,TextBounds.Y)
+				Button["12"].Size = UDim2.new(Button["12"].Size.X.Scale,Button["12"].Size.X.Offset,0,Button["27"].TextBounds.Y + (Button["12"].AbsoluteSize.X - Button["16"].AbsoluteSize.Y))
 			end
 			
 			-- [[ Logic ]]
@@ -496,7 +506,7 @@ function Library:Init(Params)
 						Button.MouseDown = true
 						Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 						Library:tween(Button["14"],{Color = Color3.fromRGB(200,200,200)})
-						Params.Callback()
+						Options.Callback()
 					end
 				end)
 				
@@ -520,10 +530,10 @@ function Library:Init(Params)
 			return Button
 		end
 		
-		function Tab:Warn(Params)
-			Params = Library:validate({
+		function Tab:Warn(Options)
+			Options = Library:validate({
 				Message = [[Warning Preview]];
-			},Params or {})
+			},Options or {})
 			
 			local Warning = {}
 			
@@ -563,7 +573,7 @@ function Library:Init(Params)
 				Warning["1c"]["AnchorPoint"] = Vector2.new(1, 0.5);
 				Warning["1c"]["Size"] = UDim2.new(1, -35, 1, -10);
 				Warning["1c"]["Active"] = true;
-				Warning["1c"]["Text"] = Params.Message;
+				Warning["1c"]["Text"] = Options.Message;
 				Warning["1c"]["Name"] = [[Text]];
 				Warning["1c"]["Font"] = Enum.Font.Ubuntu;
 				Warning["1c"]["BackgroundTransparency"] = 1;
@@ -572,19 +582,19 @@ function Library:Init(Params)
 
 			-- [[ Methods ]]
 			function Warning:SetText(txt)
-				Params.Message = txt
+				Options.Message = txt
 			end
 
-			function Warning:Destroy()
-				Warning["18"]:Delete()
+			function Warning:Delete()
+				Warning["18"]:Destroy()
 			end
 			return Warning	
 		end
 		
-		function Tab:Info(Params)
-			Params = Library:validate({
+		function Tab:Info(Options)
+			Options = Library:validate({
 				Message = [[Info Preview]];
-			},Params or {})
+			},Options or {})
 			
 			local Info = {}
 			
@@ -624,7 +634,7 @@ function Library:Init(Params)
 				Info["21"]["AnchorPoint"] = Vector2.new(1, 0.5);
 				Info["21"]["Size"] = UDim2.new(1, -35, 1, -10);
 				Info["21"]["Active"] = true;
-				Info["21"]["Text"] = Params.Message;
+				Info["21"]["Text"] = Options.Message;
 				Info["21"]["Name"] = [[Text]];
 				Info["21"]["Font"] = Enum.Font.Ubuntu;
 				Info["21"]["BackgroundTransparency"] = 1;
@@ -633,19 +643,19 @@ function Library:Init(Params)
 			
 			-- [[ Methods ]]
 			function Info:SetText(txt)
-				Params.Message = txt
+				Options.Message = txt
 			end
 
-			function Info:Destroy()
-				Info["1d"]:Delete()
+			function Info:Delete()
+				Info["1d"]:Destroy()
 			end
 			return Info	
 		end
 		
-		function Tab:Label(Params)
-			Params = Library:validate({
+		function Tab:Label(Options)
+			Options = Library:validate({
 				Message = [[Label Preview]];
-			},Params or {})
+			},Options or {})
 			
 			local Label = {}
 			
@@ -684,7 +694,7 @@ function Library:Init(Params)
 				Label["26"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Label["26"]["AnchorPoint"] = Vector2.new(1, 0.5);
 				Label["26"]["Size"] = UDim2.new(1, -35, 1, -10);
-				Label["26"]["Text"] = Params.Message;
+				Label["26"]["Text"] = Options.Message;
 				Label["26"]["Active"] = true;
 				Label["26"]["Name"] = [[Text]];
 				Label["26"]["Font"] = Enum.Font.Ubuntu;
@@ -694,23 +704,23 @@ function Library:Init(Params)
 			
 			-- [[ Methods ]]
 			function Label:SetText(txt)
-				Params.Message = txt
+				Options.Message = txt
 			end
 				
-			function Label:Destroy()
-				Label["22"]:Delete()
+			function Label:Delete()
+				Label["22"]:Destroy()
 			end
 			return Label
 		end
 		
-		function Tab:Slider(Params)
-			Params = Library:validate({
+		function Tab:Slider(Options)
+			Options = Library:validate({
 				Name = [[Slider Preview]];
 				Minimum = 0;
 				Maximum = 100;
 				Default = 50;
 				Callback = function(Value) end;
-			},Params or {})
+			},Options or {})
 			
 			local Slider = {
 				MouseDown = false;
@@ -745,7 +755,7 @@ function Library:Init(Params)
 				Slider["2a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Slider["2a"]["Size"] = UDim2.new(0, 253, 0, 20);
 				Slider["2a"]["Active"] = true;
-				Slider["2a"]["Text"] = Params.Name;
+				Slider["2a"]["Text"] = Options.Name;
 				Slider["2a"]["Name"] = [[Text]];
 				Slider["2a"]["Font"] = Enum.Font.Ubuntu;
 				Slider["2a"]["BackgroundTransparency"] = 1;
@@ -764,7 +774,7 @@ function Library:Init(Params)
 				Slider["2b"]["AnchorPoint"] = Vector2.new(1, 0);
 				Slider["2b"]["Size"] = UDim2.new(0, 20, 0, 20);
 				Slider["2b"]["Active"] = true;
-				Slider["2b"]["Text"] = tostring(Params.Default);
+				Slider["2b"]["Text"] = tostring(Options.Default);
 				Slider["2b"]["Name"] = [[Value]];
 				Slider["2b"]["Font"] = Enum.Font.Ubuntu;
 				Slider["2b"]["BackgroundTransparency"] = 1;
@@ -802,15 +812,15 @@ function Library:Init(Params)
 			function Slider:SetValue(Value)
 				if Value == nil then
 					local percentage = math.clamp((Mouse.X - Slider["27"].AbsolutePosition.X) / (Slider["27"].AbsoluteSize.X),0,1)
-					local value = math.floor(((Params.Maximum - Params.Minimum) * percentage) + Params.Minimum)
+					local value = math.floor(((Options.Maximum - Options.Minimum) * percentage) + Options.Minimum)
 
 					Slider["2b"].Text = tostring(value)
 					Slider["2e"].Size = UDim2.fromScale(percentage,1)
 				else
 					Slider["2b"].Text = tostring(Value)
-					Slider["2e"].Size = UDim2.fromScale(((Value - Params.Minimum) / (Params.Maximum - Params.Minimum)),1)
+					Slider["2e"].Size = UDim2.fromScale(((Value - Options.Minimum) / (Options.Maximum - Options.Minimum)),1)
 				end
-				Params.Callback(Slider:GetValue())
+				Options.Callback(Slider:GetValue())
 			end
 			
 			function Slider:GetValue()
@@ -818,23 +828,23 @@ function Library:Init(Params)
 			end
 			
 			function Slider:SetCallback(func)
-				Params.Callback = func
+				Options.Callback = func
 			end	
 				
 				function Slider:SetMinimum(func)
-					Params.Minimum = func
+					Options.Minimum = func
 				end
 				
 				function Slider:SetMaximum(func)
-					Params.Maximum = func
+					Options.Maximum = func
 				end
 				
 				function Slider:SetTitle(txt)
-					Params.Name = txt
+					Options.Name = txt
 				end
 
-				function Slider:Destroy()
-					Slider["27"]:Delete()
+				function Slider:Delete()
+					Slider["27"]:Destroy()
 				end
 			-- [[ Logic ]]
 			do
@@ -892,11 +902,11 @@ function Library:Init(Params)
 			return Slider
 		end
 		
-		function Tab:Toggle(Params)
-			Params = Library:validate({
+		function Tab:Toggle(Options)
+			Options = Library:validate({
 				Name = [[Toggle Preview]];
 				Callback = function(Value) end
-			},Params or {})
+			},Options or {})
 			
 			local Toggle = {
 				Hover = false;
@@ -931,7 +941,7 @@ function Library:Init(Params)
 				Toggle["54"]["AnchorPoint"] = Vector2.new(0, 0.5);
 				Toggle["54"]["Size"] = UDim2.new(1, -35, 1, -10);
 				Toggle["54"]["Active"] = true;
-				Toggle["54"]["Text"] = Params.Name;
+				Toggle["54"]["Text"] = Options.Name;
 				Toggle["54"]["Name"] = [[Title]];
 				Toggle["54"]["Font"] = Enum.Font.Ubuntu;
 				Toggle["54"]["BackgroundTransparency"] = 1;
@@ -961,25 +971,25 @@ function Library:Init(Params)
 				Toggle.Value = true
 				Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
 				Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(0,156,0)})
-				Params.Callback(Toggle.Value)
+				Options.Callback(Toggle.Value)
 			end
 			function Toggle:Deactivate()
 				Toggle.Value = false
 				Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
 				Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(156,0,0)})
-				Params.Callback(Toggle.Value)
+				Options.Callback(Toggle.Value)
 			end
 			
 			function Toggle:SetCallback(func)
-				Params.Callback = func
+				Options.Callback = func
 			end
 			
 			function Toggle:SetName(txt)
-				Params.Name = txt
+				Options.Name = txt
 			end
 
-			function Toggle:Destroy()
-				Toggle["51"]:Delete()
+			function Toggle:Delete()
+				Toggle["51"]:Destroy()
 			end
 			
 			-- [[ Logic ]]
@@ -1013,12 +1023,12 @@ function Library:Init(Params)
 			return Toggle
 		end
 			
-			function Tab:Dropdown(Params)
-				Params = Library:validate({
+			function Tab:Dropdown(Options)
+				Options = Library:validate({
 					Name = [[Dropdown Preview]];
 					Items = {};
 					Callback = function() end;
-				},Params or {})
+				},Options or {})
 				
 				local Dropdown = {
 					Items = {
@@ -1096,7 +1106,7 @@ function Library:Init(Params)
 					Dropdown["42"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 					Dropdown["42"]["Size"] = UDim2.new(1, -35, 0, 20);
 					Dropdown["42"]["Active"] = true;
-					Dropdown["42"]["Text"] = Params.Name;
+					Dropdown["42"]["Text"] = Options.Name;
 					Dropdown["42"]["Name"] = [[Click]];
 					Dropdown["42"]["Font"] = Enum.Font.Ubuntu;
 					Dropdown["42"]["BackgroundTransparency"] = 1;
@@ -1160,7 +1170,7 @@ function Library:Init(Params)
 								Item.MouseDown = true
 								Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
-								Params.Callback(value)
+								Options.Callback(value)
 							end
 						end)
 
@@ -1196,8 +1206,8 @@ function Library:Init(Params)
 						end
 					end
 
-					function Dropdown:Destroy()
-						Dropdown["32"]:Delete()
+					function Dropdown:Delete()
+						Dropdown["32"]:Destroy()
 					end
 
 					function Dropdown:Toggle()
@@ -1257,14 +1267,14 @@ function Library:Init(Params)
 				return Dropdown
 			end
 			
-			function Tab:TextBox(Params)
-				Params = Library:validate({
+			function Tab:TextBox(Options)
+				Options = Library:validate({
 					Name = [[Textbox Preview]];
 					RemoveTextOnFocusLost = false;
 					PlaceHolderText = "PlaceHolderText";
 					RemoveTextOnClicked = false;
 					Callback = function() end
-				},Params or {})
+				},Options or {})
 				
 				local Textbox = {
 					Hover = false;
@@ -1297,7 +1307,7 @@ function Library:Init(Params)
 					Textbox["46"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 					Textbox["46"]["Size"] = UDim2.new(1, -10, 0, 20);
 					Textbox["46"]["Active"] = true;
-					Textbox["46"]["Text"] = Params.Name;
+					Textbox["46"]["Text"] = Options.Name;
 					Textbox["46"]["Name"] = [[Text]];
 					Textbox["46"]["Font"] = Enum.Font.Ubuntu;
 					Textbox["46"]["BackgroundTransparency"] = 1;
@@ -1315,7 +1325,7 @@ function Library:Init(Params)
 					Textbox["47"]["BackgroundColor3"] = Color3.fromRGB(99, 99, 99);
 					-- Textbox["47"]["FontFace"] = ;
 					Textbox["47"]["AnchorPoint"] = Vector2.new(0, 1);
-					Textbox["47"]["PlaceholderText"] = Params.PlaceHolderText;
+					Textbox["47"]["PlaceholderText"] = Options.PlaceHolderText;
 					Textbox["47"]["Size"] = UDim2.new(1, -10, 0, 20);
 					Textbox["47"]["Selectable"] = false;
 					Textbox["47"]["Text"] = [[]];
@@ -1353,8 +1363,8 @@ function Library:Init(Params)
 				end
 
 				-- [[ Methods ]]
-				function Textbox:Destroy()
-					Textbox["43"]:Delete()
+				function Textbox:Delete()
+					Textbox["43"]:Destroy()
 				end
 				-- [[ Logic ]]
 				do	
@@ -1369,12 +1379,12 @@ function Library:Init(Params)
 					UserInputService.InputBegan:Connect(function(input)
 						if input.UserInputType == Enum.UserInputType.MouseButton1 then
 							if Textbox.Hover then
-								Params.Callback(Textbox["47"].Text)
-								if Params.RemoveTextOnClicked then
+								Options.Callback(Textbox["47"].Text)
+								if Options.RemoveTextOnClicked then
 									Textbox["47"].Text = ""
 								end
 								Textbox["47"].FocusLost:Connect(function()
-									if Params.RemoveTextOnFocusLost then
+									if Options.RemoveTextOnFocusLost then
 										Textbox["47"].Text = ""
 									end
 								end)
@@ -1384,11 +1394,11 @@ function Library:Init(Params)
 				end
 			end	
 			
-			function Tab:Keybind(Params)
-				Params = Library:validate({
+			function Tab:Keybind(Options)
+				Options = Library:validate({
 					Name = [[Keybind Preview]];
 					Callback = function() end
-				},Params or {})
+				},Options or {})
 				
 				local Keybind = {
 					Bind = nil;
@@ -1426,7 +1436,7 @@ function Library:Init(Params)
 					Keybind["5d"]["AnchorPoint"] = Vector2.new(0, 0.5);
 					Keybind["5d"]["Size"] = UDim2.new(1, -35, 1, -10);
 					Keybind["5d"]["Active"] = true;
-					Keybind["5d"]["Text"] = Params.Name;
+					Keybind["5d"]["Text"] = Options.Name;
 					Keybind["5d"]["Name"] = [[Click]];
 					Keybind["5d"]["Font"] = Enum.Font.Ubuntu;
 					Keybind["5d"]["BackgroundTransparency"] = 1;
@@ -1452,15 +1462,15 @@ function Library:Init(Params)
 				end
 				
 				function Keybind:SetTitle(txt)
-					Params.Name = txt
+					Options.Name = txt
 				end
 				
 				function Keybind:SetCallback(func)
-					Params.Callback = func
+					Options.Callback = func
 				end
 
-				function Keybind:Destroy()
-					Keybind["5a"]:Delete()
+				function Keybind:Delete()
+					Keybind["5a"]:Destroy()
 				end
 				
 				-- [[ Logic ]]
@@ -1486,7 +1496,7 @@ function Library:Init(Params)
 								Keybind["5e"].Text = tostring(input.KeyCode):Split("Enum.KeyCode.")
 							end
 						elseif input.KeyCode == Enum.KeyCode[Keybind.Bind] then
-							Params.Callback()						
+							Options.Callback()						
 						end
 					end)
 				end
@@ -1496,13 +1506,13 @@ function Library:Init(Params)
 		return Tab	
 	end
 	
-	function GUI:Notify(Params)
-		Params = Library:validate({
+	function GUI:Notify(Options)
+		Options = Library:validate({
 			Title = [[Notification Preview]];
 			Question = [[Question]];
 			Duration = 6;
 			Items = {};
-		},Params or {})
+		},Options or {})
 		
 		local Notify = {
 			Items = {
@@ -1535,7 +1545,7 @@ function Library:Init(Params)
 			Notify["68"]["TextSize"] = 13;
 			Notify["68"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			Notify["68"]["Size"] = UDim2.new(0, 200, 0, 20);
-			Notify["68"]["Text"] = Params.Title;
+			Notify["68"]["Text"] = Options.Title;
 			Notify["68"]["Name"] = [[Title]];
 			Notify["68"]["Font"] = Enum.Font.Ubuntu;
 			Notify["68"]["BackgroundTransparency"] = 1;
@@ -1555,7 +1565,7 @@ function Library:Init(Params)
 			Notify["6a"]["TextSize"] = 13;
 			Notify["6a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			Notify["6a"]["Size"] = UDim2.new(0, 200, 0, 20);
-			Notify["6a"]["Text"] = Params.Question .. "?";
+			Notify["6a"]["Text"] = Options.Question .. "?";
 			Notify["6a"]["Name"] = [[Question]];
 			Notify["6a"]["Font"] = Enum.Font.Ubuntu;
 			Notify["6a"]["BackgroundTransparency"] = 1;
@@ -1638,20 +1648,20 @@ function Library:Init(Params)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if Item.Hover then
 						Notify.Items[id].Callback()
-						Notify.Items[id].instance["6e"]:Delete()
+						Notify.Items[id].instance["6e"]:Destroy()
 					end
 				end
 			end)
 		end
 		
-		task.wait(Params.Duration)
+		task.wait(Options.Duration)
 		Notify:Destroy()
 		return Notify
 	end
 
 	-- [[ KeySystem ]]
 
-	if Params.KeySystem then
+	if Options.KeySystem then
 		local Key = {
 			Close = false;
 			Submit = false;
@@ -1888,7 +1898,7 @@ end
 				if Key.Getkey then
 					setclipboard(GUI.GetkeyLink)
 				elseif Key.Submit then
-					if GUI["86"].Text == Params.CorrectKey then
+					if GUI["86"].Text == Options.CorrectKey then
 						GUI["2"].Visible = true
 						GUI["78"]:Destroy()
 					end
@@ -1903,13 +1913,13 @@ end
 	end
 
 	-- [[ GameId ]]
-	if Params.GameIdNeeded then
-		if game.GameId ~= Params.GameId then
-			if Params.KickIfWrongGameId then
-				if Params.KickReason ~= "" then
+	if Options.GameIdNeeded then
+		if game.GameId ~= Options.GameId then
+			if Options.KickIfWrongGameId then
+				if Options.KickReason ~= "" then
 					Client:Kick("You Got The Wrong Game Buddy")
 				else
-					Client:Kick(Params.KickReason)
+					Client:Kick(Options.KickReason)
 				end
 			end
 		end
