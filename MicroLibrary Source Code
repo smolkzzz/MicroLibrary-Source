@@ -468,7 +468,7 @@ function Library:Init(Options)
 			-- [[ Methods]]
 			function Button:SetText(txt)
 				Options.Name = txt
-				Button:_Update()
+				Button["16"].Text = Options.Name
 			end
 			
 			function Button:SetCallback(func)
@@ -477,13 +477,6 @@ function Library:Init(Options)
 
 			function Button:Delete()
 				Button["12"]:Destroy()
-			end
-
-			function Button:_Update()
-				Button["16"].Text = Options.Name
-				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,math.huge)
-				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,Button["16"].TextBounds.Y)
-				Button["12"].Size = UDim2.new(Button["12"].Size.X.Scale,Button["12"].Size.X.Offset,0,Button["27"].TextBounds.Y + (Button["12"].AbsoluteSize.X - Button["16"].AbsoluteSize.Y))
 			end
 			
 			-- [[ Logic ]]
@@ -526,8 +519,6 @@ function Library:Init(Options)
 					end
 				end)
 			end
-			
-			Button:_Update()
 
 			return Button
 		end
@@ -585,11 +576,21 @@ function Library:Init(Options)
 			-- [[ Methods ]]
 			function Warning:SetText(txt)
 				Options.Message = txt
+				Warning:_Update()
 			end
 
 			function Warning:Delete()
 				Warning["18"]:Destroy()
 			end
+
+			function Warning:_Update()
+				Warning["1c"].Text = Options.Name
+				Warning["18"].Size = UDim2.new(Warning["18"].Size.X.Scale,Warning["18"].Size.X.Offset,0,math.huge)
+				Warning["1c"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y)
+				Warning["1c"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y + (Warning["1c"].AbsoluteSize.Y - Warning["18"].AbsoluteSize.Y))
+			end
+
+			Warning:_Update()
 			return Warning	
 		end
 		
