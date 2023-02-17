@@ -575,7 +575,7 @@ function Library:Init(Options)
 
 			-- [[ Methods ]]
 			function Warning:SetText(txt)
-				Options.Message = txt
+				Options.Message = tostring(txt)
 				Warning:_Update()
 			end
 
