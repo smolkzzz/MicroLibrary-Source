@@ -482,7 +482,7 @@ function Library:Init(Options)
 			function Button:_Update()
 				Button["16"].Text = Options.Name
 				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,math.huge)
-				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,Button["27"].TextBounds.Y)
+				Button["16"].Size = UDim2.new(Button["16"].Size.X.Scale,Button["16"].Size.X.Offset,0,Button["16"].TextBounds.Y)
 				Button["12"].Size = UDim2.new(Button["12"].Size.X.Scale,Button["12"].Size.X.Offset,0,Button["27"].TextBounds.Y + (Button["12"].AbsoluteSize.X - Button["16"].AbsoluteSize.Y))
 			end
 			
