@@ -451,7 +451,7 @@ function Library:Init(Options)
 				Button["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				-- Button["16"]["FontFace"] = ;
 				Button["16"]["Selectable"] = true;
-				Button["16"]["TextSize"] = 18;
+				Button["16"]["TextSize"] = 14;
 				Button["16"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Button["16"]["AnchorPoint"] = Vector2.new(0, 0.5);
 				Button["16"]["Size"] = UDim2.new(1, -35, 1, -10);
@@ -461,8 +461,6 @@ function Library:Init(Options)
 				Button["16"]["Font"] = Enum.Font.Ubuntu;
 				Button["16"]["BackgroundTransparency"] = 1;
 				Button["16"]["Position"] = UDim2.new(0, 5, 0.5, 0);
-				Button["16"]["TextWrapped"] = true;
-				Button["16"]["TextYAlignment"] = Enum.TextYAlignment.Top;
 			end
 			
 			-- [[ Methods]]
@@ -558,6 +556,7 @@ function Library:Init(Options)
 				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.Text
 				Warning["1c"] = Instance.new("TextLabel", Warning["18"]);
 				Warning["1c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+				Warning["1c"]["TextYAlignment"] = Enum.TextYAlignment.Top;
 				Warning["1c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				-- Warning["1c"]["FontFace"] = ;
 				Warning["1c"]["Selectable"] = true;
@@ -571,6 +570,7 @@ function Library:Init(Options)
 				Warning["1c"]["Font"] = Enum.Font.Ubuntu;
 				Warning["1c"]["BackgroundTransparency"] = 1;
 				Warning["1c"]["Position"] = UDim2.new(1, -5, 0.5, 0);
+				Warning["1c"]["TextWrapped"] = true;
 			end
 
 			-- [[ Methods ]]
