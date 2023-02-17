@@ -527,6 +527,8 @@ function Library:Init(Options)
 				end)
 			end
 			
+			Button_Update()
+
 			return Button
 		end
 		
