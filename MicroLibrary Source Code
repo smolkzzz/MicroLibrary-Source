@@ -584,7 +584,7 @@ function Library:Init(Options)
 			end
 
 			function Warning:_Update()
-				Warning["1c"].Text = Options.Name
+				Warning["1c"].Text = Options.Message
 				Warning["18"].Size = UDim2.new(Warning["18"].Size.X.Scale,Warning["18"].Size.X.Offset,0,math.huge)
 				Warning["1c"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y)
 				Warning["1c"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y + (Warning["1c"].AbsoluteSize.Y - Warning["18"].AbsoluteSize.Y))
