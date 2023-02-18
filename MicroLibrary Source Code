@@ -575,7 +575,7 @@ function Library:Init(Options)
 
 			-- [[ Methods ]]
 			function Warning:SetText(txt)
-				Options.Message = tostring(txt)
+				Options.Message = txt
 				Warning:_Update()
 			end
 
@@ -584,10 +584,11 @@ function Library:Init(Options)
 			end
 
 			function Warning:_Update()
-				Warning["1c"].Text = tostring(Options.Message)
-				Warning["18"].Size = UDim2.new(Warning["18"].Size.X.Scale,Warning["18"].Size.X.Offset,0,math.huge)
-				Warning["1c"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y)
-				Warning["1c"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y + (Warning["1c"].AbsoluteSize.Y - Warning["18"].AbsoluteSize.Y))
+				Warning["1c"].Text = Options.Message
+
+				Warning["18"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,math.huge)
+				Warning["18"].Size = UDim2.new(Warning["1c"].Size.X.Scale,Warning["1c"].Size.X.Offset,0,Warning["1c"].TextBounds.Y)
+				Warning["18"].Size = UDim2.new(Warning["18"].Size.X.Scale,Warning["18"].Size.X.Offset,0,Warning["1c"].TextBounds.Y + 10)
 			end
 
 			Warning:_Update()
