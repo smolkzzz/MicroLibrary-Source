@@ -739,7 +739,7 @@ function Library:Init(Options)
 				Label["22"]:Destroy()
 			end
 
-			function Info:_Update()
+			function Label:_Update()
 				Label["26"].Text = Options.Message
 
 				Label["22"].Size = UDim2.new(Label["26"].Size.X.Scale,Label["26"].Size.X.Offset,0,math.huge)
