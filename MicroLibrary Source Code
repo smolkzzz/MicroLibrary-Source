@@ -650,7 +650,7 @@ function Library:Init(Options)
 				Info["21"]["TextScaled"] = true;
 
 				Info["Padding"] = Instance.new("UIPadding", Info["21"]);
-				Info["Padding"]["Left"] = UDim.new(0, 35)
+				Info["Padding"]["PaddingLeft"] = UDim.new(0, 35)
 			end
 			
 			-- [[ Methods ]]
