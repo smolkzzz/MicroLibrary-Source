@@ -666,7 +666,7 @@ function Library:Init(Options)
 				Info["21"].Text = Options.Message
 
 				Info["1d"].Size = UDim2.new(Info["21"].Size.X.Scale,Info["21"].Size.X.Offset,0,math.huge)
-				Info["1d"].Size = UDim2.new(WarInfoning["21"].Size.X.Scale,Info["21"].Size.X.Offset,0,Info["21"].TextBounds.Y)
+				Info["1d"].Size = UDim2.new(Info["21"].Size.X.Scale,Info["21"].Size.X.Offset,0,Info["21"].TextBounds.Y)
 				Info["1d"].Size = UDim2.new(Info["18"].Size.X.Scale,Info["18"].Size.X.Offset,0,Info["21"].TextBounds.Y + 10)
 			end
 
