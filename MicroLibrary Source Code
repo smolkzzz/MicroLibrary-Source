@@ -744,7 +744,7 @@ function Library:Init(Options)
 
 				Label["22"].Size = UDim2.new(Label["26"].Size.X.Scale,Label["26"].Size.X.Offset,0,math.huge)
 				Label["22"].Size = UDim2.new(Label["26"].Size.X.Scale,Label["26"].Size.X.Offset,0,Label["26"].TextBounds.Y)
-				Label["22"].Size = UDim2.new(Label["18"].Size.X.Scale,Label["18"].Size.X.Offset,0,Label["26"].TextBounds.Y + 10)
+				Label["22"].Size = UDim2.new(Label["22"].Size.X.Scale,Label["22"].Size.X.Offset,0,Label["26"].TextBounds.Y + 10)
 			end
 
 			Label:_Update()
