@@ -1917,7 +1917,7 @@ end
 
 	-- [[ GameId ]]
 	if Options.GameIdNeeded then
-		if game.GameId ~= Options.GameId then
+		if game.PlaceId ~= Options.GameId then
 			if Options.KickIfWrongGameId then
 				if Options.KickReason ~= "" then
 					Client:Kick("You Got The Wrong Game Buddy")
