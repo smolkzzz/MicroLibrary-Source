@@ -573,7 +573,7 @@ function Library:Init(Options)
 				Warning["1c"]["TextWrapped"] = true;
 
 				Warning["Padding"] = Instance.new("UIPadding", Warning["1c"]);
-				Warning["Padding"]["Left"] = UDim.new(0, 35)
+				Warning["Padding"]["PaddingLeft"] = UDim.new(0, 35)
 			end
 
 			-- [[ Methods ]]
