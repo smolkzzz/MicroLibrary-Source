@@ -1668,7 +1668,6 @@ function Library:Init(Options)
 					return Keybind	
 				end
 				return Section
-				end
 			end
 			return Tab	
 		end
