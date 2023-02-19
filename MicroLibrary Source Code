@@ -428,6 +428,7 @@ function Library:Init(Options)
 			},Options or {})
 
 			local Section = {
+				Hover = false;
 				Opened = false;
 			}
 
@@ -495,9 +496,10 @@ function Library:Init(Options)
 				Section["1f"]["Position"] = UDim2.new(1, -5, 0, 5);
 			end
 
-			function Section:_Toggle()
+			function Section:Toggle()
 				if Section.Opened then
-
+					Library:tween(Section["18"],{Size = UDim2.new(1,0,0,30)})
+					Section.Opened = true
 				else
 					local Y = 0
 					for i,v in pairs(Section["1b"]:GetChildren()) do
@@ -507,10 +509,28 @@ function Library:Init(Options)
 					end
 
 					Library:tween(Section["18"],{Size = UDim2.new(1,0,0,30 + (Y))})
+					Section.Opened = false
 				end
 
-				return Section
-			end
+				Section["1e"].MouseEnter:Connect(function()
+					Section.Hover = true
+				end)
+
+				Section["1e"].MouseLeave:Connect(function()
+					Section.Hover = false
+				end)
+
+				UserInputService.InputBegan:Connect(function(input,gpe)
+					if gpe then return end
+
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						if Section.Hover then
+							Section:Toggle()
+						end
+					end
+				end)
+
+			
 
 			-- [[ Render Buttons ]]
 		do
@@ -1646,6 +1666,8 @@ function Library:Init(Options)
 						end)
 					end
 					return Keybind	
+				end
+				return Section
 				end
 			end
 			return Tab	
