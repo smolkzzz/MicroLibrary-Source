@@ -424,7 +424,7 @@ function Library:Init(Options)
 
 		function Tab:Section(Options)
 			Options = Library:validate({
-				Title = "Section Preview"
+				Title = "Section Preview";
 			},Options or {})
 
 			local Section = {
@@ -508,6 +508,8 @@ function Library:Init(Options)
 
 					Library:tween(Section["18"],{Size = UDim2.new(1,0,0,30 + (Y))})
 				end
+
+				return Section
 			end
 
 			-- [[ Render Buttons ]]
