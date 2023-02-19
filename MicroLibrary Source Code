@@ -344,25 +344,25 @@ function Library:Init(Options)
 			Tab["52"]["BackgroundTransparency"] = 1;
 			
 			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab
-			Section["18"] = Instance.new("ScrollingFrame", GUI["f"]);
-			Section["18"]["Active"] = true;
-			Section["18"]["BorderSizePixel"] = 0;
-			Section["18"]["CanvasSize"] = UDim2.new(0, 0, 10, 0);
-			Section["18"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-			Section["18"]["BackgroundTransparency"] = 1;
-			Section["18"]["Size"] = UDim2.new(1, 0, 1, 0);
-			Section["18"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
-			Section["18"]["ScrollBarThickness"] = 0;
-			Section["18"]["Name"] = [[Tab]];
-			Section["18"]["Visible"] = false;
+			Tab["10"] = Instance.new("ScrollingFrame", GUI["f"]);
+			Tab["10"]["Active"] = true;
+			Tab["10"]["BorderSizePixel"] = 0;
+			Tab["10"]["CanvasSize"] = UDim2.new(0, 0, 10, 0);
+			Tab["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			Tab["10"]["BackgroundTransparency"] = 1;
+			Tab["10"]["Size"] = UDim2.new(1, 0, 1, 0);
+			Tab["10"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+			Tab["10"]["ScrollBarThickness"] = 0;
+			Tab["10"]["Name"] = [[Tab]];
+			Tab["10"]["Visible"] = false;
 
 			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.UIListLayout
-			Tab["11"] = Instance.new("UIListLayout", Section["18"]);
+			Tab["11"] = Instance.new("UIListLayout", Tab["10"]);
 			Tab["11"]["Padding"] = UDim.new(0, 5);
 			Tab["11"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 			
 			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.UIPadding
-			Tab["12"] = Instance.new("UIPadding", Section["18"]);
+			Tab["12"] = Instance.new("UIPadding", Tab["10"]);
 			Tab["12"]["PaddingBottom"] = UDim.new(0, 1);
 			Tab["12"]["PaddingLeft"] = UDim.new(0, 1);
 			Tab["12"]["PaddingRight"] = UDim.new(0, 1);
@@ -379,7 +379,7 @@ function Library:Init(Options)
 			Library:tween(Tab["51"],{TextTransparency = 0})
 			Library:tween(Tab["51"],{BackgroundTransparency = 0})
 			Library:tween(Tab["52"],{ImageTransparency = 0})
-			Section["18"].Visible = true
+			Tab["10"].Visible = true
 			
 			GUI.CurrentTab = Tab
 		end
@@ -390,7 +390,7 @@ function Library:Init(Options)
 			Library:tween(Tab["51"],{TextTransparency = 0.6})
 			Library:tween(Tab["51"],{BackgroundTransparency = 0.6})
 			Library:tween(Tab["52"],{ImageTransparency = 0.6})
-			Section["18"].Visible = false
+			Tab["10"].Visible = false
 		end
 		
 		-- [[ Logic ]]
@@ -512,7 +512,7 @@ function Library:Init(Options)
 
 			-- [[ Render Buttons ]]
 		do
-			function Tab:Button(Options)
+			function Section:Button(Options)
 				Options = Library:validate({
 					Name = [[Button Preview]];
 					Callback = function() end;
@@ -626,7 +626,7 @@ function Library:Init(Options)
 				return Button
 			end
 			
-			function Tab:Warn(Options)
+			function Section:Warn(Options)
 				Options = Library:validate({
 					Message = [[Warning Preview]];
 				},Options or {})
@@ -703,7 +703,7 @@ function Library:Init(Options)
 				return Warning	
 			end
 			
-			function Tab:Info(Options)
+			function Section:Info(Options)
 				Options = Library:validate({
 					Message = [[Info Preview]];
 				},Options or {})
@@ -779,7 +779,7 @@ function Library:Init(Options)
 				return Info	
 			end
 			
-			function Tab:Label(Options)
+			function Section:Label(Options)
 				Options = Library:validate({
 					Message = [[Label Preview]];
 				},Options or {})
@@ -856,7 +856,7 @@ function Library:Init(Options)
 				return Label
 			end
 			
-			function Tab:Slider(Options)
+			function Section:Slider(Options)
 				Options = Library:validate({
 					Name = [[Slider Preview]];
 					Minimum = 0;
@@ -1045,7 +1045,7 @@ function Library:Init(Options)
 				return Slider
 			end
 			
-			function Tab:Toggle(Options)
+			function Section:Toggle(Options)
 				Options = Library:validate({
 					Name = [[Toggle Preview]];
 					Callback = function(Value) end
@@ -1166,7 +1166,7 @@ function Library:Init(Options)
 				return Toggle
 			end
 				
-				function Tab:Dropdown(Options)
+				function Section:Dropdown(Options)
 					Options = Library:validate({
 						Name = [[Dropdown Preview]];
 						Items = {};
@@ -1410,7 +1410,7 @@ function Library:Init(Options)
 					return Dropdown
 				end
 				
-				function Tab:TextBox(Options)
+				function Section:TextBox(Options)
 					Options = Library:validate({
 						Name = [[Textbox Preview]];
 						RemoveTextOnFocusLost = false;
@@ -1537,7 +1537,7 @@ function Library:Init(Options)
 					end
 				end	
 				
-				function Tab:Keybind(Options)
+				function Section:Keybind(Options)
 					Options = Library:validate({
 						Name = [[Keybind Preview]];
 						Callback = function() end
