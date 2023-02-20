@@ -496,7 +496,7 @@ function Library:Init(Options)
 				Section["1f"]["Position"] = UDim2.new(1, -5, 0, 5);
 			end
 
-			function Section:Toggle()
+			function Section:_Toggle()
 				if Section.Opened then
 					Library:tween(Section["18"],{Size = UDim2.new(1,0,0,30)})
 					Section.Opened = true
