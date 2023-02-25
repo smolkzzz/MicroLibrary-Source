@@ -267,7 +267,7 @@ function Library:Init(Options)
 		GUI["4d"] = Instance.new("ScrollingFrame", GUI["49"]);
 		GUI["4d"]["Active"] = true;
 		GUI["4d"]["BorderSizePixel"] = 0;
-		GUI["4d"]["CanvasSize"] = UDim2.new(0, 0, 10, 0);
+		GUI["4d"]["CanvasSize"] = UDim2.new(0, 0, 0, 0);
 		GUI["4d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["4d"]["BackgroundTransparency"] = 1;
 		GUI["4d"]["Size"] = UDim2.new(1, 0, 1, 0);
@@ -278,7 +278,7 @@ function Library:Init(Options)
 		-- StarterGui.MicroLibrary.Main.Navigation.Tabs.UIListLayout
 		GUI["4e"] = Instance.new("UIListLayout", GUI["4d"]);
 		GUI["4e"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
-	end	
+	end
 	
 	-- [[ Notifications ]]
 	do
@@ -392,6 +392,8 @@ function Library:Init(Options)
 			Library:tween(Tab["52"],{ImageTransparency = 0.6})
 			Tab["10"].Visible = false
 		end
+
+		
 		
 		-- [[ Logic ]]
 		do
@@ -1669,6 +1671,7 @@ function Library:Init(Options)
 				end
 				return Section
 			end
+			
 			return Tab	
 		end
 		end
@@ -1824,6 +1827,20 @@ function Library:Init(Options)
 		task.wait(Options.Duration)
 		Notify:Destroy()
 		return Notify
+	end
+
+	-- [[ Tab Resizer ]]
+
+	do 
+		local count = 0
+	for i,v in pairs(GUI["4d"]:GetChildren()) do
+		if v:IsA("TextLabel") then 
+			count += 1
+		end
+	end
+	if (count * 25) >= GUI["49"].AbsoluteSize.Y then 
+		GUI["4d"].CanvasSize = (count * 25)
+	end
 	end
 
 	-- [[ KeySystem ]]
@@ -2094,5 +2111,4 @@ end
 
 	return GUI
 end
-
-return Library
+end
