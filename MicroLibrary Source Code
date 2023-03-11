@@ -56,7 +56,9 @@ function Library:Init(Options)
 			CoreGui:FindFirstChild("MicroLibrary"):Destroy()
 		end
 	end
-	
+	function GUI:Destroy()
+		GUI["1"]:Destroy()
+	end
 	-- [[ Render ]]
 	do
 		-- StarterGui.MicroLibrary
@@ -1264,11 +1266,7 @@ function Library:Init(Options)
 								Dropdown:Remove(i)
 							end
 						end
-	
-						function Dropdown:Delete()
-							Dropdown["32"]:Destroy()
-						end
-	
+
 						function Dropdown:Toggle()
 							if Dropdown.Opened then
 								
@@ -1281,6 +1279,11 @@ function Library:Init(Options)
 								Dropdown.Opened = true
 							end
 						end
+
+						function Dropdown:Delete()
+							Dropdown["32"]:Destroy()
+						end
+						
 					end
 					
 					-- [[ Logic ]]
@@ -1998,5 +2001,3 @@ end
 
 	return GUI
 end
-
-return Library
