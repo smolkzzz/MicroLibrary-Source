@@ -37,8 +37,10 @@ function Library:Init(Options)
 		KickIfWrongGameId = false;
 		KickReason = "string";
 		KeySystem = false;
-		CorrectKey = "Hello World!";
-		GetkeyLink = "https://link";
+		KeySettings = {
+			CorrectKey = "Hello World!",
+			GetkeyLink = "https://link"
+		};
 		Size = UDim2.new(0,400,0,300);
 	},Options or {})
 	
@@ -207,13 +209,13 @@ function Library:Init(Options)
 	end)
 	
 	UserInputService.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if CloseHover then
+		if input.UserInputType == Enum.UserInputType.MouseButton1 and CloseHover or input.UserInputType == Enum.UserInputType.Touch then
+			
 				GUI["2"]:TweenSize(UDim2.new(0,0,0))
 				repeat GUI["2"].Position = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2)) until GUI["2"].Size == Options.Size
 				GUI["1"]:Destroy()
 				GUI.CloseHover = false
-			end
+			
 		elseif input.KeyCode == Options.Toggle then
 			if GUI.Opened then
 				Library:tween(GUI["2"],{Position = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
@@ -412,10 +414,10 @@ function Library:Init(Options)
 				end
 			end)
 			UserInputService.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if Tab.Hover then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and Tab.Hover or input.UserInputType == Enum.UserInputType.Touch then
+					
 						Tab:Activate()
-					end
+					
 				end
 			end)
 			
@@ -423,120 +425,10 @@ function Library:Init(Options)
 				Tab:Activate()
 			end
 		end		
-
-		function Tab:Section(Options)
-			Options = Library:validate({
-				Title = "Section Preview";
-			},Options or {})
-
-			local Section = {
-				Hover = false;
-				Opened = false;
-			}
-
-			-- [[ Render ]]
-			do
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section
-				Section["18"] = Instance.new("Frame", Tab["10"]);
-				Section["18"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
-				Section["18"]["Size"] = UDim2.new(1, 0, 0, 120);
-				Section["18"]["Name"] = [[Section]];
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.UIStroke
-				Section["19"] = Instance.new("UIStroke", Section["18"]);
-				Section["19"]["Color"] = Color3.fromRGB(108, 108, 108);
-				Section["19"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.UICorner
-				Section["1a"] = Instance.new("UICorner", Section["18"]);
-				Section["1a"]["CornerRadius"] = UDim.new(0, 4);
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.Container
-				Section["1b"] = Instance.new("Frame", Section["18"]);
-				Section["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Section["1b"]["AnchorPoint"] = Vector2.new(0, 1);
-				Section["1b"]["BackgroundTransparency"] = 1;
-				Section["1b"]["Size"] = UDim2.new(1, -10, 1, -35);
-				Section["1b"]["Position"] = UDim2.new(0, 5, 1, -5);
-				Section["1b"]["Name"] = [[Container]];
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.Container.UIPadding
-				Section["1c"] = Instance.new("UIPadding", Section["1b"]);
-				Section["1c"]["PaddingTop"] = UDim.new(0, 1);
-				Section["1c"]["PaddingRight"] = UDim.new(0, 1);
-				Section["1c"]["PaddingBottom"] = UDim.new(0, 1);
-				Section["1c"]["PaddingLeft"] = UDim.new(0, 1);
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.Container.UIListLayout
-				Section["1d"] = Instance.new("UIListLayout", Section["1b"]);
-				Section["1d"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.Click
-				Section["1e"] = Instance.new("TextLabel", Section["18"]);
-				Section["1e"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Section["1e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				-- Section["1e"]["FontFace"] = ;
-				Section["1e"]["Selectable"] = true;
-				Section["1e"]["TextSize"] = 14;
-				Section["1e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Section["1e"]["Size"] = UDim2.new(1, -35, 0, 20);
-				Section["1e"]["Active"] = true;
-				Section["1e"]["Text"] = [[Section]];
-				Section["1e"]["Name"] = [[Click]];
-				Section["1e"]["Font"] = Enum.Font.Ubuntu;
-				Section["1e"]["BackgroundTransparency"] = 1;
-				Section["1e"]["Position"] = UDim2.new(0, 5, 0, 5);
-
-				-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Section.Icon
-				Section["1f"] = Instance.new("ImageLabel", Section["18"]);
-				Section["1f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Section["1f"]["AnchorPoint"] = Vector2.new(1, 0);
-				Section["1f"]["Image"] = [[rbxassetid://10889644850]];
-				Section["1f"]["Size"] = UDim2.new(0, 20, 0, 20);
-				Section["1f"]["Name"] = [[Icon]];
-				Section["1f"]["BackgroundTransparency"] = 1;
-				Section["1f"]["Position"] = UDim2.new(1, -5, 0, 5);
-			end
-
-			function Section:_Toggle()
-				if Section.Opened then
-					Library:tween(Section["18"],{Size = UDim2.new(1,0,0,30)})
-					Section.Opened = true
-				else
-					local Y = 0
-					for i,v in pairs(Section["1b"]:GetChildren()) do
-						if v ~= nil then
-							Y += v.Size.Y.Offset
-						end
-					end
-
-					Library:tween(Section["18"],{Size = UDim2.new(1,0,0,30 + (Y))})
-					Section.Opened = false
-				end
-
-				Section["1e"].MouseEnter:Connect(function()
-					Section.Hover = true
-				end)
-
-				Section["1e"].MouseLeave:Connect(function()
-					Section.Hover = false
-				end)
-
-				UserInputService.InputBegan:Connect(function(input,gpe)
-					if gpe then return end
-
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						if Section.Hover then
-							Section:Toggle()
-						end
-					end
-				end)
-
-			
-
-			-- [[ Render Buttons ]]
+		
+		-- [[ Render UI Interface ]]
 		do
-			function Section:Button(Options)
+			function Tab:Button(Options)
 				Options = Library:validate({
 					Name = [[Button Preview]];
 					Callback = function() end;
@@ -550,7 +442,7 @@ function Library:Init(Options)
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button
-					Button["12"] = Instance.new("Frame", Section["18"]);
+					Button["12"] = Instance.new("Frame", Tab["18"]);
 					Button["12"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Button["12"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Button["12"]["Name"] = [[Button]];
@@ -622,7 +514,7 @@ function Library:Init(Options)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover or input.UserInputType == Enum.UserInputType.Touch then
 							Button.MouseDown = true
 							Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 							Library:tween(Button["14"],{Color = Color3.fromRGB(200,200,200)})
@@ -650,7 +542,7 @@ function Library:Init(Options)
 				return Button
 			end
 			
-			function Section:Warn(Options)
+			function Tab:Warn(Options)
 				Options = Library:validate({
 					Message = [[Warning Preview]];
 				},Options or {})
@@ -660,7 +552,7 @@ function Library:Init(Options)
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning
-					Warning["18"] = Instance.new("Frame", Section["18"]);
+					Warning["18"] = Instance.new("Frame", Tab["10"]);
 					Warning["18"]["BackgroundColor3"] = Color3.fromRGB(62, 62, 12);
 					Warning["18"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Warning["18"]["Name"] = [[Warning]];
@@ -727,7 +619,7 @@ function Library:Init(Options)
 				return Warning	
 			end
 			
-			function Section:Info(Options)
+			function Tab:Info(Options)
 				Options = Library:validate({
 					Message = [[Info Preview]];
 				},Options or {})
@@ -737,7 +629,7 @@ function Library:Init(Options)
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info
-					Info["1d"] = Instance.new("Frame", Section["18"]);
+					Info["1d"] = Instance.new("Frame", Tab["10"]);
 					Info["1d"]["BackgroundColor3"] = Color3.fromRGB(16, 16, 81);
 					Info["1d"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Info["1d"]["Name"] = [[Info]];
@@ -803,7 +695,7 @@ function Library:Init(Options)
 				return Info	
 			end
 			
-			function Section:Label(Options)
+			function Tab:Label(Options)
 				Options = Library:validate({
 					Message = [[Label Preview]];
 				},Options or {})
@@ -813,7 +705,7 @@ function Library:Init(Options)
 				-- [[ Render ]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label
-					Label["22"] = Instance.new("Frame", Section["18"]);
+					Label["22"] = Instance.new("Frame", Tab["10"]);
 					Label["22"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Label["22"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Label["22"]["Name"] = [[Label]];
@@ -880,7 +772,7 @@ function Library:Init(Options)
 				return Label
 			end
 			
-			function Section:Slider(Options)
+			function Tab:Slider(Options)
 				Options = Library:validate({
 					Name = [[Slider Preview]];
 					Minimum = 0;
@@ -898,7 +790,7 @@ function Library:Init(Options)
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider
-					Slider["27"] = Instance.new("Frame", Section["18"]);
+					Slider["27"] = Instance.new("Frame", Tab["10"]);
 					Slider["27"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Slider["27"]["Size"] = UDim2.new(1, 0, 0, 40);
 					Slider["27"]["Name"] = [[Slider]];
@@ -1033,7 +925,7 @@ function Library:Init(Options)
 					end)
 	
 					UserInputService.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover or input.UserInputType == Enum.UserInputType.Touch then
 							Slider.MouseDown = true
 							Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
 							Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(150,150,150)})
@@ -1047,7 +939,7 @@ function Library:Init(Options)
 					end)
 					
 					UserInputService.InputEnded:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 							Slider.MouseDown = false
 	
 							if Slider.Hover then
@@ -1069,7 +961,7 @@ function Library:Init(Options)
 				return Slider
 			end
 			
-			function Section:Toggle(Options)
+			function Tab:Toggle(Options)
 				Options = Library:validate({
 					Name = [[Toggle Preview]];
 					Callback = function(Value) end
@@ -1083,7 +975,7 @@ function Library:Init(Options)
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive)
-					Toggle["51"] = Instance.new("Frame", Section["18"]);
+					Toggle["51"] = Instance.new("Frame", Tab["10"]);
 					Toggle["51"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Toggle["51"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Toggle["51"]["Name"] = [[Toggle]];
@@ -1176,21 +1068,21 @@ function Library:Init(Options)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							if Toggle.Hover then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Toggle.Hover or input.UserInputType == Enum.UserInputType.Touch then
+							
 								if Toggle.Value then
 									Toggle:Deactivate()
 								else
 									Toggle:Activate()
 								end
-							end
+							
 						end
 					end)
 				end
 				return Toggle
 			end
 				
-				function Section:Dropdown(Options)
+				function Tab:Dropdown(Options)
 					Options = Library:validate({
 						Name = [[Dropdown Preview]];
 						Items = {};
@@ -1211,7 +1103,7 @@ function Library:Init(Options)
 					-- [[ Render ]]
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown
-						Dropdown["32"] = Instance.new("Frame", Section["18"]);
+						Dropdown["32"] = Instance.new("Frame", Tab["10"]);
 						Dropdown["32"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 						Dropdown["32"]["Size"] = UDim2.new(1, 0, 0, 30);
 						Dropdown["32"]["Name"] = [[Dropdown]];
@@ -1333,7 +1225,7 @@ function Library:Init(Options)
 							end)
 	
 							UserInputService.InputBegan:Connect(function(input)
-								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover then
+								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch and Item.Hover then
 									Item.MouseDown = true
 									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
@@ -1407,7 +1299,7 @@ function Library:Init(Options)
 						end)
 	
 						UserInputService.InputBegan:Connect(function(input)
-							if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover then
+							if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								Dropdown.MouseDown = true
 								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 								Library:tween(Dropdown["34"],{Color = Color3.fromRGB(200,200,200)})
@@ -1434,7 +1326,7 @@ function Library:Init(Options)
 					return Dropdown
 				end
 				
-				function Section:TextBox(Options)
+				function Tab:TextBox(Options)
 					Options = Library:validate({
 						Name = [[Textbox Preview]];
 						RemoveTextOnFocusLost = false;
@@ -1450,7 +1342,7 @@ function Library:Init(Options)
 					-- [[ Render ]]
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox
-						Textbox["43"] = Instance.new("Frame", Section["18"]);
+						Textbox["43"] = Instance.new("Frame", Tab["10"]);
 						Textbox["43"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 						Textbox["43"]["Size"] = UDim2.new(1, 0, 0, 50);
 						Textbox["43"]["Name"] = [[Textbox]];
@@ -1544,8 +1436,8 @@ function Library:Init(Options)
 						end)
 						
 						UserInputService.InputBegan:Connect(function(input)
-							if input.UserInputType == Enum.UserInputType.MouseButton1 then
-								if Textbox.Hover then
+							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover or input.UserInputType == Enum.UserInputType.Touch then
+								
 									Options.Callback(Textbox["47"].Text)
 									if Options.RemoveTextOnClicked then
 										Textbox["47"].Text = ""
@@ -1555,13 +1447,13 @@ function Library:Init(Options)
 											Textbox["47"].Text = ""
 										end
 									end)
-								end
+								
 							end
 						end)
 					end
 				end	
 				
-				function Section:Keybind(Options)
+				function Tab:Keybind(Options)
 					Options = Library:validate({
 						Name = [[Keybind Preview]];
 						Callback = function() end
@@ -1578,7 +1470,7 @@ function Library:Init(Options)
 					-- [[ Render ]]
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind
-						Keybind["5a"] = Instance.new("Frame", Section["18"]);
+						Keybind["5a"] = Instance.new("Frame", Tab["10"]);
 						Keybind["5a"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 						Keybind["5a"]["Size"] = UDim2.new(1, 0, 0, 30);
 						Keybind["5a"]["Name"] = [[Keybind]];
@@ -1651,11 +1543,11 @@ function Library:Init(Options)
 						end)
 						
 						UserInputService.InputBegan:Connect(function(input)
-							if input.UserInputType == Enum.UserInputType.MouseButton1 then
-								if Keybind.Hover then
+							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover or input.UserInputType == Enum.UserInputType.Touch then
+								
 									Keybind.WaitingForInput = true
 									Keybind["5e"].Text = "[..]"
-								end
+								
 							elseif input.UserInputType == Enum.UserInputType.Keyboard then
 								if Keybind.WaitingForInput then
 									Keybind.WaitingForInput = false
@@ -1668,12 +1560,9 @@ function Library:Init(Options)
 						end)
 					end
 					return Keybind	
-				end
-				return Section
+				end		
 			end
-			
-			return Tab	
-		end
+			return Tab
 		end
 	
 	function GUI:Notify(Options)
@@ -1815,11 +1704,9 @@ function Library:Init(Options)
 			end)
 			
 			UserInputService.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if Item.Hover then
-						Notify.Items[id].Callback()
-						Notify.Items[id].instance["6e"]:Destroy()
-					end
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch then
+					Notify.Items[id].Callback()
+					Notify.Items[id].instance["6e"]:Destroy()
 				end
 			end)
 		end
@@ -2078,11 +1965,11 @@ end
 		end)
 
 		UserInputService.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 				if Key.Getkey then
 					setclipboard(GUI.GetkeyLink)
 				elseif Key.Submit then
-					if GUI["86"].Text == Options.CorrectKey then
+					if GUI["86"].Text == Options.KeySettings.CorrectKey then
 						GUI["2"].Visible = true
 						GUI["78"]:Destroy()
 					end
@@ -2098,7 +1985,7 @@ end
 
 	-- [[ GameId ]]
 	if Options.GameIdNeeded then
-		if game.PlaceId ~= Options.GameId then
+		if game.GameId ~= Options.GameId then
 			if Options.KickIfWrongGameId then
 				if Options.KickReason ~= "" then
 					Client:Kick("You Got The Wrong Game Buddy")
@@ -2110,7 +1997,6 @@ end
 	end
 
 	return GUI
-end
 end
 
 return Library
