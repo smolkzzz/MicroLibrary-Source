@@ -432,7 +432,7 @@ function Library:Create(Options)
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button
-					Button["12"] = Instance.new("Frame", Tab["18"]);
+					Button["12"] = Instance.new("Frame", Tab["10"]);
 					Button["12"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Button["12"]["Size"] = UDim2.new(1, 0, 0, 30);
 					Button["12"]["Name"] = [[Button]];
@@ -1571,7 +1571,7 @@ function Library:Create(Options)
 					-- [[ Render ]]
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker
-ColorPicker["68"] = Instance.new("Frame", ColorPicker["10"]);
+ColorPicker["68"] = Instance.new("Frame", Tab["10"]);
 ColorPicker["68"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 ColorPicker["68"]["Size"] = UDim2.new(1, 0, 0, 30);
 ColorPicker["68"]["Name"] = [[ColorPicker]];
