@@ -1613,12 +1613,6 @@ ColorPicker["6c"]["Name"] = [[Value]];
 ColorPicker["6d"] = Instance.new("UICorner", ColorPicker["6c"]);
 ColorPicker["6d"]["CornerRadius"] = UDim.new(0, 4);
 
--- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Value.UIStroke
-ColorPicker["6e"] = Instance.new("UIStroke", ColorPicker["6c"]);
-ColorPicker["6e"]["Color"] = Color3.fromRGB(0, 53, 0);
-ColorPicker["6e"]["Thickness"] = 2;
-ColorPicker["6e"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
-
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container
 ColorPicker["6f"] = Instance.new("Frame", ColorPicker["68"]);
 ColorPicker["6f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -1771,6 +1765,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									ColorPicker.ColorHeld = true
 								elseif ColorPicker.DarknessHover then
 									ColorPicker.DarknessHeld = true
+									elseif ColorPicker.SubmitHover then
+										ColorPicker["6c"].BackgroundColor3 = ColorPicker["79"].BackgroundColor3
+									Options.Callback(ColorPicker["6c"].BackgroundColor3)
 								end
 							end
 						end)
