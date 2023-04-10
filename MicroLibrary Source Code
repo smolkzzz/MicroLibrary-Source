@@ -28,7 +28,7 @@ function Library:validate(defaults, Options)
 	return Options
 end
 
-function Library:Init(Options)
+function Library:Create(Options)
 	Options = Library:validate({
 		Name = game.Name .. " Script";
 		Toggle = "LeftShift";
