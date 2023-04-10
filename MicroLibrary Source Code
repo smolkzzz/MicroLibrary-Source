@@ -1712,7 +1712,13 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 					end
 
 					--[[ Methods ]]
+					function ColorPicker:SetTitle(txt)
+						ColorPicker["6b"].Text = txt
+					end
 
+					function ColorPicker:Delete()
+						ColorPicker["69"]:Destroy()
+					end
 					-- [[ Logic ]]
 					do
 						function ColorPicker:_UpdateColor(centreOfWheel)
