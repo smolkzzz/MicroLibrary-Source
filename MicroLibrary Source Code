@@ -1320,7 +1320,6 @@ function Library:Init(Options)
 				function Tab:TextBox(Options)
 					Options = Library:validate({
 						Name = [[Textbox Preview]];
-						RemoveTextOnFocusLost = false;
 						PlaceHolderText = "PlaceHolderText";
 						RemoveTextOnClicked = false;
 						Callback = function() end
@@ -1396,14 +1395,14 @@ function Library:Init(Options)
 						Textbox["4a"] = Instance.new("TextLabel", Textbox["43"]);
 						Textbox["4a"]["TextWrapped"] = true;
 						Textbox["4a"]["TextScaled"] = true;
-						Textbox["4a"]["BackgroundColor3"] = Color3.fromRGB(0, 156, 0);
+						Textbox["4a"]["BackgroundColor3"] = Color3.fromRGB(156, 0, 0);
 						-- Textbox["4a"]["FontFace"] = ;
 						Textbox["4a"]["TextSize"] = 14;
 						Textbox["4a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 						Textbox["4a"]["AnchorPoint"] = Vector2.new(1, 0);
 						Textbox["4a"]["Size"] = UDim2.new(0, 40, 0, 15);
-						Textbox["4a"]["Text"] = [[Run]];
-						Textbox["4a"]["Name"] = [[Run]];
+						Textbox["4a"]["Text"] = [[Clear]];
+						Textbox["4a"]["Name"] = [[Clear]];
 						Textbox["4a"]["Font"] = Enum.Font.Ubuntu;
 						Textbox["4a"]["Position"] = UDim2.new(1, -5, 0, 5);
 	
@@ -1430,9 +1429,6 @@ function Library:Init(Options)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								
 									Options.Callback(Textbox["47"].Text)
-									if Options.RemoveTextOnClicked then
-										Textbox["47"].Text = ""
-									end
 									Textbox["47"].FocusLost:Connect(function()
 										if Options.RemoveTextOnFocusLost then
 											Textbox["47"].Text = ""
@@ -1441,8 +1437,16 @@ function Library:Init(Options)
 								
 							end
 						end)
+
+						Textbox["47"].FocusLost:Connect(function(enter)
+							if not enter then return end
+							Options.Callback(Textbox["47"].Text)
+							if Options.RemoveTextOnFocusLost then
+								Textbox["47"].Text = ""
+							end
+						end)
 					end
-				end	
+				end
 				
 				function Tab:Keybind(Options)
 					Options = Library:validate({
@@ -1545,7 +1549,7 @@ function Library:Init(Options)
 									Keybind.Bind = input.KeyCode
 									Keybind["5e"].Text = tostring(input.KeyCode):Split("Enum.KeyCode.")
 								end
-							elseif input.KeyCode == Enum.KeyCode[Keybind.Bind] then
+							elseif input.KeyCode == Keybind.Bind then
 								Options.Callback()						
 							end
 						end)
