@@ -32,8 +32,6 @@ function Library:Init(Options)
 	Options = Library:validate({
 		Name = game.Name .. " Script";
 		Toggle = "LeftShift";
-		GameId = nil;
-		KickReason = nil;
 		KeySystem = false;
 		KeySettings = {
 			CorrectKey = "Hello World!",
@@ -1973,19 +1971,6 @@ function Library:Init(Options)
 	end
 
 	return Key
-	end
-
-	-- [[ GameId ]]
-	if Options.GameId ~= nil then
-		if game.PlaceId ~= Options.GameId then
-			if Options.KickReason ~= nil then
-				if Options.KickReason ~= "" then
-					Client:Kick("You Got The Wrong Game Buddy")
-				else
-					Client:Kick(Options.KickReason)
-				end
-			end
-		end
 	end
 
 	return GUI
