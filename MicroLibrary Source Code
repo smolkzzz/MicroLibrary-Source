@@ -1428,12 +1428,7 @@ function Library:Init(Options)
 						UserInputService.InputBegan:Connect(function(input)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								
-									Options.Callback(Textbox["47"].Text)
-									Textbox["47"].FocusLost:Connect(function()
-										if Options.RemoveTextOnFocusLost then
-											Textbox["47"].Text = ""
-										end
-									end)
+									Textbox["47"].Text = ""
 								
 							end
 						end)
