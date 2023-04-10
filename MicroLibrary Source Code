@@ -1321,7 +1321,7 @@ function Library:Init(Options)
 					Options = Library:validate({
 						Name = [[Textbox Preview]];
 						PlaceHolderText = "PlaceHolderText";
-						RemoveTextOnClicked = false;
+						RemoveTextOnFocusLost = false;
 						Callback = function() end
 					},Options or {})
 					
