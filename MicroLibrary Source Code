@@ -1550,7 +1550,260 @@ function Library:Create(Options)
 						end)
 					end
 					return Keybind	
-				end		
+				end	
+
+				function Tab:ColorPicker(Options)
+					Options = Library:validate({
+						Name = "ColorPicker Preview";
+						Callback = function(color) end;
+					},Options or {})
+
+					local ColorPicker = {
+						Opened = false;
+						Color = Color3.new(1,1,1);
+						ColorHover = false;
+						ColorHeld = false;
+						DarknessHover = false;
+						DarknessHeld = false;
+						SubmitHover = false;
+					}
+
+					-- [[ Render ]]
+					do
+						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker
+ColorPicker["68"] = Instance.new("Frame", ColorPicker["10"]);
+ColorPicker["68"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+ColorPicker["68"]["Size"] = UDim2.new(1, 0, 0, 30);
+ColorPicker["68"]["Name"] = [[ColorPicker]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.UICorner
+ColorPicker["69"] = Instance.new("UICorner", ColorPicker["68"]);
+ColorPicker["69"]["CornerRadius"] = UDim.new(0, 4);
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.UIStroke
+ColorPicker["6a"] = Instance.new("UIStroke", ColorPicker["68"]);
+ColorPicker["6a"]["Color"] = Color3.fromRGB(108, 108, 108);
+ColorPicker["6a"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Title
+ColorPicker["6b"] = Instance.new("TextLabel", ColorPicker["68"]);
+ColorPicker["6b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+ColorPicker["6b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+-- ColorPicker["6b"]["FontFace"] = ;
+ColorPicker["6b"]["Selectable"] = true;
+ColorPicker["6b"]["TextSize"] = 14;
+ColorPicker["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+ColorPicker["6b"]["Size"] = UDim2.new(1, -35, 0, 20);
+ColorPicker["6b"]["Active"] = true;
+ColorPicker["6b"]["Text"] = [[ColorPicker]];
+ColorPicker["6b"]["Name"] = [[Title]];
+ColorPicker["6b"]["Font"] = Enum.Font.Ubuntu;
+ColorPicker["6b"]["BackgroundTransparency"] = 1;
+ColorPicker["6b"]["Position"] = UDim2.new(0, 5, 0, 5);
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Value
+ColorPicker["6c"] = Instance.new("Frame", ColorPicker["68"]);
+ColorPicker["6c"]["BackgroundColor3"] = Color3.fromRGB(0, 156, 0);
+ColorPicker["6c"]["AnchorPoint"] = Vector2.new(1, 0);
+ColorPicker["6c"]["Size"] = UDim2.new(0, 20, 0, 20);
+ColorPicker["6c"]["Position"] = UDim2.new(1, -5, 0, 5);
+ColorPicker["6c"]["Name"] = [[Value]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Value.UICorner
+ColorPicker["6d"] = Instance.new("UICorner", ColorPicker["6c"]);
+ColorPicker["6d"]["CornerRadius"] = UDim.new(0, 4);
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Value.UIStroke
+ColorPicker["6e"] = Instance.new("UIStroke", ColorPicker["6c"]);
+ColorPicker["6e"]["Color"] = Color3.fromRGB(0, 53, 0);
+ColorPicker["6e"]["Thickness"] = 2;
+ColorPicker["6e"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container
+ColorPicker["6f"] = Instance.new("Frame", ColorPicker["68"]);
+ColorPicker["6f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+ColorPicker["6f"]["AnchorPoint"] = Vector2.new(0, 1);
+ColorPicker["6f"]["BackgroundTransparency"] = 1;
+ColorPicker["6f"]["Size"] = UDim2.new(1, -10, 1, -40);
+ColorPicker["6f"]["ClipsDescendants"] = true;
+ColorPicker["6f"]["Position"] = UDim2.new(0, 5, 1, -5);
+ColorPicker["6f"]["Visible"] = false;
+ColorPicker["6f"]["Name"] = [[Container]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel
+ColorPicker["70"] = Instance.new("ImageLabel", ColorPicker["6f"]);
+ColorPicker["70"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+ColorPicker["70"]["Image"] = [[rbxassetid://1003599877]];
+ColorPicker["70"]["Size"] = UDim2.new(0, 110, 1, 0);
+ColorPicker["70"]["Name"] = [[ColourWheel]];
+ColorPicker["70"]["BackgroundTransparency"] = 1;
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel.Picker
+ColorPicker["71"] = Instance.new("Frame", ColorPicker["70"]);
+ColorPicker["71"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+ColorPicker["71"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+ColorPicker["71"]["Size"] = UDim2.new(0, 5, 0, 5);
+ColorPicker["71"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+ColorPicker["71"]["Name"] = [[Picker]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel.Picker.UICorner
+ColorPicker["72"] = Instance.new("UICorner", ColorPicker["71"]);
+ColorPicker["72"]["CornerRadius"] = UDim.new(0, 100);
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel.UICorner
+ColorPicker["73"] = Instance.new("UICorner", ColorPicker["70"]);
+ColorPicker["73"]["CornerRadius"] = UDim.new(1000, 1000);
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker
+ColorPicker["74"] = Instance.new("Frame", ColorPicker["6f"]);
+ColorPicker["74"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+ColorPicker["74"]["Size"] = UDim2.new(0, 30, 1, 0);
+ColorPicker["74"]["Position"] = UDim2.new(0, 120, 0, 0);
+ColorPicker["74"]["Name"] = [[DarknessPicker]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.UICorner
+ColorPicker["75"] = Instance.new("UICorner", ColorPicker["74"]);
+
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.UIGradient
+ColorPicker["76"] = Instance.new("UIGradient", ColorPicker["74"]);
+ColorPicker["76"]["Rotation"] = 90;
+ColorPicker["76"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 0, 0))};
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.Picker
+ColorPicker["77"] = Instance.new("Frame", ColorPicker["74"]);
+ColorPicker["77"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+ColorPicker["77"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+ColorPicker["77"]["Size"] = UDim2.new(1, 20, 0, 10);
+ColorPicker["77"]["Position"] = UDim2.new(0.5, 0, 0, 0);
+ColorPicker["77"]["Name"] = [[Picker]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.Picker.UICorner
+ColorPicker["78"] = Instance.new("UICorner", ColorPicker["77"]);
+
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.Result
+ColorPicker["79"] = Instance.new("Frame", ColorPicker["6f"]);
+ColorPicker["79"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+ColorPicker["79"]["AnchorPoint"] = Vector2.new(1, 0);
+ColorPicker["79"]["Size"] = UDim2.new(0, 60, 0, 60);
+ColorPicker["79"]["Position"] = UDim2.new(1, -50, 0, 10);
+ColorPicker["79"]["Name"] = [[Result]];
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.Result.UICorner
+ColorPicker["7a"] = Instance.new("UICorner", ColorPicker["79"]);
+
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.Submit
+ColorPicker["7b"] = Instance.new("TextLabel", ColorPicker["6f"]);
+ColorPicker["7b"]["BackgroundColor3"] = Color3.fromRGB(0, 156, 0);
+-- ColorPicker["7b"]["FontFace"] = ;
+ColorPicker["7b"]["TextSize"] = 14;
+ColorPicker["7b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+ColorPicker["7b"]["AnchorPoint"] = Vector2.new(1, 1);
+ColorPicker["7b"]["Size"] = UDim2.new(0, 100, 0, 25);
+ColorPicker["7b"]["Text"] = [[Submit]];
+ColorPicker["7b"]["Name"] = [[Submit]];
+ColorPicker["7b"]["Font"] = Enum.Font.Ubuntu;
+ColorPicker["7b"]["Position"] = UDim2.new(1, -10, 1, -5);
+
+-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.Submit.UICorner
+ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
+					end
+
+					--[[ Methods ]]
+
+					-- [[ Logic ]]
+					do
+						function ColorPicker:_UpdateColor(centreOfWheel)
+							local colorPickerCentre = Vector2.new(
+								ColorPicker["71"].Picker.AbsolutePosition.X + (ColorPicker["71"].AbsoluteSize.X/2),
+								ColorPicker["71"].Picker.AbsolutePosition.Y + (ColorPicker["71"].AbsoluteSize.Y/2)
+							)
+							local h = (math.pi - math.atan2(colorPickerCentre.Y - centreOfWheel.Y,colorPickerCentre.X - centreOfWheel.X)) / (math.pi * 2)
+
+							local s = (centreOfWheel - colorPickerCentre).Magnitude / (ColorPicker["70"].AbsoluteSize.X/2)
+
+							local v = math.abs((ColorPicker["74"].AbsolutePosition.Y - ColorPicker["77"].AbsolutePosition.Y) / ColorPicker["77"].AbsoluteSize.Y - 1)
+
+							local hsv = Color3.fromHSV(math.clamp(h,0,1),math.clamp(s,0,1),math.clamp(v,0,1))
+
+							ColorPicker["79"].Color = hsv
+							ColorPicker["76"].Color = ColorSequence.new(
+								ColorSequenceKeypoint.new(0,hsv),
+								ColorSequenceKeypoint.new(1,Color3.new(0,0,0))
+							)
+						end
+
+						ColorPicker["7b"].MouseEnter:Connect(function()
+							ColorPicker.SubmitHover = true
+						end)
+
+						ColorPicker["7b"].MouseLeave:Connect(function()
+							ColorPicker.SubmitHover = false
+						end)
+
+						ColorPicker["70"].MouseEnter:Connect(function()
+							ColorPicker.ColorHover = true
+						end)
+
+						ColorPicker["70"].MouseLeave:Connect(function()
+							ColorPicker.ColorHover = false
+						end)
+
+						ColorPicker["74"].MouseEnter:Connect(function()
+							ColorPicker.DarknessHover = true
+						end)
+
+						ColorPicker["74"].MouseLeave:Connect(function()
+							ColorPicker.DarknessHover = false
+						end)
+
+						UserInputService.InputBegan:Connect(function(input)
+							if input.UserInputType == Enum.UserInputType.MouseButton1 then
+								if ColorPicker.ColorHover then
+									ColorPicker.ColorHeld = true
+								elseif ColorPicker.DarknessHover then
+									ColorPicker.DarknessHeld = true
+								end
+							end
+						end)
+						UserInputService.InputEnded:Connect(function(input)
+							if input.UserInputType == Enum.UserInputType.MouseButton1 then
+								if ColorPicker.ColorHover then
+									ColorPicker.ColorHeld = false
+								elseif ColorPicker.DarknessHover then
+									ColorPicker.DarknessHeld = false
+								end
+							end
+						end)
+
+						UserInputService.InputChanged:Connect(function(input)
+							if input.UserInputType == Enum.UserInputType.MouseMovement then
+								local mousePos = UserInputService:GetMouseLocation() - Vector2.new(0,game:GetService("GuiService"):GetGuiInset().Y)
+								local centreOfWheel = Vector2.new(ColorPicker["70"].AbsolutePosition.X + (ColorPicker["70"].AbsoluteSize.X/2),ColorPicker["70"].AbsolutePosition.Y + (ColorPicker["70"].AbsoluteSize.Y/2))
+
+								local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
+
+								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorHeld then
+									ColorPicker["71"].Position = UDim2.new(0,mousePos.X - ColorPicker["70"].AbsolutePosition.X,0,mousePos.Y - ColorPicker["70"].AbsolutePosition.Y)
+								elseif DarknessHeld then
+									ColorPicker["74"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
+									math.clamp(
+										mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
+										0,
+										ColorPicker["77"].AbsoluteSize.Y
+									)
+								)
+								end
+							end
+
+							ColorPicker:_UpdateColor(centreOfWheel)
+						end)
+					end
+
+					return ColorPicker
+				end
 		end
 		return Tab
 	end
