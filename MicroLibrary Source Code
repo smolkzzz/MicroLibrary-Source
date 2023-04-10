@@ -1717,8 +1717,8 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 					do
 						function ColorPicker:_UpdateColor(centreOfWheel)
 							local colorPickerCentre = Vector2.new(
-								ColorPicker["71"].Picker.AbsolutePosition.X + (ColorPicker["71"].AbsoluteSize.X/2),
-								ColorPicker["71"].Picker.AbsolutePosition.Y + (ColorPicker["71"].AbsoluteSize.Y/2)
+								ColorPicker["71"].AbsolutePosition.X + (ColorPicker["71"].AbsoluteSize.X/2),
+								ColorPicker["71"].AbsolutePosition.Y + (ColorPicker["71"].AbsoluteSize.Y/2)
 							)
 							local h = (math.pi - math.atan2(colorPickerCentre.Y - centreOfWheel.Y,colorPickerCentre.X - centreOfWheel.X)) / (math.pi * 2)
 
