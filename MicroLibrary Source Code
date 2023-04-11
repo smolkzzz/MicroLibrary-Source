@@ -290,8 +290,8 @@ function Library:Create(Options)
 		GUI["65"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
 	
-	function GUI:Tab(Option)
-		Option = Library:validate({
+	function GUI:Tab(Options)
+		Options = Library:validate({
 			Name = "Preview Tab";
 			Icon = "rbxassetid://12222879857";
 		},Options or {})
@@ -1596,7 +1596,7 @@ ColorPicker["6b"]["TextSize"] = 14;
 ColorPicker["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["6b"]["Size"] = UDim2.new(1, -35, 0, 20);
 ColorPicker["6b"]["Active"] = true;
-ColorPicker["6b"]["Text"] = [[ColorPicker]];
+ColorPicker["6b"]["Text"] = Options.Name;
 ColorPicker["6b"]["Name"] = [[Title]];
 ColorPicker["6b"]["Font"] = Enum.Font.Ubuntu;
 ColorPicker["6b"]["BackgroundTransparency"] = 1;
@@ -1729,7 +1729,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 							local hsv = Color3.fromHSV(math.clamp(h,0,1),math.clamp(s,0,1),math.clamp(v,0,1))
 
-							ColorPicker["79"].Color = hsv
+							ColorPicker["79"].BackgroundColor3or = hsv
 							ColorPicker["76"].Color = ColorSequence.new(
 								ColorSequenceKeypoint.new(0,hsv),
 								ColorSequenceKeypoint.new(1,Color3.new(0,0,0))
