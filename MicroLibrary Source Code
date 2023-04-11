@@ -1088,6 +1088,7 @@ function Library:Create(Options)
 						Opened = false;
 						Hover = false;
 						MouseDown = false;
+						MaxSize = 35;
 					}
 					
 					-- [[ Render ]]
@@ -1238,6 +1239,8 @@ function Library:Create(Options)
 									end
 								end
 							end)
+
+							Dropdown:_Update()
 						end
 	
 						function Dropdown:Remove(id)
@@ -1262,10 +1265,21 @@ function Library:Create(Options)
 								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,30)
 								Dropdown.Opened = false
 							else
-								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,102),0.2)
-								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,102)
+								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,Dropdown.MaxSize),0.2)
+								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,Dropdown.MaxSize)
 								Dropdown.Opened = true
 							end
+						end
+
+						function Dropdown:_Update()
+							local count = 0
+							local count = 0
+							for i,v in pairs(Dropdown["36"]:GetChildren()) do
+								if not v:IsA("TextLabel") then return end
+								count += 1
+							end
+
+							Dropdown.MaxSize = ((count * 21) - 5) + 40
 						end
 
 						function Dropdown:Delete()
@@ -1314,6 +1328,8 @@ function Library:Create(Options)
 							end
 						end)
 					end
+
+					Dropdown:_Update()
 					return Dropdown
 				end
 				
