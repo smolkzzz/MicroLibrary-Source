@@ -1780,9 +1780,11 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									elseif ColorPicker.Hover then
 										if not ColorPicker.Opened then
 											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,150)})
+											ColorPicker["6f"].Visible = true	
 											ColorPicker.Opened = true
 										else
 											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
+											ColorPicker["6f"].Visible = false
 											ColorPicker.Opened = false
 										end
 								end
@@ -1816,9 +1818,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									)
 								)
 								end
-							end
 
-							ColorPicker:_UpdateColor(centreOfWheel)
+								ColorPicker:_UpdateColor(centreOfWheel)
+							end
 						end)
 					end
 
