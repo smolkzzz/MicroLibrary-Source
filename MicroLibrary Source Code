@@ -290,8 +290,8 @@ function Library:Create(Options)
 		GUI["65"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
 	
-	function GUI:Tab(Options)
-		Options = Library:validate({
+	function GUI:Tab(Option)
+		Option = Library:validate({
 			Name = "Preview Tab";
 			Icon = "rbxassetid://12222879857";
 		},Options or {})
@@ -1088,7 +1088,6 @@ function Library:Create(Options)
 						Opened = false;
 						Hover = false;
 						MouseDown = false;
-						MaxSize = 35;
 					}
 					
 					-- [[ Render ]]
@@ -1121,13 +1120,16 @@ function Library:Create(Options)
 						Dropdown["35"]["Position"] = UDim2.new(1, -5, 0, 5);
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder
-						Dropdown["36"] = Instance.new("Frame", Dropdown["32"]);
+						Dropdown["36"] = Instance.new("ScrollingFrame", Dropdown["32"]);
 						Dropdown["36"]["Active"] = true;
 						Dropdown["36"]["BorderSizePixel"] = 0;
+						Dropdown["36"]["CanvasSize"] = UDim2.new(0, 0, 5, 0);
 						Dropdown["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 						Dropdown["36"]["AnchorPoint"] = Vector2.new(0, 1);
 						Dropdown["36"]["BackgroundTransparency"] = 1;
 						Dropdown["36"]["Size"] = UDim2.new(1, -10, 1, -35);
+						Dropdown["36"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+						Dropdown["36"]["ScrollBarThickness"] = 0;
 						Dropdown["36"]["Position"] = UDim2.new(0, 5, 1, -5);
 						Dropdown["36"]["Visible"] = true;
 						Dropdown["36"]["Name"] = [[OptionHolder]];
@@ -1236,8 +1238,6 @@ function Library:Create(Options)
 									end
 								end
 							end)
-
-							Dropdown:_Update()
 						end
 	
 						function Dropdown:Remove(id)
@@ -1262,20 +1262,10 @@ function Library:Create(Options)
 								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,30)
 								Dropdown.Opened = false
 							else
-								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,Dropdown.MaxSize),0.2)
-								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,Dropdown.MaxSize)
+								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,204),0.2)
+								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,204)
 								Dropdown.Opened = true
 							end
-						end
-
-						function Dropdown:_Update()
-							local count = 0
-							for i,v in pairs(Dropdown["36"]:GetChildren()) do
-								if not v:IsA("TextLabel") then return end
-								count += 1
-							end
-
-							Dropdown.MaxSize = ((count * 21) - 5) + 40
 						end
 
 						function Dropdown:Delete()
@@ -1324,8 +1314,6 @@ function Library:Create(Options)
 							end
 						end)
 					end
-
-					Dropdown:_Update()
 					return Dropdown
 				end
 				
@@ -1608,7 +1596,7 @@ ColorPicker["6b"]["TextSize"] = 14;
 ColorPicker["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["6b"]["Size"] = UDim2.new(1, -35, 0, 20);
 ColorPicker["6b"]["Active"] = true;
-ColorPicker["6b"]["Text"] = Options.Name;
+ColorPicker["6b"]["Text"] = [[ColorPicker]];
 ColorPicker["6b"]["Name"] = [[Title]];
 ColorPicker["6b"]["Font"] = Enum.Font.Ubuntu;
 ColorPicker["6b"]["BackgroundTransparency"] = 1;
@@ -1741,8 +1729,8 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 							local hsv = Color3.fromHSV(math.clamp(h,0,1),math.clamp(s,0,1),math.clamp(v,0,1))
 
-							ColorPicker["79"].BackgroundColor3 = hsv
-							ColorPicker["76"].Color = ColorSequence.new(
+							ColorPicker["79"].BackgroundColor3or = hsv
+							ColorPicker["76"].Co = ColorSequence.new(
 								ColorSequenceKeypoint.new(0,hsv),
 								ColorSequenceKeypoint.new(1,Color3.new(0,0,0))
 							)
@@ -1788,8 +1776,6 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									ColorPicker.DarknessHeld = true
 									elseif ColorPicker.SubmitHover then
 										ColorPicker["6c"].BackgroundColor3 = ColorPicker["79"].BackgroundColor3
-										Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
-											ColorPicker["6f"].Visible = false
 									Options.Callback(ColorPicker["6c"].BackgroundColor3)
 									elseif ColorPicker.Hover then
 										if not ColorPicker.Opened then
@@ -1806,9 +1792,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 						end)
 						UserInputService.InputEnded:Connect(function(input)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 then
-								if not ColorPicker.ColorHover then
+								if ColorPicker.ColorHover then
 									ColorPicker.ColorHeld = false
-								elseif not ColorPicker.DarknessHover then
+								elseif ColorPicker.DarknessHover then
 									ColorPicker.DarknessHeld = false
 								end
 							end
@@ -1821,14 +1807,14 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 								local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
 
-								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorPicker.ColorHeld then
+								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorHeld then
 									ColorPicker["71"].Position = UDim2.new(0,mousePos.X - ColorPicker["70"].AbsolutePosition.X,0,mousePos.Y - ColorPicker["70"].AbsolutePosition.Y)
 								elseif ColorPicker.DarknessHeld then
-									ColorPicker["77"].Position = UDim2.new(ColorPicker["77"].Position.X.Scale,0,0,
+									ColorPicker["74"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
 									math.clamp(
-										mousePos.Y - ColorPicker["74"].AbsolutePosition.Y,
+										mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
 										0,
-										ColorPicker["74"].AbsoluteSize.Y
+										ColorPicker["77"].AbsoluteSize.Y
 									)
 								)
 								end
