@@ -205,6 +205,8 @@ function Library:Create(Options)
 			
 		elseif input.KeyCode == Options.Toggle then
 			if GUI.Opened then
+				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
+				repeat wait() until GUI["2"].Position == UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2)))
 				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),1,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
 			else
 				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
