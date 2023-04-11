@@ -1088,7 +1088,6 @@ function Library:Create(Options)
 						Opened = false;
 						Hover = false;
 						MouseDown = false;
-						OpenSize = UDim2.new(1,0,0,35);
 					}
 					
 					-- [[ Render ]]
@@ -1121,13 +1120,16 @@ function Library:Create(Options)
 						Dropdown["35"]["Position"] = UDim2.new(1, -5, 0, 5);
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder
-						Dropdown["36"] = Instance.new("Frame", Dropdown["32"]);
+						Dropdown["36"] = Instance.new("ScrollingFrame", Dropdown["32"]);
 						Dropdown["36"]["Active"] = true;
 						Dropdown["36"]["BorderSizePixel"] = 0;
+						Dropdown["36"]["CanvasSize"] = UDim2.new(0, 0, 5, 0);
 						Dropdown["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 						Dropdown["36"]["AnchorPoint"] = Vector2.new(0, 1);
 						Dropdown["36"]["BackgroundTransparency"] = 1;
 						Dropdown["36"]["Size"] = UDim2.new(1, -10, 1, -35);
+						Dropdown["36"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+						Dropdown["36"]["ScrollBarThickness"] = 0;
 						Dropdown["36"]["Position"] = UDim2.new(0, 5, 1, -5);
 						Dropdown["36"]["Visible"] = true;
 						Dropdown["36"]["Name"] = [[OptionHolder]];
@@ -1236,8 +1238,6 @@ function Library:Create(Options)
 									end
 								end
 							end)
-
-							Dropdown:_Update()
 						end
 	
 						function Dropdown:Remove(id)
@@ -1262,8 +1262,8 @@ function Library:Create(Options)
 								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,30)
 								Dropdown.Opened = false
 							else
-								Dropdown["32"]:TweenSize(Dropdown.OpenSize,0.2)
-								repeat wait() until Dropdown["32"].Size == Dropdown.OpenSize
+								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,102),0.2)
+								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,102)
 								Dropdown.Opened = true
 							end
 						end
@@ -1271,21 +1271,11 @@ function Library:Create(Options)
 						function Dropdown:Delete()
 							Dropdown["32"]:Destroy()
 						end
-
-						function Dropdown:_Update()
-							local count = 0
-							for i,v in pairs(Dropdown["36"]:GetChildren()) do
-								if not v:IsA("TextLabel") then return end
-								count += 1
-							end
-
-							Dropdown.OpenSize = UDim2.new(1,0,0,((count * 16) + 40))
-						end
+						
 					end
 					
 					-- [[ Logic ]]
 					do
-
 						Dropdown["42"].MouseEnter:Connect(function()
 							Dropdown.Hover = true
 							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
