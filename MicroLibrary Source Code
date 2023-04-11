@@ -1269,8 +1269,8 @@ function Library:Create(Options)
 								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							else
 								local count = 0
-								for i,v in pairs(Dropdown.Items) do
-									if v ~= nil then
+								for i,v in pairs(Dropdown["36"]:GetChildren()) do
+									if v:IsA("TextLabel") then
 										count += 1
 									end
 								end
