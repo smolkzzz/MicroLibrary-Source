@@ -290,8 +290,8 @@ function Library:Create(Options)
 		GUI["65"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
 	
-	function GUI:Tab(Option)
-		Option = Library:validate({
+	function GUI:Tab(Options)
+		Options = Library:validate({
 			Name = "Preview Tab";
 			Icon = "rbxassetid://12222879857";
 		},Options or {})
@@ -1076,7 +1076,6 @@ function Library:Create(Options)
 					Options = Library:validate({
 						Name = [[Dropdown Preview]];
 						Items = {};
-						AutoClose = false;
 						Callback = function() end;
 					},Options or {})
 					
@@ -1089,7 +1088,6 @@ function Library:Create(Options)
 						Opened = false;
 						Hover = false;
 						MouseDown = false;
-						HoveringOverItem = false;
 					}
 					
 					-- [[ Render ]]
@@ -1125,7 +1123,7 @@ function Library:Create(Options)
 						Dropdown["36"] = Instance.new("ScrollingFrame", Dropdown["32"]);
 						Dropdown["36"]["Active"] = true;
 						Dropdown["36"]["BorderSizePixel"] = 0;
-						Dropdown["36"]["CanvasSize"] = UDim2.new(0, 0, 5, 0);
+						Dropdown["36"]["CanvasSize"] = UDim2.new(0, 0, 100, 0);
 						Dropdown["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 						Dropdown["36"]["AnchorPoint"] = Vector2.new(0, 1);
 						Dropdown["36"]["BackgroundTransparency"] = 1;
@@ -1205,14 +1203,11 @@ function Library:Create(Options)
 							
 							Dropdown.Items[id].instance["3f"].MouseEnter:Connect(function()
 								Item.Hover = true
-								Dropdown.HoveringOverItem = true
-
 								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
 							end)
 	
 							Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
 								Item.Hover = false
-								Dropdown.HoveringOverItem = false
 	
 								if not Item.MouseDown then
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
@@ -1225,9 +1220,6 @@ function Library:Create(Options)
 									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
 									Options.Callback(value)
-									if Options.AutoClose then
-										Dropdown:Toggle()
-									end
 								end
 							end)
 	
@@ -1266,17 +1258,14 @@ function Library:Create(Options)
 						function Dropdown:Toggle()
 							if Dropdown.Opened then
 								
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
+								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,30),0.2)
+								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,30)
+								Dropdown.Opened = false
 							else
-								local count = 0
-								for i,v in pairs(Dropdown["36"]:GetChildren()) do
-									if v:IsA("TextLabel") then
-										count += 1
-									end
-								end
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30 + (count * 16) + 1)})
+								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,102),0.2)
+								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,102)
+								Dropdown.Opened = true
 							end
-							Dropdown.Opened = not Dropdown.Opened
 						end
 
 						function Dropdown:Delete()
@@ -1287,12 +1276,12 @@ function Library:Create(Options)
 					
 					-- [[ Logic ]]
 					do
-						Dropdown["32"].MouseEnter:Connect(function()
+						Dropdown["42"].MouseEnter:Connect(function()
 							Dropdown.Hover = true
 							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
 						end)
 	
-						Dropdown["32"].MouseLeave:Connect(function()
+						Dropdown["42"].MouseLeave:Connect(function()
 							Dropdown.Hover = false
 	
 							if not Dropdown.MouseDown then
@@ -1301,7 +1290,6 @@ function Library:Create(Options)
 						end)
 	
 						UserInputService.InputBegan:Connect(function(input)
-							if Dropdown.HoveringOverItem then return end
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								Dropdown.MouseDown = true
 								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
@@ -1326,7 +1314,6 @@ function Library:Create(Options)
 							end
 						end)
 					end
-
 					return Dropdown
 				end
 				
@@ -1742,7 +1729,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 							local hsv = Color3.fromHSV(math.clamp(h,0,1),math.clamp(s,0,1),math.clamp(v,0,1))
 
-							ColorPicker["79"].BackgroundColor3 = hsv
+							ColorPicker["79"].Color = hsv
 							ColorPicker["76"].Color = ColorSequence.new(
 								ColorSequenceKeypoint.new(0,hsv),
 								ColorSequenceKeypoint.new(1,Color3.new(0,0,0))
@@ -1793,11 +1780,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									elseif ColorPicker.Hover then
 										if not ColorPicker.Opened then
 											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,150)})
-											ColorPicker["6f"].Visible = true	
 											ColorPicker.Opened = true
 										else
 											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
-											ColorPicker["6f"].Visible = false
 											ColorPicker.Opened = false
 										end
 								end
@@ -1820,10 +1805,10 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 								local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
 
-								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorPicker.ColorHeld then
+								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorHeld then
 									ColorPicker["71"].Position = UDim2.new(0,mousePos.X - ColorPicker["70"].AbsolutePosition.X,0,mousePos.Y - ColorPicker["70"].AbsolutePosition.Y)
 								elseif ColorPicker.DarknessHeld then
-									ColorPicker["77"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
+									ColorPicker["74"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
 									math.clamp(
 										mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
 										0,
@@ -1831,9 +1816,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									)
 								)
 								end
-
-								ColorPicker:_UpdateColor(centreOfWheel)
 							end
+
+							ColorPicker:_UpdateColor(centreOfWheel)
 						end)
 					end
 
