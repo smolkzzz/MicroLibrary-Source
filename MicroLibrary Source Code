@@ -1828,8 +1828,8 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 		return Tab
 	end
 	
-	function GUI:Notify(Option)
-		Option = Library:validate({
+	function GUI:Notify(Options)
+		Options = Library:validate({
 			Title = [[Notification Preview]];
 			Question = [[Question]];
 			Duration = 6;
