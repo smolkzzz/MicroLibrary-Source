@@ -1566,6 +1566,7 @@ function Library:Create(Options)
 						DarknessHover = false;
 						DarknessHeld = false;
 						SubmitHover = false;
+						Hover = false;
 					}
 
 					-- [[ Render ]]
@@ -1759,6 +1760,14 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 							ColorPicker.DarknessHover = false
 						end)
 
+						ColorPicker["6b"].MouseEnter:Connect(function()
+							ColorPicker.Hover = true
+						end)
+
+						ColorPicker["6b"].MouseLeave:Connect(function()
+							ColorPicker.Hover = false
+						end)
+
 						UserInputService.InputBegan:Connect(function(input)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 then
 								if ColorPicker.ColorHover then
@@ -1768,6 +1777,14 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									elseif ColorPicker.SubmitHover then
 										ColorPicker["6c"].BackgroundColor3 = ColorPicker["79"].BackgroundColor3
 									Options.Callback(ColorPicker["6c"].BackgroundColor3)
+									elseif ColorPicker.Hover then
+										if not ColorPicker.Opened then
+											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,150)})
+											ColorPicker.Opened = true
+										else
+											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
+											ColorPicker.Opened = false
+										end
 								end
 							end
 						end)
@@ -1790,7 +1807,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorHeld then
 									ColorPicker["71"].Position = UDim2.new(0,mousePos.X - ColorPicker["70"].AbsolutePosition.X,0,mousePos.Y - ColorPicker["70"].AbsolutePosition.Y)
-								elseif DarknessHeld then
+								elseif ColorPicker.DarknessHeld then
 									ColorPicker["74"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
 									math.clamp(
 										mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
