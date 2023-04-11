@@ -199,14 +199,13 @@ function Library:Create(Options)
 	end)
 	
 	UserInputService.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 and CloseHover or input.UserInputType == Enum.UserInputType.Touch then
-				GUI["1"]:Destroy()
-				GUI.CloseHover = false
-			
+		if input.UserInputType == Enum.UserInputType.MouseButton1 and CloseHover then
+			GUI["1"]:Destroy()
+			GUI.CloseHover = false
 		elseif input.KeyCode == Options.Toggle then
 			if GUI.Opened then
 				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
-				repeat wait() until GUI["2"].Position == UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2)))
+				repeat wait() until GUI["2"].Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))
 				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),1,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
 			else
 				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
