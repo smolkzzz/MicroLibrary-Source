@@ -1802,10 +1802,10 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 
 								local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
 
-								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorHeld then
+								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorPicker.ColorHeld then
 									ColorPicker["71"].Position = UDim2.new(0,mousePos.X - ColorPicker["70"].AbsolutePosition.X,0,mousePos.Y - ColorPicker["70"].AbsolutePosition.Y)
 								elseif ColorPicker.DarknessHeld then
-									ColorPicker["74"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
+									ColorPicker["77"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
 									math.clamp(
 										mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
 										0,
