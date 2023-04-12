@@ -1619,7 +1619,7 @@ ColorPicker["6f"]["BackgroundTransparency"] = 1;
 ColorPicker["6f"]["Size"] = UDim2.new(1, -10, 1, -40);
 ColorPicker["6f"]["ClipsDescendants"] = true;
 ColorPicker["6f"]["Position"] = UDim2.new(0, 5, 1, -5);
-ColorPicker["6f"]["Visible"] = false;
+ColorPicker["6f"]["Visible"] = true;
 ColorPicker["6f"]["Name"] = [[Container]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel
