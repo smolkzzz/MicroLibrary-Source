@@ -1065,6 +1065,7 @@ function Library:Create(Options)
 					Options = Library:validate({
 						Name = [[Dropdown Preview]];
 						Items = {};
+						AutoClose = false;
 						Callback = function() end;
 					},Options or {})
 					
@@ -1077,6 +1078,7 @@ function Library:Create(Options)
 						Opened = false;
 						Hover = false;
 						MouseDown = false;
+						HoverItem = false;
 					}
 					
 					-- [[ Render ]]
@@ -1192,11 +1194,14 @@ function Library:Create(Options)
 							
 							Dropdown.Items[id].instance["3f"].MouseEnter:Connect(function()
 								Item.Hover = true
+								Dropdown.HoverItem = true
+
 								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
 							end)
 	
 							Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
 								Item.Hover = false
+								Dropdown.HoverItem = false
 	
 								if not Item.MouseDown then
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
@@ -1209,6 +1214,9 @@ function Library:Create(Options)
 									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
 									Options.Callback(value)
+									if Dropdown.AutoClose then
+										Dropdown:Toggle()
+									end
 								end
 							end)
 	
@@ -1246,7 +1254,7 @@ function Library:Create(Options)
 
 						function Dropdown:Toggle()
 							if Dropdown.Opened then
-								
+								if Dropdown.HoverItem then return end
 								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,30),0.2)
 								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,30)
 								Dropdown.Opened = false
@@ -1265,12 +1273,12 @@ function Library:Create(Options)
 					
 					-- [[ Logic ]]
 					do
-						Dropdown["42"].MouseEnter:Connect(function()
+						Dropdown["32"].MouseEnter:Connect(function()
 							Dropdown.Hover = true
 							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
 						end)
 	
-						Dropdown["42"].MouseLeave:Connect(function()
+						Dropdown["32"].MouseLeave:Connect(function()
 							Dropdown.Hover = false
 	
 							if not Dropdown.MouseDown then
