@@ -1813,9 +1813,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 									)
 								)
 								end
-							end
 
-							ColorPicker:_UpdateColor(centreOfWheel)
+								ColorPicker:_UpdateColor(centreOfWheel)
+							end
 						end)
 					end
 
