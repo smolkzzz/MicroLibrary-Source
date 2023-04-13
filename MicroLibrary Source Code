@@ -1111,15 +1111,16 @@ function Library:Create(Options)
 						Dropdown["35"]["Position"] = UDim2.new(1, -5, 0, 5);
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder
-						Dropdown["36"] = Instance.new("Frame", Dropdown["32"]);
+						Dropdown["36"] = Instance.new("ScrollingFrame", Dropdown["32"]);
 						Dropdown["36"]["Active"] = true;
 						Dropdown["36"]["BorderSizePixel"] = 0;
 						Dropdown["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Dropdown["36"]["CanvasSize"] = UDim2.new(0,0,1000,0)
 						Dropdown["36"]["AnchorPoint"] = Vector2.new(0, 1);
 						Dropdown["36"]["BackgroundTransparency"] = 1;
-						Dropdown["36"]["Size"] = UDim2.new(1, -10, 1, -40);
+						Dropdown["36"]["Size"] = UDim2.new(1, -10, 1, -35);
 						Dropdown["36"]["Position"] = UDim2.new(0, 5, 1, -5);
-						Dropdown["36"]["Visible"] = false;
+						Dropdown["36"]["Visible"] = true;
 						Dropdown["36"]["Name"] = [[OptionHolder]];
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.UIListLayout
@@ -1254,13 +1255,8 @@ function Library:Create(Options)
 								if Dropdown.HoverItem then return end
 								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							else
-								local count = 0
-								for i,v in pairs(Options.Items) do
-									count += 1
-								end
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,35 + (count*18) + 1)})
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,190)})
 							end
-							Dropdown["36"].Visible = not Dropdown["36"].Visible
 							Dropdown.Opened = not Dropdown.Opened
 						end
 
