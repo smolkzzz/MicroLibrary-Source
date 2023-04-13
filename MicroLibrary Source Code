@@ -1196,7 +1196,7 @@ function Library:Create(Options)
 								Item.Hover = true
 								Dropdown.HoverItem = true
 
-								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
+								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(150,150,150)})
 							end)
 	
 							Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
@@ -1204,15 +1204,15 @@ function Library:Create(Options)
 								Dropdown.HoverItem = false
 	
 								if not Item.MouseDown then
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
+									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(78,78,78)})
 								end
 							end)
 	
 							UserInputService.InputBegan:Connect(function(input)
 								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch and Item.Hover then
 									Item.MouseDown = true
-									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
+									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(106, 106, 106)})
+									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(170,170,170)})
 									Options.Callback(value)
 									if Options.AutoClose then
 										Dropdown:Toggle()
@@ -1226,12 +1226,12 @@ function Library:Create(Options)
 	
 									if Item.Hover then
 										-- [[ Hovering State ]]
-										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
+										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(15,15,15)})
+										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(150,150,150)})
 									else
 										-- [[ Reset ]]
-										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
+										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(15,15,15)})
+										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(78,78,78)})
 									end
 								end
 							end)
