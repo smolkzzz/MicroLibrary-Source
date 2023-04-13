@@ -1214,7 +1214,7 @@ function Library:Create(Options)
 									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
 									Options.Callback(value)
-									if Dropdown.AutoClose then
+									if Options.AutoClose then
 										Dropdown:Toggle()
 									end
 								end
@@ -1255,14 +1255,12 @@ function Library:Create(Options)
 						function Dropdown:Toggle()
 							if Dropdown.Opened then
 								if Dropdown.HoverItem then return end
-								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,30),0.2)
-								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,30)
-								Dropdown.Opened = false
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							else
 								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,102),0.2)
-								repeat wait() until Dropdown["32"].Size == UDim2.new(1,0,0,102)
-								Dropdown.Opened = true
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,102)})
 							end
+							Dropdown.Opened = not Dropdown.Opened
 						end
 
 						function Dropdown:Delete()
@@ -1713,24 +1711,8 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 					end
 					-- [[ Logic ]]
 					do
-						function ColorPicker:_UpdateColor(centreOfWheel)
-							local colorPickerCentre = Vector2.new(
-								ColorPicker["71"].AbsolutePosition.X + (ColorPicker["71"].AbsoluteSize.X/2),
-								ColorPicker["71"].AbsolutePosition.Y + (ColorPicker["71"].AbsoluteSize.Y/2)
-							)
-							local h = (math.pi - math.atan2(colorPickerCentre.Y - centreOfWheel.Y,colorPickerCentre.X - centreOfWheel.X)) / (math.pi * 2)
-
-							local s = (centreOfWheel - colorPickerCentre).Magnitude / (ColorPicker["70"].AbsoluteSize.X/2)
-
-							local v = math.abs((ColorPicker["74"].AbsolutePosition.Y - ColorPicker["77"].AbsolutePosition.Y) / ColorPicker["77"].AbsoluteSize.Y - 1)
-
-							local hsv = Color3.fromHSV(math.clamp(h,0,1),math.clamp(s,0,1),math.clamp(v,0,1))
-
-							ColorPicker["79"].Color = hsv
-							ColorPicker["76"].Color = ColorSequence.new(
-								ColorSequenceKeypoint.new(0,hsv),
-								ColorSequenceKeypoint.new(1,Color3.new(0,0,0))
-							)
+						function ColorPicker:_UpdateColor()
+							
 						end
 
 						ColorPicker["7b"].MouseEnter:Connect(function()
@@ -1796,30 +1778,18 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 						end)
 
 						UserInputService.InputChanged:Connect(function(input)
-							if input.UserInputType == Enum.UserInputType.MouseMovement then
-								local mousePos = UserInputService:GetMouseLocation() - Vector2.new(0,game:GetService("GuiService"):GetGuiInset().Y)
-								local centreOfWheel = Vector2.new(ColorPicker["70"].AbsolutePosition.X + (ColorPicker["70"].AbsoluteSize.X/2),ColorPicker["70"].AbsolutePosition.Y + (ColorPicker["70"].AbsoluteSize.Y/2))
+							if input.UserInputType ~= Enum.UserInputType.MouseMovement then return end
+							if ColorPicker.ColorHeld then
 
-								local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
-
-								if distanceFromWheel <= ColorPicker["70"].AbsoluteSize.X/2 and ColorPicker.ColorHeld then
-									ColorPicker["71"].Position = UDim2.new(0,mousePos.X - ColorPicker["71"].AbsolutePosition.X,0,mousePos.Y - ColorPicker["70"].AbsolutePosition.Y)
-								elseif ColorPicker.DarknessHeld then
-									ColorPicker["77"].Position = UDim2.new(ColorPicker["74"].Position.X.Scale,0,0,
-									math.clamp(
-										mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
-										0,
-										ColorPicker["77"].AbsoluteSize.Y
-									)
-								)
-								end
-
-								ColorPicker:_UpdateColor(centreOfWheel)
-							end
+							elseif ColorPicker.DarknessHeld then
+								
+						end
+						
 						end)
+						return ColorPicker
 					end
 
-					return ColorPicker
+					
 				end
 		end
 		return Tab
