@@ -1252,18 +1252,15 @@ function Library:Create(Options)
 						function Dropdown:Toggle()
 							if Dropdown.Opened then
 								if Dropdown.HoverItem then return end
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)},function()
-									Dropdown["36"].Visible = false
-								end)
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							else
 								local count = 0
 								for i,v in pairs(Options.Items) do
 									count += 1
 								end
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,35 + (count*16) + 1)},function()
-									Dropdown["36"].Visible = true
-								end)
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,35 + (count*18) + 1)})
 							end
+							Dropdown["36"].Visible = not Dropdown["36"].Visible
 							Dropdown.Opened = not Dropdown.Opened
 						end
 
