@@ -1196,7 +1196,7 @@ function Library:Create(Options)
 								Item.Hover = true
 								Dropdown.HoverItem = true
 
-								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(150,150,150)})
+								Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
 							end)
 	
 							Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
@@ -1204,17 +1204,17 @@ function Library:Create(Options)
 								Dropdown.HoverItem = false
 	
 								if not Item.MouseDown then
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(78,78,78)})
+									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
 								end
 							end)
 	
 							UserInputService.InputBegan:Connect(function(input)
 								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch and Item.Hover then
 									Item.MouseDown = true
-									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(106, 106, 106)})
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(170,170,170)})
+									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
+									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
 									Options.Callback(value)
-									if Options.AutoClose then
+									if Dropdown.AutoClose then
 										Dropdown:Toggle()
 									end
 								end
@@ -1226,12 +1226,12 @@ function Library:Create(Options)
 	
 									if Item.Hover then
 										-- [[ Hovering State ]]
-										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(15,15,15)})
-										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(150,150,150)})
+										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
 									else
 										-- [[ Reset ]]
-										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(15,15,15)})
-										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(78,78,78)})
+										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
+										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
 									end
 								end
 							end)
@@ -1258,7 +1258,7 @@ function Library:Create(Options)
 								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							else
 								Dropdown["32"]:TweenSize(UDim2.new(1,0,0,102),0.2)
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,102)})
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							end
 							Dropdown.Opened = not Dropdown.Opened
 						end
@@ -1271,6 +1271,12 @@ function Library:Create(Options)
 					
 					-- [[ Logic ]]
 					do
+						for i,v in pairs(Options.Items) do
+							if typeof(v) == "table" then
+								local tbl = v
+								Dropdown:Add(tbl[1],tbl[2])
+							end
+						end
 						Dropdown["32"].MouseEnter:Connect(function()
 							Dropdown.Hover = true
 							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
@@ -1285,6 +1291,7 @@ function Library:Create(Options)
 						end)
 	
 						UserInputService.InputBegan:Connect(function(input)
+							if Dropdown.HoverItem then return end
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								Dropdown.MouseDown = true
 								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
