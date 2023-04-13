@@ -1114,11 +1114,13 @@ function Library:Create(Options)
 						Dropdown["36"] = Instance.new("ScrollingFrame", Dropdown["32"]);
 						Dropdown["36"]["Active"] = true;
 						Dropdown["36"]["BorderSizePixel"] = 0;
+						Dropdown["36"]["CanvasSize"] = UDim2.new(0, 0, 100, 0);
 						Dropdown["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-						Dropdown["36"]["CanvasSize"] = UDim2.new(0,0,1000,0)
 						Dropdown["36"]["AnchorPoint"] = Vector2.new(0, 1);
 						Dropdown["36"]["BackgroundTransparency"] = 1;
 						Dropdown["36"]["Size"] = UDim2.new(1, -10, 1, -35);
+						Dropdown["36"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+						Dropdown["36"]["ScrollBarThickness"] = 0;
 						Dropdown["36"]["Position"] = UDim2.new(0, 5, 1, -5);
 						Dropdown["36"]["Visible"] = true;
 						Dropdown["36"]["Name"] = [[OptionHolder]];
@@ -1254,7 +1256,7 @@ function Library:Create(Options)
 							if Dropdown.Opened then
 								if Dropdown.HoverItem then return end
 								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
-							else
+							else\
 								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,190)})
 							end
 							Dropdown.Opened = not Dropdown.Opened
