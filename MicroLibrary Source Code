@@ -1371,6 +1371,7 @@ function Library:Create(Options)
 							else
 								Dropdown:Add(tostring(tbl[1]),tbl[2])
 							end
+							end
 					end
 					return Dropdown
 				end
@@ -2287,7 +2288,6 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 	end
 
 	return GUI
-end
 end
 
 return Library
