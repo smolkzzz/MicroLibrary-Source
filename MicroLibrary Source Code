@@ -350,8 +350,8 @@ function Library:Create(Options)
 			Tab["51"]["BackgroundTransparency"] = 0.6000000238418579;
 			Tab["51"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 
-			Tab["UITextSizeContraint"] = Instance.new("UITextSizeContraint",Tab["51"]);
-			Tab["UITextSizeContraint"]["MaxTextSize"] = 14;
+			Tab["UITextSizeConstraint"] = Instance.new("UITextSizeConstraint",Tab["51"]);
+			Tab["UITextSizeConstraint"]["MaxTextSize"] = 14;
 			
 			Tab["UIPadding"] = Instance.new("UIPadding",Tab["51"])
 			Tab["UIPadding"]["PaddingLeft"] = UDim.new(0,25)
