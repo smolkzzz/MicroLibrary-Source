@@ -340,6 +340,7 @@ function Library:Create(Options)
 			-- Tab["51"]["FontFace"] = ;
 			Tab["51"]["Selectable"] = true;
 			Tab["51"]["TextSize"] = 14;
+			Tab["51"]["TextScaled"] = true;
 			Tab["51"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			Tab["51"]["Size"] = UDim2.new(1, 0, 0, 25);
 			Tab["51"]["Active"] = true;
@@ -348,6 +349,9 @@ function Library:Create(Options)
 			Tab["51"]["Font"] = Enum.Font.Ubuntu;
 			Tab["51"]["BackgroundTransparency"] = 0.6000000238418579;
 			Tab["51"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+
+			Tab["UITextSizeContraint"] = Instance.new("UITextSizeContraint",Tab["51"]);
+			Tab["UITextSizeContraint"]["MaxTextSize"] = 14;
 			
 			Tab["UIPadding"] = Instance.new("UIPadding",Tab["51"])
 			Tab["UIPadding"]["PaddingLeft"] = UDim.new(0,25)
