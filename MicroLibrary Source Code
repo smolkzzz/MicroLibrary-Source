@@ -1317,6 +1317,8 @@ function Library:Create(Options)
 							else
 								Dropdown:Add(tostring(tbl[1]),tbl[2])
 							end
+						elseif typeof(v) == "string" then
+							Dropdown:Add(tostring(tbl[1]),tostring(tbl[1]))
 						end
 					end
 					return Dropdown
