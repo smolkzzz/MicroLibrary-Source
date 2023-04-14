@@ -241,7 +241,7 @@ function Library:Create(Options)
 		GUI["49"] = Instance.new("Frame", GUI["2"]);
 		GUI["49"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
 		GUI["49"]["AnchorPoint"] = Vector2.new(0, 1);
-		GUI["49"]["Size"] = UDim2.new(0, 100, 1, -30);
+		GUI["49"]["Size"] = UDim2.new(0, 100, 1, -31);
 		GUI["49"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["49"]["Name"] = [[Navigation]];
 
