@@ -191,20 +191,24 @@ function Library:Create(Options)
 		GUI["f"]["Name"] = [[ContentContainer]];
 
 		-- StarterGui.MicroLibrary.Main.ContentContainer.Description
-		GUI["Description"] = Instance.new("TextLabel",GUI["f"])
+		GUI["Description"] = Instance.new("TextLabel",GUI["f"]);
 		GUI["Description"]["Name"] = "Description";
 		GUI["Description"]["Text"] = "";
+		GUI["Description"]["BackgroundColor3"] = Color3.fromRGB(39,39,39)
 		GUI["Description"]["AnchorPoint"] = Vector2.new(0.5,1);
 		GUI["Description"]["Size"] = UDim2.new(1,-2,0,30);
 		GUI["Description"]["Position"] = UDim2.new(0.5,0,1,35)
 		GUI["Description"]["Visible"] = false
+
+		GUI["DescriptionCorner"] = Instance.new("UICorner",GUI["Description"]);
+		GUI["DescriptionCorner"]["CornerRadius"] = UDim.new(0,4);
 
 		function GUI:ShowDescription(text)
 			if GUI["Description"].Text ~= "" then return end
 			GUI["Description"].Text = text
 			GUI["Description"].Visible = true
 			Library:tween(GUI["Description"],{Position = UDim2.new(0.5,0,1,0)})
-			wait(5)
+			wait(4)
 			Library:tween(GUI["Description"],{Position = UDim2.new(0.5,0,1,35)},function()
 				GUI["Description"].Visible = false
 				GUI["Description"].Text = ""
@@ -1829,7 +1833,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
 											ColorPicker.Opened = false
 										end
-										elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Button.Hover then
+										elseif input.UserInputType == Enum.UserInputType.MouseButton2 and ColorPicker.Hover then
 											if Options.Description == nil then return end
 											GUI:ShowDescription(Options.Description)
 								end
