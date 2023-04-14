@@ -1270,12 +1270,6 @@ function Library:Create(Options)
 					
 					-- [[ Logic ]]
 					do
-						for i,v in pairs(Options.Items) do
-							if typeof(v) == "table" then
-								local tbl = v
-								Dropdown:Add(tbl[1],tbl[2])
-							end
-						end
 						Dropdown["32"].MouseEnter:Connect(function()
 							Dropdown.Hover = true
 							Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
@@ -1314,6 +1308,16 @@ function Library:Create(Options)
 								end
 							end
 						end)
+					end
+					for i,v in pairs(Options.Items) do
+						if typeof(v) == "table" then
+							local tbl = v
+							if tbl[2] == nil then
+								Dropdown:Add(tbl[1],tbl[1])
+							else
+								Dropdown:Add(tbl[1],tbl[2])
+							end
+						end
 					end
 					return Dropdown
 				end
