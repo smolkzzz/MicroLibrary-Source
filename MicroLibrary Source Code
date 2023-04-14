@@ -204,6 +204,9 @@ function Library:Create(Options)
 		GUI["DescriptionCorner"] = Instance.new("UICorner",GUI["Description"]);
 		GUI["DescriptionCorner"]["CornerRadius"] = UDim.new(0,4);
 
+		GUI["DescriptionText"] = Instance.new("UITextContraint",GUI["Description"]);
+		GUI["DescriptionText"]["MaxSize"] = 16;
+
 		function GUI:ShowDescription(text)
 			if GUI["Description"].Text ~= "" then return end
 			GUI["Description"].Text = text
