@@ -194,6 +194,7 @@ function Library:Create(Options)
 		GUI["Description"] = Instance.new("TextLabel",GUI["f"]);
 		GUI["Description"]["Name"] = "Description";
 		GUI["Description"]["Text"] = "";
+		GUI["Description"]["TextColor3"] = Color3.fromRGB(255,255,255)
 		GUI["Description"]["BackgroundColor3"] = Color3.fromRGB(39,39,39)
 		GUI["Description"]["AnchorPoint"] = Vector2.new(0.5,1);
 		GUI["Description"]["Size"] = UDim2.new(1,-2,0,30);
