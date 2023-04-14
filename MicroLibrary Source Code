@@ -187,7 +187,29 @@ function Library:Create(Options)
 		GUI["f"]["BackgroundTransparency"] = 1;
 		GUI["f"]["Size"] = UDim2.new(1, -110, 1, -40);
 		GUI["f"]["Position"] = UDim2.new(1, -5, 0, 35);
+		GUI["f"]["ClipsDescedants"] = true;
 		GUI["f"]["Name"] = [[ContentContainer]];
+
+		-- StarterGui.MicroLibrary.Main.ContentContainer.Description
+		GUI["Description"] = Instance.new("TextLabel",GUI["f"])
+		GUI["Description"]["Name"] = "Description";
+		GUI["Description"]["Text"] = "";
+		GUI["Description"]["AnchorPoint"] = UDim.new(0.5,1);
+		GUI["Description"]["Size"] = UDim2.new(1,-2,0,30);
+		GUI["Description"]["Position"] = UDim2.new(0.5,0,1,35)
+		GUI["Description"]["Visible"] = false
+
+		function GUI:ShowDescription(text)
+			if GUI["Description"].Text ~= "" then return end
+			GUI["Description"].Text = text
+			GUI["Description"].Visible = true
+			Library:tween(GUI["Description"],{Position = UDim2.new(0.5,0,1,0)})
+			wait(5)
+			Library:tween(GUI["Description"],{Position = UDim2.new(0.5,0,1,35)},function()
+				GUI["Description"].Visible = false
+				GUI["Description"].Text = ""
+			end)
+		end
 	end
 	local CloseHover = false
 	GUI["e"].MouseEnter:Connect(function()
@@ -224,7 +246,7 @@ function Library:Create(Options)
 		GUI["49"]["Name"] = [[Navigation]];
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Line
-		GUI["Line"] = Instance.new("Frame", GUI["8"]);
+		GUI["Line"] = Instance.new("Frame", GUI["49"]);
 		GUI["Line"]["BorderSizePixel"] = 0;
 		GUI["Line"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
 		GUI["Line"]["Size"] = UDim2.new(0,1,1,0);
@@ -417,6 +439,7 @@ function Library:Create(Options)
 			function Tab:Button(Options)
 				Options = Library:validate({
 					Name = [[Button Preview]];
+					Description = nil;
 					Callback = function() end;
 				},Options or {})
 				
@@ -500,11 +523,14 @@ function Library:Create(Options)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover or input.UserInputType == Enum.UserInputType.Touch then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover then
 							Button.MouseDown = true
 							Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 							Library:tween(Button["14"],{Color = Color3.fromRGB(200,200,200)})
 							Options.Callback()
+						elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Button.Hover then
+							if Options.Description == nil then return end
+							GUI:ShowDescription(Options.Description)
 						end
 					end)
 					
@@ -761,6 +787,7 @@ function Library:Create(Options)
 			function Tab:Slider(Options)
 				Options = Library:validate({
 					Name = [[Slider Preview]];
+					Description = nil;
 					Minimum = 0;
 					Maximum = 100;
 					Default = 50;
@@ -921,6 +948,9 @@ function Library:Create(Options)
 									Slider:SetValue()
 								end)
 							end
+							elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Slider.Hover then
+							if Options.Description == nil then return end
+							GUI:ShowDescription(Options.Description)
 						end
 					end)
 					
@@ -950,6 +980,7 @@ function Library:Create(Options)
 			function Tab:Toggle(Options)
 				Options = Library:validate({
 					Name = [[Toggle Preview]];
+					Description = nil;
 					Callback = function(Value) end
 				},Options or {})
 				
@@ -1061,7 +1092,9 @@ function Library:Create(Options)
 								else
 									Toggle:Activate()
 								end
-							
+								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Toggle.Hover then
+									if Options.Description == nil then return end
+									GUI:ShowDescription(Options.Description)
 						end
 					end)
 				end
@@ -1071,6 +1104,7 @@ function Library:Create(Options)
 				function Tab:Dropdown(Options)
 					Options = Library:validate({
 						Name = [[Dropdown Preview]];
+						Description = nil;
 						Items = {};
 						AutoClose = false;
 						Callback = function() end;
@@ -1297,6 +1331,9 @@ function Library:Create(Options)
 								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 								Library:tween(Dropdown["34"],{Color = Color3.fromRGB(200,200,200)})
 								Dropdown:Toggle()
+								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Dropdown.Hover then
+							if Options.Description == nil then return end
+							GUI:ShowDescription(Options.Description)
 							end
 						end)
 	
@@ -1334,6 +1371,7 @@ function Library:Create(Options)
 				function Tab:TextBox(Options)
 					Options = Library:validate({
 						Name = [[Textbox Preview]];
+						Description = nil;
 						PlaceHolderText = "PlaceHolderText";
 						RemoveTextOnFocusLost = false;
 						Callback = function() end
@@ -1443,7 +1481,9 @@ function Library:Create(Options)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								
 									Textbox["47"].Text = ""
-								
+									elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Textbox.Hover then
+										if Options.Description == nil then return end
+										GUI:ShowDescription(Options.Description)
 							end
 						end)
 
@@ -1460,6 +1500,7 @@ function Library:Create(Options)
 				function Tab:Keybind(Options)
 					Options = Library:validate({
 						Name = [[Keybind Preview]];
+						Description = nil;
 						Callback = function() end
 					},Options or {})
 					
@@ -1559,7 +1600,10 @@ function Library:Create(Options)
 									Keybind["5e"].Text = tostring(input.KeyCode):Split("Enum.KeyCode.")
 								end
 							elseif input.KeyCode == Keybind.Bind then
-								Options.Callback()						
+								Options.Callback()	
+								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Button.Hover then
+							if Options.Description == nil then return end
+							GUI:ShowDescription(Options.Description)					
 							end
 						end)
 					end
@@ -1569,6 +1613,7 @@ function Library:Create(Options)
 				function Tab:ColorPicker(Options)
 					Options = Library:validate({
 						Name = "ColorPicker Preview";
+						Description = nil;
 						Callback = function(color) end;
 					},Options or {})
 
@@ -1783,6 +1828,9 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
 											ColorPicker.Opened = false
 										end
+										elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Button.Hover then
+											if Options.Description == nil then return end
+											GUI:ShowDescription(Options.Description)
 								end
 							end
 						end)
