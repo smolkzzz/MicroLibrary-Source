@@ -241,7 +241,7 @@ function Library:Create(Options)
 		GUI["49"] = Instance.new("Frame", GUI["2"]);
 		GUI["49"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
 		GUI["49"]["AnchorPoint"] = Vector2.new(0, 1);
-		GUI["49"]["Size"] = UDim2.new(0, 100, 1, -31);
+		GUI["49"]["Size"] = UDim2.new(0, 100, 1, -32);
 		GUI["49"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["49"]["Name"] = [[Navigation]];
 
@@ -249,8 +249,9 @@ function Library:Create(Options)
 		GUI["Line"] = Instance.new("Frame", GUI["49"]);
 		GUI["Line"]["BorderSizePixel"] = 0;
 		GUI["Line"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
-		GUI["Line"]["Size"] = UDim2.new(0,1,1,0);
-		GUI["Line"]["Position"] = UDim2.new(1, 1, 0, 0);
+		GUI["Line"]["AnchorPoint"] = Vector2.new(0,1);
+		GUI["Line"]["Size"] = UDim2.new(0,1,1,1);
+		GUI["Line"]["Position"] = UDim2.new(1, 1, 1, 0);
 		GUI["Line"]["Name"] = [[Line]];
 
 		-- StarterGui.MicroLibrary.Main.Navigation.UICorner
