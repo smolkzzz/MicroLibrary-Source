@@ -1608,7 +1608,7 @@ function Library:Create(Options)
 								end
 							elseif input.KeyCode == Keybind.Bind then
 								Options.Callback()	
-								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Button.Hover then
+								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Hover then
 							if Options.Description == nil then return end
 							GUI:ShowDescription(Options.Description)					
 							end
@@ -2287,6 +2287,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 	end
 
 	return GUI
+end
 end
 
 return Library
