@@ -187,7 +187,7 @@ function Library:Create(Options)
 		GUI["f"]["BackgroundTransparency"] = 1;
 		GUI["f"]["Size"] = UDim2.new(1, -110, 1, -40);
 		GUI["f"]["Position"] = UDim2.new(1, -5, 0, 35);
-		GUI["f"]["ClipsDescedants"] = true;
+		GUI["f"]["ClipsDescendants"] = true;
 		GUI["f"]["Name"] = [[ContentContainer]];
 
 		-- StarterGui.MicroLibrary.Main.ContentContainer.Description
