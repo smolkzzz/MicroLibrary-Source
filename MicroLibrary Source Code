@@ -141,8 +141,7 @@ function Library:Create(Options)
 		-- StarterGui.MicroLibrary.Main.TopBar.Line
 		GUI["b"] = Instance.new("Frame", GUI["8"]);
 		GUI["b"]["BorderSizePixel"] = 0;
-		GUI["b"]["BackgroundColor3"] = Color3.fromRGB(86, 0, 0);
-		GUI["b"]["AnchorPoint"] = Vector2.new(0, 1);
+		GUI["b"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
 		GUI["b"]["Size"] = UDim2.new(1, 0, 0.05000000074505806, 0);
 		GUI["b"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["b"]["Name"] = [[Line]];
@@ -223,6 +222,14 @@ function Library:Create(Options)
 		GUI["49"]["Size"] = UDim2.new(0, 100, 1, -30);
 		GUI["49"]["Position"] = UDim2.new(0, 0, 1, 0);
 		GUI["49"]["Name"] = [[Navigation]];
+
+		-- StarterGui.MicroLibrary.Main.TopBar.Line
+		GUI["Line"] = Instance.new("Frame", GUI["8"]);
+		GUI["Line"]["BorderSizePixel"] = 0;
+		GUI["Line"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
+		GUI["Line"]["Size"] = UDim2.new(0,1,1,0);
+		GUI["Line"]["Position"] = UDim2.new(1, 1, 0, 0);
+		GUI["Line"]["Name"] = [[Line]];
 
 		-- StarterGui.MicroLibrary.Main.Navigation.UICorner
 		GUI["4a"] = Instance.new("UICorner", GUI["49"]);
