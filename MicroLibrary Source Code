@@ -1313,9 +1313,9 @@ function Library:Create(Options)
 						if typeof(v) == "table" then
 							local tbl = v
 							if tbl[2] == nil then
-								Dropdown:Add(tbl[1],tbl[1])
+								Dropdown:Add(tostring(tbl[1]),tostring(tbl[1]))
 							else
-								Dropdown:Add(tbl[1],tbl[2])
+								Dropdown:Add(tostring(tbl[1]),tbl[2])
 							end
 						end
 					end
