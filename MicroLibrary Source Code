@@ -1252,6 +1252,8 @@ function Library:Create(Options)
 							Dropdown.Items[id].instance["41"]["CornerRadius"] = UDim.new(0, 4);
 							
 							Dropdown.Items[id].instance["3f"].MouseEnter:Connect(function()
+								if Dropdown.Items[id] == nil then return end
+
 								Item.Hover = true
 								Dropdown.HoverItem = true
 
@@ -1259,6 +1261,8 @@ function Library:Create(Options)
 							end)
 	
 							Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
+								if Dropdown.Items[id] == nil then return end
+
 								Item.Hover = false
 								Dropdown.HoverItem = false
 	
@@ -1268,6 +1272,8 @@ function Library:Create(Options)
 							end)
 	
 							UserInputService.InputBegan:Connect(function(input)
+								if Dropdown.Items[id] == nil then return end
+
 								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch and Item.Hover then
 									Item.MouseDown = true
 									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
@@ -1298,7 +1304,7 @@ function Library:Create(Options)
 	
 						function Dropdown:Remove(id)
 							if Dropdown.Items[id] ~= nil then
-								if #Dropdown.Items[id].instance ~= nil then
+								if Dropdown.Items[id].instance ~= nil then
 									for i, v in pairs(Dropdown.Items[id].instance) do
 										v:Destroy()
 									end
