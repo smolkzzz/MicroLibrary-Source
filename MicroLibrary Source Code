@@ -1298,8 +1298,10 @@ function Library:Create(Options)
 	
 						function Dropdown:Remove(id)
 							if Dropdown.Items[id] ~= nil then
-								for i, v in pairs(Dropdown.Items[id].instance) do
-									v:Destroy()
+								if #Dropdown.Items[id].instance ~= nil then
+									for i, v in pairs(Dropdown.Items[id].instance) do
+										v:Destroy()
+									end
 								end
 								Dropdown.Items[id] = nil
 							end
