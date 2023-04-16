@@ -32,6 +32,7 @@ function Library:Create(Options)
 	Options = Library:validate({
 		Name = game.Name .. " Script";
 		Toggle = "LeftShift";
+		CloseCallback = function() end;
 		KeySystem = false;
 		KeySettings = {
 			CorrectKey = "Hello World!",
@@ -232,6 +233,9 @@ function Library:Create(Options)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 and CloseHover then
 			GUI["1"]:Destroy()
 			GUI.CloseHover = false
+			if Options.CloseCallback ~= nil then
+				Options.CloseCallback()
+			end
 		elseif input.KeyCode == Options.Toggle then
 			if GUI.Opened then
 				Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
@@ -1368,8 +1372,8 @@ function Library:Create(Options)
 						end)
 					end
 					for i,v in pairs(Options.Items) do
+						local tbl = v
 						if typeof(v) == "table" then
-							local tbl = v
 							if tbl[2] == nil then
 								Dropdown:Add(tostring(tbl[1]),tostring(tbl[1]))
 							else
