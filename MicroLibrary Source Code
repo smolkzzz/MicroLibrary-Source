@@ -28,6 +28,16 @@ function Library:validate(defaults, Options)
 	return Options
 end
 
+function Library:RandomString(length)
+	local array = {}
+
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+
+	return table.concat(array)
+end
+
 function Library:Create(Options)
 	Options = Library:validate({
 		Name = game.Name .. " Script";
@@ -54,7 +64,7 @@ function Library:Create(Options)
 		GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Client:WaitForChild("PlayerGui") or CoreGui);
 		GUI["1"]["ResetOnSpawn"] = false;
 		GUI["1"]["IgnoreGuiInset"] = true;
-		GUI["1"]["Name"] = [[MicroLibrary]];
+		GUI["1"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[MicroLibrary]];
 
 		-- StarterGui.MicroLibrary.Main
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
@@ -62,12 +72,13 @@ function Library:Create(Options)
 		GUI["2"]["AnchorPoint"] = Vector2.new(0,0);
 		GUI["2"]["Size"] = Options.Size;
 		GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
-		GUI["2"]["Name"] = [[Main]];
+		GUI["2"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Main]];
 		GUI["2"]["Active"] = true;
 		GUI["2"]["Draggable"] = true;
 
 		-- StarterGui.MicroLibrary.Main.UICorner
 		GUI["3"] = Instance.new("UICorner", GUI["2"]);
+		GUI["3"]["Name"] = Library:RandomString(10,100);
 		GUI["3"]["CornerRadius"] = UDim.new(0, 4);
 
 		-- StarterGui.MicroLibrary.Main.shadowHolder
@@ -75,7 +86,7 @@ function Library:Create(Options)
 		GUI["4"]["ZIndex"] = 0;
 		GUI["4"]["BackgroundTransparency"] = 1;
 		GUI["4"]["Size"] = UDim2.new(1, 0, 1, 0);
-		GUI["4"]["Name"] = [[shadowHolder]];
+		GUI["4"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[shadowHolder]];
 
 		-- StarterGui.MicroLibrary.Main.shadowHolder.umbraShadow
 		GUI["5"] = Instance.new("ImageLabel", GUI["4"]);
@@ -87,7 +98,7 @@ function Library:Create(Options)
 		GUI["5"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 		GUI["5"]["Image"] = [[rbxassetid://1316045217]];
 		GUI["5"]["Size"] = UDim2.new(1, 10, 1, 10);
-		GUI["5"]["Name"] = [[umbraShadow]];
+		GUI["5"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[umbraShadow]];
 		GUI["5"]["BackgroundTransparency"] = 1;
 		GUI["5"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 
@@ -101,7 +112,7 @@ function Library:Create(Options)
 		GUI["6"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 		GUI["6"]["Image"] = [[rbxassetid://1316045217]];
 		GUI["6"]["Size"] = UDim2.new(1, 10, 1, 10);
-		GUI["6"]["Name"] = [[penumbraShadow]];
+		GUI["6"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[penumbraShadow]];
 		GUI["6"]["BackgroundTransparency"] = 1;
 		GUI["6"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 
@@ -115,7 +126,7 @@ function Library:Create(Options)
 		GUI["7"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 		GUI["7"]["Image"] = [[rbxassetid://1316045217]];
 		GUI["7"]["Size"] = UDim2.new(1, 10, 1, 10);
-		GUI["7"]["Name"] = [[ambientShadow]];
+		GUI["7"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ambientShadow]];
 		GUI["7"]["BackgroundTransparency"] = 1;
 		GUI["7"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 
@@ -124,10 +135,11 @@ function Library:Create(Options)
 		GUI["8"]["BorderSizePixel"] = 0;
 		GUI["8"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
 		GUI["8"]["Size"] = UDim2.new(1, 0, 0, 30);
-		GUI["8"]["Name"] = [[TopBar]];
+		GUI["8"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
 
 		-- StarterGui.MicroLibrary.Main.TopBar.UICorner
 		GUI["9"] = Instance.new("UICorner", GUI["8"]);
+		GUI["9"]["Name"] = Library:RandomString(10,100);
 		GUI["9"]["CornerRadius"] = UDim.new(0, 4);
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Hide
@@ -137,7 +149,7 @@ function Library:Create(Options)
 		GUI["a"]["AnchorPoint"] = Vector2.new(0, 1);
 		GUI["a"]["Size"] = UDim2.new(1, 0, 0.25, 0);
 		GUI["a"]["Position"] = UDim2.new(0, 0, 1, 0);
-		GUI["a"]["Name"] = [[Hide]];
+		GUI["a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide]];
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Line
 		GUI["b"] = Instance.new("Frame", GUI["8"]);
@@ -145,7 +157,7 @@ function Library:Create(Options)
 		GUI["b"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
 		GUI["b"]["Size"] = UDim2.new(1, 0, 0.05000000074505806, 0);
 		GUI["b"]["Position"] = UDim2.new(0, 0, 1, 0);
-		GUI["b"]["Name"] = [[Line]];
+		GUI["b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Line]];
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Title
 		GUI["c"] = Instance.new("TextLabel", GUI["8"]);
@@ -156,12 +168,13 @@ function Library:Create(Options)
 		GUI["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["c"]["Size"] = UDim2.new(0, 200, 1, -3);
 		GUI["c"]["Text"] = "MicroLibrary | " .. Options.Name;
-		GUI["c"]["Name"] = [[Title]];
+		GUI["c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 		GUI["c"]["Font"] = Enum.Font.Gotham;
 		GUI["c"]["BackgroundTransparency"] = 1;
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Title.UIPadding
 		GUI["d"] = Instance.new("UIPadding", GUI["c"]);
+		GUI["d"]["Name"] = Library:RandomString(10,100);
 		GUI["d"]["PaddingLeft"] = UDim.new(0, 2);
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Close
@@ -174,7 +187,7 @@ function Library:Create(Options)
 		-- GUI["e"]["FontFace"] = ;
 		GUI["e"]["AnchorPoint"] = Vector2.new(1, 0);
 		GUI["e"]["Size"] = UDim2.new(0, 27, 1, -3);
-		GUI["e"]["Name"] = [[Close]];
+		GUI["e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Close]];
 		GUI["e"]["ClipsDescendants"] = true;
 		GUI["e"]["Text"] = [[X]];
 		GUI["e"]["Font"] = Enum.Font.GothamBold;
@@ -189,11 +202,11 @@ function Library:Create(Options)
 		GUI["f"]["Size"] = UDim2.new(1, -110, 1, -40);
 		GUI["f"]["Position"] = UDim2.new(1, -5, 0, 35);
 		GUI["f"]["ClipsDescendants"] = true;
-		GUI["f"]["Name"] = [[ContentContainer]];
+		GUI["f"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ContentContainer]];
 
 		-- StarterGui.MicroLibrary.Main.ContentContainer.Description
 		GUI["Description"] = Instance.new("TextLabel",GUI["f"]);
-		GUI["Description"]["Name"] = "Description";
+		GUI["Description"]["Name"] = Library:RandomString(math.random(10,100)); -- = "Description";
 		GUI["Description"]["Text"] = "";
 		GUI["Description"]["TextScaled"] = true;
 		GUI["Description"]["TextColor3"] = Color3.fromRGB(255,255,255)
@@ -204,9 +217,11 @@ function Library:Create(Options)
 		GUI["Description"]["Visible"] = false
 
 		GUI["DescriptionCorner"] = Instance.new("UICorner",GUI["Description"]);
+		GUI["DescriptionCorner"]["Name"] = Library:RandomString(10,100);
 		GUI["DescriptionCorner"]["CornerRadius"] = UDim.new(0,4);
 
 		GUI["DescriptionText"] = Instance.new("UITextSizeConstraint",GUI["Description"]);
+		GUI["DescriptionText"]["Name"] = Library:RandomString(10,100);
 		GUI["DescriptionText"]["MaxTextSize"] = 16;
 
 		function GUI:ShowDescription(text)
@@ -256,7 +271,7 @@ function Library:Create(Options)
 		GUI["49"]["AnchorPoint"] = Vector2.new(0, 1);
 		GUI["49"]["Size"] = UDim2.new(0, 100, 1, -32);
 		GUI["49"]["Position"] = UDim2.new(0, 0, 1, 0);
-		GUI["49"]["Name"] = [[Navigation]];
+		GUI["49"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Navigation]];
 
 		-- StarterGui.MicroLibrary.Main.TopBar.Line
 		GUI["Line"] = Instance.new("Frame", GUI["49"]);
@@ -265,7 +280,7 @@ function Library:Create(Options)
 		GUI["Line"]["AnchorPoint"] = Vector2.new(0,1);
 		GUI["Line"]["Size"] = UDim2.new(0,1,1,1);
 		GUI["Line"]["Position"] = UDim2.new(1, 1, 1, 0);
-		GUI["Line"]["Name"] = [[Line]];
+		GUI["Line"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Line]];
 
 		-- StarterGui.MicroLibrary.Main.Navigation.UICorner
 		GUI["4a"] = Instance.new("UICorner", GUI["49"]);
@@ -276,7 +291,7 @@ function Library:Create(Options)
 		GUI["4b"]["BorderSizePixel"] = 0;
 		GUI["4b"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
 		GUI["4b"]["Size"] = UDim2.new(1, 0, 0, 5);
-		GUI["4b"]["Name"] = [[Hide]];
+		GUI["4b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide]];
 
 		-- StarterGui.MicroLibrary.Main.Navigation.Hide2
 		GUI["4c"] = Instance.new("Frame", GUI["49"]);
@@ -285,7 +300,7 @@ function Library:Create(Options)
 		GUI["4c"]["AnchorPoint"] = Vector2.new(1, 0);
 		GUI["4c"]["Size"] = UDim2.new(0, 5, 1, 0);
 		GUI["4c"]["Position"] = UDim2.new(1, 0, 0, 0);
-		GUI["4c"]["Name"] = [[Hide2]];
+		GUI["4c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide2]];
 
 		-- StarterGui.MicroLibrary.Main.Navigation.Tabs
 		GUI["4d"] = Instance.new("ScrollingFrame", GUI["49"]);
@@ -297,10 +312,11 @@ function Library:Create(Options)
 		GUI["4d"]["Size"] = UDim2.new(1, 0, 1, 0);
 		GUI["4d"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4d"]["ScrollBarThickness"] = 0;
-		GUI["4d"]["Name"] = [[Tabs]];
+		GUI["4d"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Tabs]];
 
 		-- StarterGui.MicroLibrary.Main.Navigation.Tabs.UIListLayout
 		GUI["4e"] = Instance.new("UIListLayout", GUI["4d"]);
+		GUI["4e"]["Name"] = Library:RandomString(10,100);
 		GUI["4e"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
 	
@@ -314,11 +330,12 @@ function Library:Create(Options)
 		GUI["64"]["Size"] = UDim2.new(0.2166377753019333, 0, 0.9660326242446899, 0);
 		GUI["64"]["ClipsDescendants"] = true;
 		GUI["64"]["Position"] = UDim2.new(0.989168107509613, 0, 0.5, 0);
-		GUI["64"]["Name"] = [[Notifications]];
+		GUI["64"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Notifications]];
 
 		-- StarterGui.MicroLibrary.Notifications.UIListLayout
 		GUI["65"] = Instance.new("UIListLayout", GUI["64"]);
 		GUI["65"]["VerticalAlignment"] = Enum.VerticalAlignment.Bottom;
+		GUI["65"]["Name"] = Library:RandomString(10,100);
 		GUI["65"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
 	
@@ -349,7 +366,7 @@ function Library:Create(Options)
 			Tab["51"]["Size"] = UDim2.new(1, 0, 0, 25);
 			Tab["51"]["Active"] = true;
 			Tab["51"]["Text"] = Options.Name;
-			Tab["51"]["Name"] = [[Tab]];
+			Tab["51"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Tab]];
 			Tab["51"]["Font"] = Enum.Font.Ubuntu;
 			Tab["51"]["BackgroundTransparency"] = 0.6000000238418579;
 			Tab["51"]["TextXAlignment"] = Enum.TextXAlignment.Left;
@@ -368,7 +385,7 @@ function Library:Create(Options)
 			Tab["52"]["ImageTransparency"] = 0.6000000238418579;
 			Tab["52"]["Image"] = Options.Icon;
 			Tab["52"]["Size"] = UDim2.new(0, 25, 1, 0);
-			Tab["52"]["Name"] = [[Icon]];
+			Tab["52"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 			Tab["52"]["BackgroundTransparency"] = 1;
 			
 			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab
@@ -381,7 +398,7 @@ function Library:Create(Options)
 			Tab["10"]["Size"] = UDim2.new(1, 0, 1, 0);
 			Tab["10"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
 			Tab["10"]["ScrollBarThickness"] = 0;
-			Tab["10"]["Name"] = [[Tab]];
+			Tab["10"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Tab]];
 			Tab["10"]["Visible"] = false;
 
 			-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.UIListLayout
@@ -472,7 +489,7 @@ function Library:Create(Options)
 					Button["12"] = Instance.new("Frame", Tab["10"]);
 					Button["12"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Button["12"]["Size"] = UDim2.new(1, 0, 0, 30);
-					Button["12"]["Name"] = [[Button]];
+					Button["12"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Button]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.UICorner
 					Button["13"] = Instance.new("UICorner", Button["12"]);
@@ -489,7 +506,7 @@ function Library:Create(Options)
 					Button["15"]["AnchorPoint"] = Vector2.new(1, 0);
 					Button["15"]["Image"] = [[rbxassetid://12222922560]];
 					Button["15"]["Size"] = UDim2.new(0, 30, 1, 0);
-					Button["15"]["Name"] = [[Icon]];
+					Button["15"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 					Button["15"]["BackgroundTransparency"] = 1;
 					Button["15"]["Position"] = UDim2.new(1, 0, 0, 0);
 	
@@ -505,7 +522,7 @@ function Library:Create(Options)
 					Button["16"]["Size"] = UDim2.new(1, -35, 1, -10);
 					Button["16"]["Active"] = true;
 					Button["16"]["Text"] = Options.Name;
-					Button["16"]["Name"] = [[Click]];
+					Button["16"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Click]];
 					Button["16"]["Font"] = Enum.Font.Ubuntu;
 					Button["16"]["BackgroundTransparency"] = 1;
 					Button["16"]["Position"] = UDim2.new(0, 5, 0.5, 0);
@@ -585,7 +602,7 @@ function Library:Create(Options)
 					Warning["18"] = Instance.new("Frame", Tab["10"]);
 					Warning["18"]["BackgroundColor3"] = Color3.fromRGB(62, 62, 12);
 					Warning["18"]["Size"] = UDim2.new(1, 0, 0, 30);
-					Warning["18"]["Name"] = [[Warning]];
+					Warning["18"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Warning]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.UICorner
 					Warning["19"] = Instance.new("UICorner", Warning["18"]);
@@ -601,7 +618,7 @@ function Library:Create(Options)
 					Warning["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 					Warning["1b"]["Image"] = [[rbxassetid://12222946364]];
 					Warning["1b"]["Size"] = UDim2.new(0, 30, 1, 0);
-					Warning["1b"]["Name"] = [[Icon]];
+					Warning["1b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 					Warning["1b"]["BackgroundTransparency"] = 1;
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.Text
@@ -617,7 +634,7 @@ function Library:Create(Options)
 					Warning["1c"]["Size"] = UDim2.new(1, 0, 1, -10);
 					Warning["1c"]["Active"] = true;
 					Warning["1c"]["Text"] = Options.Message;
-					Warning["1c"]["Name"] = [[Text]];
+					Warning["1c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Text]];
 					Warning["1c"]["Font"] = Enum.Font.Ubuntu;
 					Warning["1c"]["BackgroundTransparency"] = 1;
 					Warning["1c"]["Position"] = UDim2.new(1, -5, 0.5, 0);
@@ -662,7 +679,7 @@ function Library:Create(Options)
 					Info["1d"] = Instance.new("Frame", Tab["10"]);
 					Info["1d"]["BackgroundColor3"] = Color3.fromRGB(16, 16, 81);
 					Info["1d"]["Size"] = UDim2.new(1, 0, 0, 30);
-					Info["1d"]["Name"] = [[Info]];
+					Info["1d"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Info]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.UICorner
 					Info["1e"] = Instance.new("UICorner", Info["1d"]);
@@ -678,7 +695,7 @@ function Library:Create(Options)
 					Info["20"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 					Info["20"]["Image"] = [[rbxassetid://12222971215]];
 					Info["20"]["Size"] = UDim2.new(0, 30, 1, 0);
-					Info["20"]["Name"] = [[Icon]];
+					Info["20"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 					Info["20"]["BackgroundTransparency"] = 1;
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.Text
@@ -694,7 +711,7 @@ function Library:Create(Options)
 					Info["21"]["Size"] = UDim2.new(1, 0, 1, -10);
 					Info["21"]["Active"] = true;
 					Info["21"]["Text"] = Options.Message;
-					Info["21"]["Name"] = [[Text]];
+					Info["21"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Text]];
 					Info["21"]["Font"] = Enum.Font.Ubuntu;
 					Info["21"]["BackgroundTransparency"] = 1;
 					Info["21"]["Position"] = UDim2.new(0, 5, 0, 5);
@@ -738,7 +755,7 @@ function Library:Create(Options)
 					Label["22"] = Instance.new("Frame", Tab["10"]);
 					Label["22"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Label["22"]["Size"] = UDim2.new(1, 0, 0, 30);
-					Label["22"]["Name"] = [[Label]];
+					Label["22"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Label]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.UICorner
 					Label["23"] = Instance.new("UICorner", Label["22"]);
@@ -754,7 +771,7 @@ function Library:Create(Options)
 					Label["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 					Label["25"]["Image"] = [[rbxassetid://12222991501]];
 					Label["25"]["Size"] = UDim2.new(0, 30, 1, 0);
-					Label["25"]["Name"] = [[Icon]];
+					Label["25"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 					Label["25"]["BackgroundTransparency"] = 1;
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.Text
@@ -770,7 +787,7 @@ function Library:Create(Options)
 					Label["26"]["Size"] = UDim2.new(1, 0, 1, -10);
 					Label["26"]["Text"] = Options.Message;
 					Label["26"]["Active"] = true;
-					Label["26"]["Name"] = [[Text]];
+					Label["26"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Text]];
 					Label["26"]["Font"] = Enum.Font.Ubuntu;
 					Label["26"]["BackgroundTransparency"] = 1;
 					Label["26"]["Position"] = UDim2.new(1, -5, 0.5, 0);
@@ -824,7 +841,7 @@ function Library:Create(Options)
 					Slider["27"] = Instance.new("Frame", Tab["10"]);
 					Slider["27"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Slider["27"]["Size"] = UDim2.new(1, 0, 0, 40);
-					Slider["27"]["Name"] = [[Slider]];
+					Slider["27"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Slider]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.UICorner
 					Slider["28"] = Instance.new("UICorner", Slider["27"]);
@@ -846,7 +863,7 @@ function Library:Create(Options)
 					Slider["2a"]["Size"] = UDim2.new(0, 253, 0, 20);
 					Slider["2a"]["Active"] = true;
 					Slider["2a"]["Text"] = Options.Name;
-					Slider["2a"]["Name"] = [[Text]];
+					Slider["2a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Text]];
 					Slider["2a"]["Font"] = Enum.Font.Ubuntu;
 					Slider["2a"]["BackgroundTransparency"] = 1;
 					Slider["2a"]["Position"] = UDim2.new(0, 5, 0, 5);
@@ -865,7 +882,7 @@ function Library:Create(Options)
 					Slider["2b"]["Size"] = UDim2.new(0, 20, 0, 20);
 					Slider["2b"]["Active"] = true;
 					Slider["2b"]["Text"] = tostring(Options.Default);
-					Slider["2b"]["Name"] = [[Value]];
+					Slider["2b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Value]];
 					Slider["2b"]["Font"] = Enum.Font.Ubuntu;
 					Slider["2b"]["BackgroundTransparency"] = 1;
 					Slider["2b"]["Position"] = UDim2.new(1, -5, 0, 5);
@@ -876,7 +893,7 @@ function Library:Create(Options)
 					Slider["2c"]["AnchorPoint"] = Vector2.new(0, 1);
 					Slider["2c"]["Size"] = UDim2.new(1, -10, 0, 10);
 					Slider["2c"]["Position"] = UDim2.new(0, 5, 1, -5);
-					Slider["2c"]["Name"] = [[SliderBack]];
+					Slider["2c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[SliderBack]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.UICorner
 					Slider["2d"] = Instance.new("UICorner", Slider["2c"]);
@@ -891,7 +908,7 @@ function Library:Create(Options)
 					Slider["2e"] = Instance.new("Frame", Slider["2c"]);
 					Slider["2e"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
 					Slider["2e"]["Size"] = UDim2.new(0, 100, 1, 0);
-					Slider["2e"]["Name"] = [[Draggable]];
+					Slider["2e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Draggable]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable.UICorner
 					Slider["2f"] = Instance.new("UICorner", Slider["2e"]);
@@ -1013,7 +1030,7 @@ function Library:Create(Options)
 					Toggle["51"] = Instance.new("Frame", Tab["10"]);
 					Toggle["51"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 					Toggle["51"]["Size"] = UDim2.new(1, 0, 0, 30);
-					Toggle["51"]["Name"] = [[Toggle]];
+					Toggle["51"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Toggle]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).UICorner
 					Toggle["52"] = Instance.new("UICorner", Toggle["51"]);
@@ -1036,7 +1053,7 @@ function Library:Create(Options)
 					Toggle["54"]["Size"] = UDim2.new(1, -35, 1, -10);
 					Toggle["54"]["Active"] = true;
 					Toggle["54"]["Text"] = Options.Name;
-					Toggle["54"]["Name"] = [[Title]];
+					Toggle["54"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 					Toggle["54"]["Font"] = Enum.Font.Ubuntu;
 					Toggle["54"]["BackgroundTransparency"] = 1;
 					Toggle["54"]["Position"] = UDim2.new(0, 5, 0.5, 0);
@@ -1047,7 +1064,7 @@ function Library:Create(Options)
 					Toggle["55"]["AnchorPoint"] = Vector2.new(1, 0);
 					Toggle["55"]["Size"] = UDim2.new(0, 20, 1, -10);
 					Toggle["55"]["Position"] = UDim2.new(1, -5, 0, 5);
-					Toggle["55"]["Name"] = [[Value]];
+					Toggle["55"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Value]];
 	
 					-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).Value.UICorner
 					Toggle["56"] = Instance.new("UICorner", Toggle["55"]);
@@ -1146,7 +1163,7 @@ function Library:Create(Options)
 						Dropdown["32"] = Instance.new("Frame", Tab["10"]);
 						Dropdown["32"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 						Dropdown["32"]["Size"] = UDim2.new(1, 0, 0, 30);
-						Dropdown["32"]["Name"] = [[Dropdown]];
+						Dropdown["32"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Dropdown]];
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.UICorner
 						Dropdown["33"] = Instance.new("UICorner", Dropdown["32"]);
@@ -1165,7 +1182,7 @@ function Library:Create(Options)
 						Dropdown["35"]["Image"] = [[rbxassetid://10889644850]];
 						Dropdown["35"]["Size"] = UDim2.new(0, 20, 0, 20);
 						Dropdown["35"]["Active"] = true;
-						Dropdown["35"]["Name"] = [[Icon]];
+						Dropdown["35"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 						Dropdown["35"]["BackgroundTransparency"] = 1;
 						Dropdown["35"]["Position"] = UDim2.new(1, -5, 0, 5);
 	
@@ -1182,7 +1199,7 @@ function Library:Create(Options)
 						Dropdown["36"]["ScrollBarThickness"] = 0;
 						Dropdown["36"]["Position"] = UDim2.new(0, 5, 1, -5);
 						Dropdown["36"]["Visible"] = true;
-						Dropdown["36"]["Name"] = [[OptionHolder]];
+						Dropdown["36"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[OptionHolder]];
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.OptionHolder.UIListLayout
 						Dropdown["37"] = Instance.new("UIListLayout", Dropdown["36"]);
@@ -1206,7 +1223,7 @@ function Library:Create(Options)
 						Dropdown["42"]["Size"] = UDim2.new(1, -35, 0, 20);
 						Dropdown["42"]["Active"] = true;
 						Dropdown["42"]["Text"] = Options.Name;
-						Dropdown["42"]["Name"] = [[Click]];
+						Dropdown["42"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Click]];
 						Dropdown["42"]["Font"] = Enum.Font.Ubuntu;
 						Dropdown["42"]["BackgroundTransparency"] = 1;
 						Dropdown["42"]["Position"] = UDim2.new(0, 5, -0, 5);
@@ -1238,7 +1255,7 @@ function Library:Create(Options)
 							Dropdown.Items[id].instance["3f"]["Size"] = UDim2.new(1, 0, 0, 16);
 							Dropdown.Items[id].instance["3f"]["Active"] = true;
 							Dropdown.Items[id].instance["3f"]["Text"] = id;
-							Dropdown.Items[id].instance["3f"]["Name"] = [[Inactive]];
+							Dropdown.Items[id].instance["3f"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Inactive]];
 							Dropdown.Items[id].instance["3f"]["Font"] = Enum.Font.Ubuntu;
 	
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Items[id].Instance.OptionHolder.Inactive.UIStroke
@@ -1413,7 +1430,7 @@ function Library:Create(Options)
 						Textbox["43"] = Instance.new("Frame", Tab["10"]);
 						Textbox["43"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 						Textbox["43"]["Size"] = UDim2.new(1, 0, 0, 50);
-						Textbox["43"]["Name"] = [[Textbox]];
+						Textbox["43"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Textbox]];
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.UICorner
 						Textbox["44"] = Instance.new("UICorner", Textbox["43"]);
@@ -1435,7 +1452,7 @@ function Library:Create(Options)
 						Textbox["46"]["Size"] = UDim2.new(1, -10, 0, 20);
 						Textbox["46"]["Active"] = true;
 						Textbox["46"]["Text"] = Options.Name;
-						Textbox["46"]["Name"] = [[Text]];
+						Textbox["46"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Text]];
 						Textbox["46"]["Font"] = Enum.Font.Ubuntu;
 						Textbox["46"]["BackgroundTransparency"] = 1;
 						Textbox["46"]["Position"] = UDim2.new(0, 5, 0, 5);
@@ -1458,7 +1475,7 @@ function Library:Create(Options)
 						Textbox["47"]["Text"] = [[]];
 						Textbox["47"]["Position"] = UDim2.new(0, 5, 1, -5);
 						Textbox["47"]["Font"] = Enum.Font.Ubuntu;
-						Textbox["47"]["Name"] = [[Box]];
+						Textbox["47"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Box]];
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Box.UICorner
 						Textbox["48"] = Instance.new("UICorner", Textbox["47"]);
@@ -1480,7 +1497,7 @@ function Library:Create(Options)
 						Textbox["4a"]["AnchorPoint"] = Vector2.new(1, 0);
 						Textbox["4a"]["Size"] = UDim2.new(0, 40, 0, 15);
 						Textbox["4a"]["Text"] = [[Clear]];
-						Textbox["4a"]["Name"] = [[Clear]];
+						Textbox["4a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Clear]];
 						Textbox["4a"]["Font"] = Enum.Font.Ubuntu;
 						Textbox["4a"]["Position"] = UDim2.new(1, -5, 0, 5);
 	
@@ -1544,7 +1561,7 @@ function Library:Create(Options)
 						Keybind["5a"] = Instance.new("Frame", Tab["10"]);
 						Keybind["5a"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 						Keybind["5a"]["Size"] = UDim2.new(1, 0, 0, 30);
-						Keybind["5a"]["Name"] = [[Keybind]];
+						Keybind["5a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Keybind]];
 	
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.UICorner
 						Keybind["5b"] = Instance.new("UICorner", Keybind["5a"]);
@@ -1567,7 +1584,7 @@ function Library:Create(Options)
 						Keybind["5d"]["Size"] = UDim2.new(1, -35, 1, -10);
 						Keybind["5d"]["Active"] = true;
 						Keybind["5d"]["Text"] = Options.Name;
-						Keybind["5d"]["Name"] = [[Click]];
+						Keybind["5d"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Click]];
 						Keybind["5d"]["Font"] = Enum.Font.Ubuntu;
 						Keybind["5d"]["BackgroundTransparency"] = 1;
 						Keybind["5d"]["Position"] = UDim2.new(0, 5, 0.5, 0);
@@ -1581,7 +1598,7 @@ function Library:Create(Options)
 						Keybind["5e"]["AnchorPoint"] = Vector2.new(1, 0);
 						Keybind["5e"]["Size"] = UDim2.new(0, 30, 1, 0);
 						Keybind["5e"]["Text"] = [[F]];
-						Keybind["5e"]["Name"] = [[Input]];
+						Keybind["5e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Input]];
 						Keybind["5e"]["BackgroundTransparency"] = 1;
 						Keybind["5e"]["Position"] = UDim2.new(1, 0, 0, 0);
 					end
@@ -1660,7 +1677,7 @@ function Library:Create(Options)
 ColorPicker["68"] = Instance.new("Frame", Tab["10"]);
 ColorPicker["68"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
 ColorPicker["68"]["Size"] = UDim2.new(1, 0, 0, 30);
-ColorPicker["68"]["Name"] = [[ColorPicker]];
+ColorPicker["68"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ColorPicker]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.UICorner
 ColorPicker["69"] = Instance.new("UICorner", ColorPicker["68"]);
@@ -1682,7 +1699,7 @@ ColorPicker["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["6b"]["Size"] = UDim2.new(1, -35, 0, 20);
 ColorPicker["6b"]["Active"] = true;
 ColorPicker["6b"]["Text"] = [[ColorPicker]];
-ColorPicker["6b"]["Name"] = [[Title]];
+ColorPicker["6b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 ColorPicker["6b"]["Font"] = Enum.Font.Ubuntu;
 ColorPicker["6b"]["BackgroundTransparency"] = 1;
 ColorPicker["6b"]["Position"] = UDim2.new(0, 5, 0, 5);
@@ -1693,7 +1710,7 @@ ColorPicker["6c"]["BackgroundColor3"] = Color3.fromRGB(0, 156, 0);
 ColorPicker["6c"]["AnchorPoint"] = Vector2.new(1, 0);
 ColorPicker["6c"]["Size"] = UDim2.new(0, 20, 0, 20);
 ColorPicker["6c"]["Position"] = UDim2.new(1, -5, 0, 5);
-ColorPicker["6c"]["Name"] = [[Value]];
+ColorPicker["6c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Value]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Value.UICorner
 ColorPicker["6d"] = Instance.new("UICorner", ColorPicker["6c"]);
@@ -1708,14 +1725,14 @@ ColorPicker["6f"]["Size"] = UDim2.new(1, -10, 1, -40);
 ColorPicker["6f"]["ClipsDescendants"] = true;
 ColorPicker["6f"]["Position"] = UDim2.new(0, 5, 1, -5);
 ColorPicker["6f"]["Visible"] = true;
-ColorPicker["6f"]["Name"] = [[Container]];
+ColorPicker["6f"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Container]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel
 ColorPicker["70"] = Instance.new("ImageLabel", ColorPicker["6f"]);
 ColorPicker["70"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["70"]["Image"] = [[rbxassetid://6020299385]];
 ColorPicker["70"]["Size"] = UDim2.new(0, 110, 1, 0);
-ColorPicker["70"]["Name"] = [[ColourWheel]];
+ColorPicker["70"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ColourWheel]];
 ColorPicker["70"]["BackgroundTransparency"] = 1;
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel.Picker
@@ -1724,7 +1741,7 @@ ColorPicker["71"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 ColorPicker["71"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 ColorPicker["71"]["Size"] = UDim2.new(0, 5, 0, 5);
 ColorPicker["71"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
-ColorPicker["71"]["Name"] = [[Picker]];
+ColorPicker["71"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Picker]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel.Picker.UICorner
 ColorPicker["72"] = Instance.new("UICorner", ColorPicker["71"]);
@@ -1739,7 +1756,7 @@ ColorPicker["74"] = Instance.new("Frame", ColorPicker["6f"]);
 ColorPicker["74"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["74"]["Size"] = UDim2.new(0, 30, 1, 0);
 ColorPicker["74"]["Position"] = UDim2.new(0, 120, 0, 0);
-ColorPicker["74"]["Name"] = [[DarknessPicker]];
+ColorPicker["74"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[DarknessPicker]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.UICorner
 ColorPicker["75"] = Instance.new("UICorner", ColorPicker["74"]);
@@ -1756,7 +1773,7 @@ ColorPicker["77"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 ColorPicker["77"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 ColorPicker["77"]["Size"] = UDim2.new(1, 20, 0, 10);
 ColorPicker["77"]["Position"] = UDim2.new(0.5, 0, 0, 0);
-ColorPicker["77"]["Name"] = [[Picker]];
+ColorPicker["77"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Picker]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.Picker.UICorner
 ColorPicker["78"] = Instance.new("UICorner", ColorPicker["77"]);
@@ -1768,7 +1785,7 @@ ColorPicker["79"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["79"]["AnchorPoint"] = Vector2.new(1, 0);
 ColorPicker["79"]["Size"] = UDim2.new(0, 60, 0, 60);
 ColorPicker["79"]["Position"] = UDim2.new(1, -50, 0, 10);
-ColorPicker["79"]["Name"] = [[Result]];
+ColorPicker["79"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Result]];
 
 -- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.Result.UICorner
 ColorPicker["7a"] = Instance.new("UICorner", ColorPicker["79"]);
@@ -1783,7 +1800,7 @@ ColorPicker["7b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 ColorPicker["7b"]["AnchorPoint"] = Vector2.new(1, 1);
 ColorPicker["7b"]["Size"] = UDim2.new(0, 100, 0, 25);
 ColorPicker["7b"]["Text"] = [[Submit]];
-ColorPicker["7b"]["Name"] = [[Submit]];
+ColorPicker["7b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Submit]];
 ColorPicker["7b"]["Font"] = Enum.Font.Ubuntu;
 ColorPicker["7b"]["Position"] = UDim2.new(1, -10, 1, -5);
 
@@ -1912,7 +1929,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			Notify["66"] = Instance.new("Frame", GUI["64"]);
 			Notify["66"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
 			Notify["66"]["Size"] = UDim2.new(1, 0, 0, 100);
-			Notify["66"]["Name"] = [[Notification]];
+			Notify["66"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Notification]];
 			
 			-- StarterGui.MicroLibrary.Notifications.Notification.UICorner
 			Notify["67"] = Instance.new("UICorner", Notify["66"]);
@@ -1928,7 +1945,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			Notify["68"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			Notify["68"]["Size"] = UDim2.new(0, 200, 0, 20);
 			Notify["68"]["Text"] = Options.Title;
-			Notify["68"]["Name"] = [[Title]];
+			Notify["68"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 			Notify["68"]["Font"] = Enum.Font.Ubuntu;
 			Notify["68"]["BackgroundTransparency"] = 1;
 
@@ -1948,7 +1965,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			Notify["6a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			Notify["6a"]["Size"] = UDim2.new(0, 200, 0, 20);
 			Notify["6a"]["Text"] = Options.Question .. "?";
-			Notify["6a"]["Name"] = [[Question]];
+			Notify["6a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Question]];
 			Notify["6a"]["Font"] = Enum.Font.Ubuntu;
 			Notify["6a"]["BackgroundTransparency"] = 1;
 			Notify["6a"]["Position"] = UDim2.new(0, 0, 0, 20);
@@ -1968,7 +1985,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			Notify["6c"]["Selectable"] = false;
 			Notify["6c"]["ScrollBarThickness"] = 0;
 			Notify["6c"]["Position"] = UDim2.new(1, -10, 1, -10);
-			Notify["6c"]["Name"] = [[Answers]];
+			Notify["6c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Answers]];
 			Notify["6c"]["SelectionGroup"] = false;
 
 			-- StarterGui.MicroLibrary.Notifications.Notification.Answers.UIGridLayout
@@ -2005,7 +2022,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 				Notify.Items[id].instance["6e"]["Size"] = UDim2.new(0, 200, 0, 50);
 				Notify.Items[id].instance["6e"]["Active"] = true;
 				Notify.Items[id].instance["6e"]["Text"] = id;
-				Notify.Items[id].instance["6e"]["Name"] = [[Answer]];
+				Notify.Items[id].instance["6e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Answer]];
 				Notify.Items[id].instance["6e"]["Font"] = Enum.Font.Ubuntu;
 
 				-- StarterGui.MicroLibrary.Notifications.Notification.Answers.Answer.UICorner
@@ -2071,7 +2088,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["78"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 			GUI["78"]["Size"] = UDim2.new(0, 400, 0, 200);
 			GUI["78"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
-			GUI["78"]["Name"] = [[Keysystem]];
+			GUI["78"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Keysystem]];
 			
 			-- StarterGui.MicroLibrary.Keysystem.UICorner
 			GUI["79"] = Instance.new("UICorner", GUI["78"]);
@@ -2082,7 +2099,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["7a"]["ZIndex"] = 0;
 			GUI["7a"]["BackgroundTransparency"] = 1;
 			GUI["7a"]["Size"] = UDim2.new(1, 0, 1, 0);
-			GUI["7a"]["Name"] = [[shadowHolder]];
+			GUI["7a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[shadowHolder]];
 			
 			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.umbraShadow
 			GUI["7b"] = Instance.new("ImageLabel", GUI["7a"]);
@@ -2094,7 +2111,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["7b"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 			GUI["7b"]["Image"] = [[rbxassetid://1316045217]];
 			GUI["7b"]["Size"] = UDim2.new(1, 10, 1, 10);
-			GUI["7b"]["Name"] = [[umbraShadow]];
+			GUI["7b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[umbraShadow]];
 			GUI["7b"]["BackgroundTransparency"] = 1;
 			GUI["7b"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 			
@@ -2108,7 +2125,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["7c"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 			GUI["7c"]["Image"] = [[rbxassetid://1316045217]];
 			GUI["7c"]["Size"] = UDim2.new(1, 10, 1, 10);
-			GUI["7c"]["Name"] = [[penumbraShadow]];
+			GUI["7c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[penumbraShadow]];
 			GUI["7c"]["BackgroundTransparency"] = 1;
 			GUI["7c"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 			
@@ -2122,7 +2139,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["7d"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 			GUI["7d"]["Image"] = [[rbxassetid://1316045217]];
 			GUI["7d"]["Size"] = UDim2.new(1, 10, 1, 10);
-			GUI["7d"]["Name"] = [[ambientShadow]];
+			GUI["7d"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ambientShadow]];
 			GUI["7d"]["BackgroundTransparency"] = 1;
 			GUI["7d"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 			
@@ -2131,7 +2148,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["7e"]["BorderSizePixel"] = 0;
 			GUI["7e"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
 			GUI["7e"]["Size"] = UDim2.new(1, 0, 0, 30);
-			GUI["7e"]["Name"] = [[TopBar]];
+			GUI["7e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
 			
 			-- StarterGui.MicroLibrary.Keysystem.TopBar.UICorner
 			GUI["7f"] = Instance.new("UICorner", GUI["7e"]);
@@ -2144,7 +2161,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["80"]["AnchorPoint"] = Vector2.new(0, 1);
 			GUI["80"]["Size"] = UDim2.new(1, 0, 0.25, 0);
 			GUI["80"]["Position"] = UDim2.new(0, 0, 1, 0);
-			GUI["80"]["Name"] = [[Hide]];
+			GUI["80"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide]];
 			
 			-- StarterGui.MicroLibrary.Keysystem.TopBar.Line
 			GUI["81"] = Instance.new("Frame", GUI["7e"]);
@@ -2153,7 +2170,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["81"]["AnchorPoint"] = Vector2.new(0, 1);
 			GUI["81"]["Size"] = UDim2.new(1, 0, 0.05000000074505806, 0);
 			GUI["81"]["Position"] = UDim2.new(0, 0, 1, 0);
-			GUI["81"]["Name"] = [[Line]];
+			GUI["81"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Line]];
 			
 			-- StarterGui.MicroLibrary.Keysystem.TopBar.Title
 			GUI["82"] = Instance.new("TextLabel", GUI["7e"]);
@@ -2164,7 +2181,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["82"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			GUI["82"]["Size"] = UDim2.new(0, 300, 1, -3);
 			GUI["82"]["Text"] = [[Sorry! But you have to do this Keysystem!]];
-			GUI["82"]["Name"] = [[Title]];
+			GUI["82"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 			GUI["82"]["Font"] = Enum.Font.Gotham;
 			GUI["82"]["BackgroundTransparency"] = 1;
 			
@@ -2182,7 +2199,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			-- GUI["84"]["FontFace"] = ;
 			GUI["84"]["AnchorPoint"] = Vector2.new(1, 0);
 			GUI["84"]["Size"] = UDim2.new(0, 27, 1, -3);
-			GUI["84"]["Name"] = [[Close]];
+			GUI["84"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Close]];
 			GUI["84"]["ClipsDescendants"] = true;
 			GUI["84"]["Text"] = [[X]];
 			GUI["84"]["Font"] = Enum.Font.GothamBold;
@@ -2196,7 +2213,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["85"]["BackgroundTransparency"] = 1;
 			GUI["85"]["Size"] = UDim2.new(1, -10, 1, -40);
 			GUI["85"]["Position"] = UDim2.new(1, -5, 0, 35);
-			GUI["85"]["Name"] = [[ContentContainer]];
+			GUI["85"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ContentContainer]];
 			
 			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key
 			GUI["86"] = Instance.new("TextBox", GUI["85"]);
@@ -2214,7 +2231,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["86"]["Text"] = [[]];
 			GUI["86"]["Position"] = UDim2.new(0.5, 0, 0, 0);
 			GUI["86"]["Font"] = Enum.Font.Ubuntu;
-			GUI["86"]["Name"] = [[Key]];
+			GUI["86"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Key]];
 			GUI["86"]["ClearTextOnFocus"] = false;
 			
 			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key.UICorner
@@ -2235,7 +2252,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["89"]["AnchorPoint"] = Vector2.new(1, 0);
 			GUI["89"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
 			GUI["89"]["Text"] = [[Submit Key]];
-			GUI["89"]["Name"] = [[Submit]];
+			GUI["89"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Submit]];
 			GUI["89"]["Font"] = Enum.Font.Ubuntu;
 			GUI["89"]["Position"] = UDim2.new(1, -60, 0.5, 0);
 			
@@ -2251,7 +2268,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			GUI["8b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			GUI["8b"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
 			GUI["8b"]["Text"] = [[Get Key]];
-			GUI["8b"]["Name"] = [[Getkey]];
+			GUI["8b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Getkey]];
 			GUI["8b"]["Font"] = Enum.Font.Ubuntu;
 			GUI["8b"]["Position"] = UDim2.new(0, 60, 0.5, 0);
 			
