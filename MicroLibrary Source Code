@@ -1865,7 +1865,7 @@ function Library:Create(Options)
 						Keybind["5e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 						Keybind["5e"]["AnchorPoint"] = Vector2.new(1, 0);
 						Keybind["5e"]["Size"] = UDim2.new(0, 30, 1, 0);
-						Keybind["5e"]["Text"] = [[F]];
+						Keybind["5e"]["Text"] = string.sub(tostring(Options.StartBind),14,#tostring(Options.StartBind));
 						Keybind["5e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Input]];
 						Keybind["5e"]["BackgroundTransparency"] = 1;
 						Keybind["5e"]["Position"] = UDim2.new(1, 0, 0, 0);
@@ -1912,9 +1912,9 @@ function Library:Create(Options)
 								end
 							elseif input.KeyCode == Options.StartBind then
 								Options.Callback()	
-								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Hover then
-							if Options.Description == nil then return end
-							GUI:ShowDescription(Options.Description)					
+							elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Hover then
+								if Options.Description == nil then return end
+								GUI:ShowDescription(Options.Description)					
 							end
 						end)
 					end
