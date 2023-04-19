@@ -342,7 +342,7 @@ function Library:Create(Options)
 			repeat
 				wait()
 				Library:tween(GUI["2"],{Size = Options.Size})
-				GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
+				Library:tween(GUI["2"],{Position = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
 			until GUI["2"]["Size"] == Options.Size
 		end)
 
