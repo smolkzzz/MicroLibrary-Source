@@ -40,24 +40,284 @@ end
 
 function Library:Create(Options)
 	Options = Library:validate({
-		Name = game.Name .. " Script";
-		Toggle = "LeftShift";
-		CloseCallback = function() end;
-		KeySystem = false;
-		KeySettings = {
-			CorrectKey = "Hello World!",
-			GetkeyLink = "https://link"
+		Name = game.Name .. " Script"; -- When you load up the script, the title will be this string
+		Toggle = "LeftShift"; -- When this keybind is clicked on a keyboard, the UI will be toggled/
+		CloseCallback = function() end; -- if closed then it will run this code.
+		KeySystem = false; -- If this boolean is true then it will bring a popup telling you that you need a key.
+		KeySettings = { -- If the "KeySystem" boolean is true then it will use the settings in this table.
+			CorrectKey = {"Hello World!"}, -- Put strings in the table for a list of options to choose your key.
+			GetkeyLink = "https://link" -- When the "Getkey" button is clicked, it will copy this string.
 		};
-		Size = UDim2.new(0,400,0,300);
+		Size = UDim2.new(0,400,0,300); -- The size of the UI
 	},Options or {})
 	
 	local GUI = {
 		CurrentTab = nil;
 		Opened = true;
+		KeyCorrect = false
 	}
+	
 	function GUI:Destroy()
 		GUI["1"]:Destroy()
 	end
+
+	-- [[ KeySystem ]]
+
+	if Options.KeySystem then
+		local Key = {
+			Close = false;
+			Submit = false;
+			Getkey = false;
+		}
+		GUI["2"].Visible = false
+		warn("MUST DO KEYSYSTEM")
+		task.wait(1)
+	-- [[ Render ]]
+	do
+			-- StarterGui.MicroLibrary.Keysystem
+			GUI["78"] = Instance.new("Frame", GUI["1"]);
+			GUI["78"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
+			GUI["78"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+			GUI["78"]["Size"] = UDim2.new(0, 400, 0, 200);
+			GUI["78"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+			GUI["78"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Keysystem]];
+			
+			-- StarterGui.MicroLibrary.Keysystem.UICorner
+			GUI["79"] = Instance.new("UICorner", GUI["78"]);
+			GUI["79"]["CornerRadius"] = UDim.new(0, 4);
+			
+			-- StarterGui.MicroLibrary.Keysystem.shadowHolder
+			GUI["7a"] = Instance.new("Frame", GUI["78"]);
+			GUI["7a"]["ZIndex"] = 0;
+			GUI["7a"]["BackgroundTransparency"] = 1;
+			GUI["7a"]["Size"] = UDim2.new(1, 0, 1, 0);
+			GUI["7a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[shadowHolder]];
+			
+			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.umbraShadow
+			GUI["7b"] = Instance.new("ImageLabel", GUI["7a"]);
+			GUI["7b"]["ZIndex"] = 0;
+			GUI["7b"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
+			GUI["7b"]["ScaleType"] = Enum.ScaleType.Slice;
+			GUI["7b"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["7b"]["ImageTransparency"] = 0.8600000143051147;
+			GUI["7b"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+			GUI["7b"]["Image"] = [[rbxassetid://1316045217]];
+			GUI["7b"]["Size"] = UDim2.new(1, 10, 1, 10);
+			GUI["7b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[umbraShadow]];
+			GUI["7b"]["BackgroundTransparency"] = 1;
+			GUI["7b"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+			
+			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.penumbraShadow
+			GUI["7c"] = Instance.new("ImageLabel", GUI["7a"]);
+			GUI["7c"]["ZIndex"] = 0;
+			GUI["7c"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
+			GUI["7c"]["ScaleType"] = Enum.ScaleType.Slice;
+			GUI["7c"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["7c"]["ImageTransparency"] = 0.8799999952316284;
+			GUI["7c"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+			GUI["7c"]["Image"] = [[rbxassetid://1316045217]];
+			GUI["7c"]["Size"] = UDim2.new(1, 10, 1, 10);
+			GUI["7c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[penumbraShadow]];
+			GUI["7c"]["BackgroundTransparency"] = 1;
+			GUI["7c"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+			
+			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.ambientShadow
+			GUI["7d"] = Instance.new("ImageLabel", GUI["7a"]);
+			GUI["7d"]["ZIndex"] = 0;
+			GUI["7d"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
+			GUI["7d"]["ScaleType"] = Enum.ScaleType.Slice;
+			GUI["7d"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["7d"]["ImageTransparency"] = 0.8799999952316284;
+			GUI["7d"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+			GUI["7d"]["Image"] = [[rbxassetid://1316045217]];
+			GUI["7d"]["Size"] = UDim2.new(1, 10, 1, 10);
+			GUI["7d"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ambientShadow]];
+			GUI["7d"]["BackgroundTransparency"] = 1;
+			GUI["7d"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar
+			GUI["7e"] = Instance.new("Frame", GUI["78"]);
+			GUI["7e"]["BorderSizePixel"] = 0;
+			GUI["7e"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
+			GUI["7e"]["Size"] = UDim2.new(1, 0, 0, 30);
+			GUI["7e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar.UICorner
+			GUI["7f"] = Instance.new("UICorner", GUI["7e"]);
+			GUI["7f"]["CornerRadius"] = UDim.new(0, 4);
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar.Hide
+			GUI["80"] = Instance.new("Frame", GUI["7e"]);
+			GUI["80"]["BorderSizePixel"] = 0;
+			GUI["80"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
+			GUI["80"]["AnchorPoint"] = Vector2.new(0, 1);
+			GUI["80"]["Size"] = UDim2.new(1, 0, 0.25, 0);
+			GUI["80"]["Position"] = UDim2.new(0, 0, 1, 0);
+			GUI["80"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide]];
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar.Line
+			GUI["81"] = Instance.new("Frame", GUI["7e"]);
+			GUI["81"]["BorderSizePixel"] = 0;
+			GUI["81"]["BackgroundColor3"] = Color3.fromRGB(86, 0, 0);
+			GUI["81"]["AnchorPoint"] = Vector2.new(0, 1);
+			GUI["81"]["Size"] = UDim2.new(1, 0, 0.05000000074505806, 0);
+			GUI["81"]["Position"] = UDim2.new(0, 0, 1, 0);
+			GUI["81"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Line]];
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar.Title
+			GUI["82"] = Instance.new("TextLabel", GUI["7e"]);
+			GUI["82"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+			GUI["82"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			-- GUI["82"]["FontFace"] = ;
+			GUI["82"]["TextSize"] = 14;
+			GUI["82"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["82"]["Size"] = UDim2.new(0, 300, 1, -3);
+			GUI["82"]["Text"] = [[Sorry! But you have to do this Keysystem!]];
+			GUI["82"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
+			GUI["82"]["Font"] = Enum.Font.Gotham;
+			GUI["82"]["BackgroundTransparency"] = 1;
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar.Title.UIPadding
+			GUI["83"] = Instance.new("UIPadding", GUI["82"]);
+			GUI["83"]["PaddingLeft"] = UDim.new(0, 2);
+			
+			-- StarterGui.MicroLibrary.Keysystem.TopBar.Close
+			GUI["84"] = Instance.new("TextButton", GUI["7e"]);
+			GUI["84"]["TextWrapped"] = true;
+			GUI["84"]["AutoButtonColor"] = false;
+			GUI["84"]["TextScaled"] = true;
+			GUI["84"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["84"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			-- GUI["84"]["FontFace"] = ;
+			GUI["84"]["AnchorPoint"] = Vector2.new(1, 0);
+			GUI["84"]["Size"] = UDim2.new(0, 27, 1, -3);
+			GUI["84"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Close]];
+			GUI["84"]["ClipsDescendants"] = true;
+			GUI["84"]["Text"] = [[X]];
+			GUI["84"]["Font"] = Enum.Font.GothamBold;
+			GUI["84"]["Position"] = UDim2.new(1, 0, 0, 0);
+			GUI["84"]["BackgroundTransparency"] = 1;
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer
+			GUI["85"] = Instance.new("Frame", GUI["78"]);
+			GUI["85"]["BackgroundColor3"] = Color3.fromRGB(81, 81, 81);
+			GUI["85"]["AnchorPoint"] = Vector2.new(1, 0);
+			GUI["85"]["BackgroundTransparency"] = 1;
+			GUI["85"]["Size"] = UDim2.new(1, -10, 1, -40);
+			GUI["85"]["Position"] = UDim2.new(1, -5, 0, 35);
+			GUI["85"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ContentContainer]];
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key
+			GUI["86"] = Instance.new("TextBox", GUI["85"]);
+			GUI["86"]["PlaceholderColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["86"]["BorderSizePixel"] = 0;
+			GUI["86"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["86"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+			GUI["86"]["TextSize"] = 14;
+			GUI["86"]["TextYAlignment"] = Enum.TextYAlignment.Top;
+			GUI["86"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+			-- GUI["86"]["FontFace"] = ;
+			GUI["86"]["AnchorPoint"] = Vector2.new(0.5, 0);
+			GUI["86"]["PlaceholderText"] = [[Input Key Here]];
+			GUI["86"]["Size"] = UDim2.new(0.699999988079071, 0, 0, 60);
+			GUI["86"]["Text"] = [[]];
+			GUI["86"]["Position"] = UDim2.new(0.5, 0, 0, 0);
+			GUI["86"]["Font"] = Enum.Font.Ubuntu;
+			GUI["86"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Key]];
+			GUI["86"]["ClearTextOnFocus"] = false;
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key.UICorner
+			GUI["87"] = Instance.new("UICorner", GUI["86"]);
+			GUI["87"]["CornerRadius"] = UDim.new(0, 4);
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key.UIPadding
+			GUI["88"] = Instance.new("UIPadding", GUI["86"]);
+			GUI["88"]["PaddingTop"] = UDim.new(0, 2);
+			GUI["88"]["PaddingLeft"] = UDim.new(0, 2);
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit
+			GUI["89"] = Instance.new("TextLabel", GUI["85"]);
+			GUI["89"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+			-- GUI["89"]["FontFace"] = ;
+			GUI["89"]["TextSize"] = 25;
+			GUI["89"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["89"]["AnchorPoint"] = Vector2.new(1, 0);
+			GUI["89"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
+			GUI["89"]["Text"] = [[Submit Key]];
+			GUI["89"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Submit]];
+			GUI["89"]["Font"] = Enum.Font.Ubuntu;
+			GUI["89"]["Position"] = UDim2.new(1, -60, 0.5, 0);
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UICorner
+			GUI["8a"] = Instance.new("UICorner", GUI["89"]);
+			GUI["8a"]["CornerRadius"] = UDim.new(0, 4);
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey
+			GUI["8b"] = Instance.new("TextLabel", GUI["85"]);
+			GUI["8b"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+			-- GUI["8b"]["FontFace"] = ;
+			GUI["8b"]["TextSize"] = 30;
+			GUI["8b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["8b"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
+			GUI["8b"]["Text"] = [[Get Key]];
+			GUI["8b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Getkey]];
+			GUI["8b"]["Font"] = Enum.Font.Ubuntu;
+			GUI["8b"]["Position"] = UDim2.new(0, 60, 0.5, 0);
+			
+			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UICorner
+			GUI["8c"] = Instance.new("UICorner", GUI["8b"]);
+			GUI["8c"]["CornerRadius"] = UDim.new(0, 4);
+	end
+
+	-- [[ Logic ]]
+	do
+		GUI["8b"].MouseEnter:Connect(function()
+			Key.Getkey = true
+		end)
+
+		GUI["8b"].MouseLeave:Connect(function()
+			Key.Getkey = false
+		end)
+
+		GUI["89"].MouseEnter:Connect(function()
+			Key.Submit = true
+		end)
+
+		GUI["89"].MouseLeave:Connect(function()
+			Key.Submit = false
+		end)
+
+		GUI["84"].MouseEnter:Connect(function()
+			Key.Close = true
+		end)
+
+		GUI["84"].MouseLeave:Connect(function()
+			Key.Close = false
+		end)
+
+		UserInputService.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				if Key.Getkey then
+					setclipboard(GUI.GetkeyLink)
+				elseif Key.Submit then
+					for i,v in pairs(Options.KeySettings.CorrectKey) do
+						if GUI["86"].Text == tostring(v) then
+							GUI.KeyCorrect = true
+							GUI["78"]:Destroy()
+						end
+					end
+				elseif Key.Close then
+					GUI["1"]:Destroy()
+				end
+			end
+		end)
+	end
+
+	return Key
+	end
+
+	repeat wait() until GUI.KeyCorrect == true and Options.KeySystem == true
+	wait(0.05)
 	-- [[ Render ]]
 	do
 		-- StarterGui.MicroLibrary
@@ -70,11 +330,18 @@ function Library:Create(Options)
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
 		GUI["2"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
 		GUI["2"]["AnchorPoint"] = Vector2.new(0,0);
-		GUI["2"]["Size"] = Options.Size;
+		GUI["2"]["Size"] = UDim2.new(0,0,0,0);
 		GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
 		GUI["2"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Main]];
 		GUI["2"]["Active"] = true;
 		GUI["2"]["Draggable"] = true;
+
+		task.spawn(function()
+			repeat
+				Library:tween(GUI["2"],{Size = Options.Size})
+				GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
+			until GUI["2"]["Size"] == Options.Size
+		end)
 
 		-- StarterGui.MicroLibrary.Main.UICorner
 		GUI["3"] = Instance.new("UICorner", GUI["2"]);
@@ -1544,16 +1811,14 @@ function Library:Create(Options)
 					Options = Library:validate({
 						Name = [[Keybind Preview]];
 						Description = nil;
+						StartBind = Enum.KeyCode.F;
 						Callback = function() end
 					},Options or {})
 					
 					local Keybind = {
-						Bind = nil;
 						Hover = false;
 						WaitingForInput = false;
 					}
-					
-					Keybind.Bind = Enum.KeyCode.F
 					
 					-- [[ Render ]]
 					do
@@ -1639,10 +1904,10 @@ function Library:Create(Options)
 							elseif input.UserInputType == Enum.UserInputType.Keyboard then
 								if Keybind.WaitingForInput then
 									Keybind.WaitingForInput = false
-									Keybind.Bind = input.KeyCode
-									Keybind["5e"].Text = tostring(input.KeyCode):Split("Enum.KeyCode.")
+									Options.StartBind = input.KeyCode
+									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),13,math.huge)
 								end
-							elseif input.KeyCode == Keybind.Bind then
+							elseif input.KeyCode == Options.StartBind then
 								Options.Callback()	
 								elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Hover then
 							if Options.Description == nil then return end
@@ -2068,258 +2333,6 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 	if (count * 25) >= GUI["49"].AbsoluteSize.Y then 
 		GUI["4d"].CanvasSize = UDim2.new(0,0,0,count * 25)
 	end
-	end
-	-- [[ KeySystem ]]
-
-	if Options.KeySystem then
-		local Key = {
-			Close = false;
-			Submit = false;
-			Getkey = false;
-		}
-		GUI["2"].Visible = false
-		warn("MUST DO KEYSYSTEM")
-		task.wait(1)
-	-- [[ Render ]]
-	do
-			-- StarterGui.MicroLibrary.Keysystem
-			GUI["78"] = Instance.new("Frame", GUI["1"]);
-			GUI["78"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
-			GUI["78"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
-			GUI["78"]["Size"] = UDim2.new(0, 400, 0, 200);
-			GUI["78"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
-			GUI["78"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Keysystem]];
-			
-			-- StarterGui.MicroLibrary.Keysystem.UICorner
-			GUI["79"] = Instance.new("UICorner", GUI["78"]);
-			GUI["79"]["CornerRadius"] = UDim.new(0, 4);
-			
-			-- StarterGui.MicroLibrary.Keysystem.shadowHolder
-			GUI["7a"] = Instance.new("Frame", GUI["78"]);
-			GUI["7a"]["ZIndex"] = 0;
-			GUI["7a"]["BackgroundTransparency"] = 1;
-			GUI["7a"]["Size"] = UDim2.new(1, 0, 1, 0);
-			GUI["7a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[shadowHolder]];
-			
-			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.umbraShadow
-			GUI["7b"] = Instance.new("ImageLabel", GUI["7a"]);
-			GUI["7b"]["ZIndex"] = 0;
-			GUI["7b"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
-			GUI["7b"]["ScaleType"] = Enum.ScaleType.Slice;
-			GUI["7b"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
-			GUI["7b"]["ImageTransparency"] = 0.8600000143051147;
-			GUI["7b"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
-			GUI["7b"]["Image"] = [[rbxassetid://1316045217]];
-			GUI["7b"]["Size"] = UDim2.new(1, 10, 1, 10);
-			GUI["7b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[umbraShadow]];
-			GUI["7b"]["BackgroundTransparency"] = 1;
-			GUI["7b"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
-			
-			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.penumbraShadow
-			GUI["7c"] = Instance.new("ImageLabel", GUI["7a"]);
-			GUI["7c"]["ZIndex"] = 0;
-			GUI["7c"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
-			GUI["7c"]["ScaleType"] = Enum.ScaleType.Slice;
-			GUI["7c"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
-			GUI["7c"]["ImageTransparency"] = 0.8799999952316284;
-			GUI["7c"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
-			GUI["7c"]["Image"] = [[rbxassetid://1316045217]];
-			GUI["7c"]["Size"] = UDim2.new(1, 10, 1, 10);
-			GUI["7c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[penumbraShadow]];
-			GUI["7c"]["BackgroundTransparency"] = 1;
-			GUI["7c"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
-			
-			-- StarterGui.MicroLibrary.Keysystem.shadowHolder.ambientShadow
-			GUI["7d"] = Instance.new("ImageLabel", GUI["7a"]);
-			GUI["7d"]["ZIndex"] = 0;
-			GUI["7d"]["SliceCenter"] = Rect.new(10, 10, 118, 118);
-			GUI["7d"]["ScaleType"] = Enum.ScaleType.Slice;
-			GUI["7d"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
-			GUI["7d"]["ImageTransparency"] = 0.8799999952316284;
-			GUI["7d"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
-			GUI["7d"]["Image"] = [[rbxassetid://1316045217]];
-			GUI["7d"]["Size"] = UDim2.new(1, 10, 1, 10);
-			GUI["7d"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ambientShadow]];
-			GUI["7d"]["BackgroundTransparency"] = 1;
-			GUI["7d"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar
-			GUI["7e"] = Instance.new("Frame", GUI["78"]);
-			GUI["7e"]["BorderSizePixel"] = 0;
-			GUI["7e"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
-			GUI["7e"]["Size"] = UDim2.new(1, 0, 0, 30);
-			GUI["7e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar.UICorner
-			GUI["7f"] = Instance.new("UICorner", GUI["7e"]);
-			GUI["7f"]["CornerRadius"] = UDim.new(0, 4);
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar.Hide
-			GUI["80"] = Instance.new("Frame", GUI["7e"]);
-			GUI["80"]["BorderSizePixel"] = 0;
-			GUI["80"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
-			GUI["80"]["AnchorPoint"] = Vector2.new(0, 1);
-			GUI["80"]["Size"] = UDim2.new(1, 0, 0.25, 0);
-			GUI["80"]["Position"] = UDim2.new(0, 0, 1, 0);
-			GUI["80"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide]];
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar.Line
-			GUI["81"] = Instance.new("Frame", GUI["7e"]);
-			GUI["81"]["BorderSizePixel"] = 0;
-			GUI["81"]["BackgroundColor3"] = Color3.fromRGB(86, 0, 0);
-			GUI["81"]["AnchorPoint"] = Vector2.new(0, 1);
-			GUI["81"]["Size"] = UDim2.new(1, 0, 0.05000000074505806, 0);
-			GUI["81"]["Position"] = UDim2.new(0, 0, 1, 0);
-			GUI["81"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Line]];
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar.Title
-			GUI["82"] = Instance.new("TextLabel", GUI["7e"]);
-			GUI["82"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-			GUI["82"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-			-- GUI["82"]["FontFace"] = ;
-			GUI["82"]["TextSize"] = 14;
-			GUI["82"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["82"]["Size"] = UDim2.new(0, 300, 1, -3);
-			GUI["82"]["Text"] = [[Sorry! But you have to do this Keysystem!]];
-			GUI["82"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
-			GUI["82"]["Font"] = Enum.Font.Gotham;
-			GUI["82"]["BackgroundTransparency"] = 1;
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar.Title.UIPadding
-			GUI["83"] = Instance.new("UIPadding", GUI["82"]);
-			GUI["83"]["PaddingLeft"] = UDim.new(0, 2);
-			
-			-- StarterGui.MicroLibrary.Keysystem.TopBar.Close
-			GUI["84"] = Instance.new("TextButton", GUI["7e"]);
-			GUI["84"]["TextWrapped"] = true;
-			GUI["84"]["AutoButtonColor"] = false;
-			GUI["84"]["TextScaled"] = true;
-			GUI["84"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["84"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-			-- GUI["84"]["FontFace"] = ;
-			GUI["84"]["AnchorPoint"] = Vector2.new(1, 0);
-			GUI["84"]["Size"] = UDim2.new(0, 27, 1, -3);
-			GUI["84"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Close]];
-			GUI["84"]["ClipsDescendants"] = true;
-			GUI["84"]["Text"] = [[X]];
-			GUI["84"]["Font"] = Enum.Font.GothamBold;
-			GUI["84"]["Position"] = UDim2.new(1, 0, 0, 0);
-			GUI["84"]["BackgroundTransparency"] = 1;
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer
-			GUI["85"] = Instance.new("Frame", GUI["78"]);
-			GUI["85"]["BackgroundColor3"] = Color3.fromRGB(81, 81, 81);
-			GUI["85"]["AnchorPoint"] = Vector2.new(1, 0);
-			GUI["85"]["BackgroundTransparency"] = 1;
-			GUI["85"]["Size"] = UDim2.new(1, -10, 1, -40);
-			GUI["85"]["Position"] = UDim2.new(1, -5, 0, 35);
-			GUI["85"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ContentContainer]];
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key
-			GUI["86"] = Instance.new("TextBox", GUI["85"]);
-			GUI["86"]["PlaceholderColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["86"]["BorderSizePixel"] = 0;
-			GUI["86"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["86"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-			GUI["86"]["TextSize"] = 14;
-			GUI["86"]["TextYAlignment"] = Enum.TextYAlignment.Top;
-			GUI["86"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
-			-- GUI["86"]["FontFace"] = ;
-			GUI["86"]["AnchorPoint"] = Vector2.new(0.5, 0);
-			GUI["86"]["PlaceholderText"] = [[Input Key Here]];
-			GUI["86"]["Size"] = UDim2.new(0.699999988079071, 0, 0, 60);
-			GUI["86"]["Text"] = [[]];
-			GUI["86"]["Position"] = UDim2.new(0.5, 0, 0, 0);
-			GUI["86"]["Font"] = Enum.Font.Ubuntu;
-			GUI["86"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Key]];
-			GUI["86"]["ClearTextOnFocus"] = false;
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key.UICorner
-			GUI["87"] = Instance.new("UICorner", GUI["86"]);
-			GUI["87"]["CornerRadius"] = UDim.new(0, 4);
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key.UIPadding
-			GUI["88"] = Instance.new("UIPadding", GUI["86"]);
-			GUI["88"]["PaddingTop"] = UDim.new(0, 2);
-			GUI["88"]["PaddingLeft"] = UDim.new(0, 2);
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit
-			GUI["89"] = Instance.new("TextLabel", GUI["85"]);
-			GUI["89"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
-			-- GUI["89"]["FontFace"] = ;
-			GUI["89"]["TextSize"] = 25;
-			GUI["89"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["89"]["AnchorPoint"] = Vector2.new(1, 0);
-			GUI["89"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
-			GUI["89"]["Text"] = [[Submit Key]];
-			GUI["89"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Submit]];
-			GUI["89"]["Font"] = Enum.Font.Ubuntu;
-			GUI["89"]["Position"] = UDim2.new(1, -60, 0.5, 0);
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UICorner
-			GUI["8a"] = Instance.new("UICorner", GUI["89"]);
-			GUI["8a"]["CornerRadius"] = UDim.new(0, 4);
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey
-			GUI["8b"] = Instance.new("TextLabel", GUI["85"]);
-			GUI["8b"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
-			-- GUI["8b"]["FontFace"] = ;
-			GUI["8b"]["TextSize"] = 30;
-			GUI["8b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["8b"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
-			GUI["8b"]["Text"] = [[Get Key]];
-			GUI["8b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Getkey]];
-			GUI["8b"]["Font"] = Enum.Font.Ubuntu;
-			GUI["8b"]["Position"] = UDim2.new(0, 60, 0.5, 0);
-			
-			-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UICorner
-			GUI["8c"] = Instance.new("UICorner", GUI["8b"]);
-			GUI["8c"]["CornerRadius"] = UDim.new(0, 4);
-	end
-
-	-- [[ Logic ]]
-	do
-		GUI["8b"].MouseEnter:Connect(function()
-			Key.Getkey = true
-		end)
-
-		GUI["8b"].MouseLeave:Connect(function()
-			Key.Getkey = false
-		end)
-
-		GUI["89"].MouseEnter:Connect(function()
-			Key.Submit = true
-		end)
-
-		GUI["89"].MouseLeave:Connect(function()
-			Key.Submit = false
-		end)
-
-		GUI["84"].MouseEnter:Connect(function()
-			Key.Close = true
-		end)
-
-		GUI["84"].MouseLeave:Connect(function()
-			Key.Close = false
-		end)
-
-		UserInputService.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				if Key.Getkey then
-					setclipboard(GUI.GetkeyLink)
-				elseif Key.Submit then
-					if GUI["86"].Text == Options.KeySettings.CorrectKey then
-						GUI["2"].Visible = true
-						GUI["78"]:Destroy()
-					end
-				elseif Key.Close then
-					GUI["1"]:Destroy()
-				end
-			end
-		end)
-	end
-
-	return Key
 	end
 
 	return GUI
