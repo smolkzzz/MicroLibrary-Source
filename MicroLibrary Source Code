@@ -316,7 +316,9 @@ function Library:Create(Options)
 	return Key
 	end
 
-	repeat wait() until GUI.KeyCorrect == true and Options.KeySystem == true
+	if Options.KeySystem then
+		repeat wait() until GUI.KeyCorrect == true
+	end
 	wait(0.05)
 	-- [[ Render ]]
 	do
