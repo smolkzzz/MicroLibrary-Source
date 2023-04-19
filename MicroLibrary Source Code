@@ -1908,7 +1908,7 @@ function Library:Create(Options)
 								if Keybind.WaitingForInput then
 									Keybind.WaitingForInput = false
 									Options.StartBind = input.KeyCode
-									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),13,math.huge)
+									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),14,#tostring(input.KeyCode))
 								end
 							elseif input.KeyCode == Options.StartBind then
 								Options.Callback()	
