@@ -1900,7 +1900,7 @@ function Library:Create(Options)
 							Keybind.Hover = false
 						end)
 						
-						UserInputService.InputBegan:Connect(function(input)
+						UserInputService.InputBegan:Connect(function(input,gpe)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								
 									Keybind.WaitingForInput = true
@@ -1912,11 +1912,14 @@ function Library:Create(Options)
 									Options.StartBind = input.KeyCode
 									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),14,#tostring(input.KeyCode))
 								end
-							elseif input.KeyCode == Options.StartBind then
-								Options.Callback()	
 							elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Hover then
 								if Options.Description == nil then return end
 								GUI:ShowDescription(Options.Description)					
+							end
+
+							if input.KeyCode == Options.StartBind then
+								if gpe then return end
+								Options.Callback()	
 							end
 						end)
 					end
