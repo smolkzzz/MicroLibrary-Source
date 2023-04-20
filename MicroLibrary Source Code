@@ -1873,11 +1873,13 @@ function Library:Create(Options)
 					
 					-- [[ Methods ]]
 					function Keybind:ChangeBind(func)
-						Keybind.Bind = func
+						Options.StartBindBind = func
 					end
 					
 					function Keybind:SetTitle(txt)
 						Options.Name = txt
+
+						Keybind["5d"].Text = Options.Name
 					end
 					
 					function Keybind:SetCallback(func)
