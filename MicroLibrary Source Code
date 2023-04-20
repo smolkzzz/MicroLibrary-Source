@@ -1351,16 +1351,20 @@ function Library:Create(Options)
 				
 				-- [[ Methods ]]
 				function Toggle:Activate()
-					Toggle.Value = true
+					Toggle.State = true
 					Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
 					Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(0,156,0)})
-					Options.Callback(Toggle.Value)
+					Options.Callback(Toggle.State)
 				end
+
 				function Toggle:Deactivate()
-					Toggle.Value = false
+					Toggle.State = false
 					Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
 					Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(156,0,0)})
-					Options.Callback(Toggle.Value)
+				end
+
+				function Toggle:GetState()
+					return Toggle.State
 				end
 				
 				function Toggle:SetCallback(func)
@@ -1384,7 +1388,7 @@ function Library:Create(Options)
 	
 					Toggle["55"].MouseLeave:Connect(function()
 						Toggle.Hover = false
-						if Toggle.Value then
+						if Toggle.State then
 							Library:tween(Toggle["57"],{Color = Color3.fromRGB(0,56,0)})
 						else
 							Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
@@ -1394,7 +1398,7 @@ function Library:Create(Options)
 					UserInputService.InputBegan:Connect(function(input)
 						if input.UserInputType == Enum.UserInputType.MouseButton1 and Toggle.Hover or input.UserInputType == Enum.UserInputType.Touch then
 							
-								if Toggle.Value then
+								if Toggle.State then
 									Toggle:Deactivate()
 								else
 									Toggle:Activate()
