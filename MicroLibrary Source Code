@@ -482,7 +482,8 @@ function Library:Create(Options)
 		GUI["Description"]["BackgroundColor3"] = Color3.fromRGB(49,49,49)
 		GUI["Description"]["AnchorPoint"] = Vector2.new(0.5,1);
 		GUI["Description"]["Size"] = UDim2.new(1,-2,0,30);
-		GUI["Description"]["Position"] = UDim2.new(0.5,0,1,35)
+		GUI["Description"]["Position"] = UDim2.new(0.5,0,1,35);
+		GUI["Description"]["ZIndex"] = 10;
 		GUI["Description"]["Visible"] = false
 
 		GUI["DescriptionCorner"] = Instance.new("UICorner",GUI["Description"]);
