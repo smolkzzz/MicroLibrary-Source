@@ -41,7 +41,7 @@ end
 function Library:Create(Options)
 	Options = Library:validate({
 		Name = game.Name .. " Script"; -- When you load up the script, the title will be this string
-		Toggle = "LeftShift"; -- When this keybind is clicked on a keyboard, the UI will be toggled/
+		Toggle = "LeftShift"; -- When this keybind is clicked on a keyboard, the UI will be toggled.
 		CloseCallback = function() end; -- if closed then it will run this code.
 		KeySystem = false; -- If this boolean is true then it will bring a popup telling you that you need a key.
 		KeySettings = { -- If the "KeySystem" boolean is true then it will use the settings in this table.
@@ -69,7 +69,6 @@ function Library:Create(Options)
 			Submit = false;
 			Getkey = false;
 		}
-		GUI["2"].Visible = false
 		warn("MUST DO KEYSYSTEM")
 		task.wait(1)
 	-- [[ Render ]]
