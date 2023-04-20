@@ -2337,6 +2337,11 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			end)
 		end
 		
+		for i,tbl in pairs(Options.Items) do
+			if typeof(tbl) == "table" then
+				Notify:Add(tbl[1],tbl[2],tbl[3],tbl[4])
+			end
+		end
 		task.wait(Options.Duration)
 		Notify:Destroy()
 		return Notify
