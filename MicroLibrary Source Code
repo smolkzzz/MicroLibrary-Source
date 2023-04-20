@@ -54,7 +54,8 @@ function Library:Create(Options)
 	local GUI = {
 		CurrentTab = nil;
 		Opened = true;
-		KeyCorrect = false
+		KeyCorrect = false;
+		Closed = false;
 	}
 	
 	function GUI:Destroy()
@@ -1919,7 +1920,9 @@ function Library:Create(Options)
 
 							if input.KeyCode == Options.StartBind then
 								if gpe then return end
-								Options.Callback()	
+								if Keybind.WaitingForInput then return end
+								if GUI.Closed then return end
+								Options.Callback()
 							end
 						end)
 					end
