@@ -1874,8 +1874,13 @@ function Library:Create(Options)
 					end
 					
 					-- [[ Methods ]]
-					function Keybind:ChangeBind(func)
-						Options.StartBindBind = func
+					function Keybind:SetBind(func)
+						Options.StartBind = func
+						Keybind["5e"].Text = string.sub(tostring(func.KeyCode),14,#tostring(func.KeyCode))
+					end
+
+					function Keybind:GetBind()
+						return Options.StartBind
 					end
 					
 					function Keybind:SetTitle(txt)
