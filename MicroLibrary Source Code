@@ -519,6 +519,7 @@ function Library:Create(Options)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 and CloseHover then
 			GUI["1"]:Destroy()
 			GUI.CloseHover = false
+			GUI.Closed = true
 			if Options.CloseCallback ~= nil then
 				Options.CloseCallback()
 			end
