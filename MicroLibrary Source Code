@@ -2330,7 +2330,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			end)
 			
 			UserInputService.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover then
 					Notify.Items[id].Callback()
 					Notify["66"]:Destroy()
 				end
