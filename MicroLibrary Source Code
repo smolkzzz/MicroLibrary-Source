@@ -1919,7 +1919,6 @@ function Library:Create(Options)
 
 							if input.KeyCode == Options.StartBind then
 								if gpe then return end
-								if Keybind.WaitingForInput == true then return end
 								Options.Callback()	
 							end
 						end)
