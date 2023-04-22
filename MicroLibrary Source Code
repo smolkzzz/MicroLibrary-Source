@@ -2214,7 +2214,7 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 			-- StarterGui.MicroLibrary.Notifications.Notification
 			Notify["66"] = Instance.new("Frame", GUI["64"]);
 			Notify["66"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
-			Notify["66"]["Size"] = UDim2.new(1, 0, 0, 100);
+			Notify["66"]["Size"] = UDim2.new(1, 0, 0, 175);
 			Notify["66"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Notification]];
 			
 			-- StarterGui.MicroLibrary.Notifications.Notification.UICorner
