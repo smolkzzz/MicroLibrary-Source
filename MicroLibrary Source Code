@@ -1807,11 +1807,11 @@ function Library:Create(Options)
 						end)
 
 						Textbox["47"].FocusLost:Connect(function(enter)
-							if not enter then return end
-							Options.Callback(Textbox["47"].Text)
 							if Options.RemoveTextOnFocusLost then
 								Textbox["47"].Text = ""
 							end
+							if not enter then return end
+							Options.Callback(Textbox["47"].Text)
 						end)
 					end
 				end
