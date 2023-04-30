@@ -1361,6 +1361,7 @@ function Library:Create(Options)
 					Toggle.State = false
 					Library:tween(Toggle["57"],{Color = Color3.fromRGB(56,0,0)})
 					Library:tween(Toggle["55"],{BackgroundColor3 = Color3.fromRGB(156,0,0)})
+					Options.Callback(Toggle.State)
 				end
 
 				function Toggle:GetState()
