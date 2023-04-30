@@ -1934,9 +1934,15 @@ function Library:Create(Options)
 								
 							elseif input.UserInputType == Enum.UserInputType.Keyboard then
 								if Keybind.WaitingForInput then
-									Keybind.WaitingForInput = false
 									Options.StartBind = input.KeyCode
+									Keybind.WaitingForInput = false
 									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),14,#tostring(input.KeyCode))
+								end
+							elseif input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.MouseButton2 then
+								if Keybind.WaitingForInput then
+									Options.StartBind = nil
+									Keybind.WaitingForInput = false
+									Keybind["5e"].Text = ""
 								end
 							elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Hover then
 								if Options.Description == nil then return end
