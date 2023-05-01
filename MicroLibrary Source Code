@@ -1841,6 +1841,7 @@ function Library:Create(Options)
 					local Keybind = {
 						Hover = false;
 						WaitingForInput = false;
+						CanRun = true;
 					}
 					
 					-- [[ Render ]]
@@ -1930,11 +1931,13 @@ function Library:Create(Options)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								
 									Keybind.WaitingForInput = true
+									Keybind.CanRun = false
 									Keybind["5e"].Text = "[..]"
 								
 							elseif input.UserInputType == Enum.UserInputType.Keyboard then
 								if Keybind.WaitingForInput then
 									Options.StartBind = input.KeyCode
+									Keybind.CanRun = false
 									Keybind.WaitingForInput = false
 									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),14,#tostring(input.KeyCode))
 								end
@@ -1951,7 +1954,7 @@ function Library:Create(Options)
 
 							if input.KeyCode == Options.StartBind then
 								if gpe then return end
-								if Keybind.WaitingForInput then return end
+								if Keybind.CanRun == false then return end
 								if GUI.Closed then return end
 								Options.Callback()
 							end
