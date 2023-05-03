@@ -1937,9 +1937,9 @@ function Library:Create(Options)
 							elseif input.UserInputType == Enum.UserInputType.Keyboard then
 								if Keybind.WaitingForInput then
 									Options.StartBind = input.KeyCode
-									Keybind.CanRun = false
+									Keybind.CanRun = true
 									Keybind.WaitingForInput = false
-									Keybind["5e"].Text = string.sub(tostring(input.KeyCode),14,#tostring(input.KeyCode))
+									Keybind["5e"].Text = UserInputService:GetStringForKeyCode(input.KeyCode)
 								end
 							elseif input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.MouseButton2 then
 								if Keybind.WaitingForInput then
