@@ -1630,7 +1630,12 @@ function Library:Create(Options)
 								if Dropdown.HoverItem then return end
 								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30)})
 							else
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,190)})
+								--Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,190)})
+								local count = 0
+								for i,v in pairs(Dropdown.Items) do
+									count += 1
+								end
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,40 + (count * 16) + 1)})
 							end
 							Dropdown.Opened = not Dropdown.Opened
 						end
@@ -1931,13 +1936,11 @@ function Library:Create(Options)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover or input.UserInputType == Enum.UserInputType.Touch then
 								
 									Keybind.WaitingForInput = true
-									Keybind.CanRun = false
 									Keybind["5e"].Text = "[..]"
 								
 							elseif input.UserInputType == Enum.UserInputType.Keyboard then
 								if Keybind.WaitingForInput then
 									Options.StartBind = input.KeyCode
-									Keybind.CanRun = true
 									Keybind.WaitingForInput = false
 									Keybind["5e"].Text = UserInputService:GetStringForKeyCode(input.KeyCode)
 								end
@@ -1954,8 +1957,8 @@ function Library:Create(Options)
 
 							if input.KeyCode == Options.StartBind then
 								if gpe then return end
-								if Keybind.CanRun == false then return end
 								if GUI.Closed then return end
+								if Keybind.WaitingForInput == true then return end
 								Options.Callback()
 							end
 						end)
