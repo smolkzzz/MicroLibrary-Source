@@ -300,7 +300,7 @@ function Library:Create(Options)
 		end)
 
 		UserInputService.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
 				if Key.Getkey then
 					setclipboard(GUI.GetkeyLink)
 				elseif Key.Submit then
@@ -733,7 +733,7 @@ function Library:Create(Options)
 				end
 			end)
 			UserInputService.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 and Tab.Hover or input.UserInputType == Enum.UserInputType.Touch then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and Tab.Hover then
 					
 						Tab:Activate()
 					
@@ -1254,7 +1254,7 @@ function Library:Create(Options)
 					end)
 	
 					UserInputService.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover or input.UserInputType == Enum.UserInputType.Touch then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover then
 							Slider.MouseDown = true
 							Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
 							Library:tween(Slider["2e"],{BackgroundColor3 = Color3.fromRGB(150,150,150)})
@@ -1271,7 +1271,7 @@ function Library:Create(Options)
 					end)
 					
 					UserInputService.InputEnded:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 then
 							Slider.MouseDown = false
 	
 							if Slider.Hover then
@@ -1407,7 +1407,7 @@ function Library:Create(Options)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Toggle.Hover or input.UserInputType == Enum.UserInputType.Touch then
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Toggle.Hover then
 							
 								if Toggle.State then
 									Toggle:Deactivate()
@@ -1580,7 +1580,7 @@ function Library:Create(Options)
 							UserInputService.InputBegan:Connect(function(input)
 								if Dropdown.Items[id] == nil then return end
 
-								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover or input.UserInputType == Enum.UserInputType.Touch and Item.Hover then
+								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover and Item.Hover then
 									Item.MouseDown = true
 									Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
@@ -1592,7 +1592,7 @@ function Library:Create(Options)
 							end)
 	
 							UserInputService.InputEnded:Connect(function(input)
-								if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+								if input.UserInputType == Enum.UserInputType.MouseButton1 then
 									Item.MouseDown = false
 	
 									if Item.Hover then
@@ -1663,7 +1663,7 @@ function Library:Create(Options)
 	
 						UserInputService.InputBegan:Connect(function(input)
 							if Dropdown.HoverItem then return end
-							if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover or input.UserInputType == Enum.UserInputType.Touch then
+							if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover then
 								Dropdown.MouseDown = true
 								Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 								Library:tween(Dropdown["34"],{Color = Color3.fromRGB(200,200,200)})
@@ -1816,7 +1816,7 @@ function Library:Create(Options)
 						end)
 						
 						UserInputService.InputBegan:Connect(function(input)
-							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover or input.UserInputType == Enum.UserInputType.Touch then
+							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover then
 								
 									Textbox["47"].Text = ""
 									elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Textbox.Hover then
@@ -1933,7 +1933,7 @@ function Library:Create(Options)
 						end)
 						
 						UserInputService.InputBegan:Connect(function(input,gpe)
-							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover or input.UserInputType == Enum.UserInputType.Touch then
+							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover then
 								
 									Keybind.WaitingForInput = true
 									Keybind["5e"].Text = "[..]"
