@@ -1633,9 +1633,10 @@ function Library:Create(Options)
 								--Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,190)})
 								local count = 0
 								for i,v in pairs(Dropdown.Items) do
+									if v == nil then continue end
 									count += 1
 								end
-								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30 + (count * 16) + 1)})
+								Library:tween(Dropdown["32"],{Size = UDim2.new(1,0,0,30 + (count * 24) + 1)})
 							end
 							Dropdown.Opened = not Dropdown.Opened
 						end
