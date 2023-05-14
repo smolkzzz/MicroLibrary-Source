@@ -55,7 +55,7 @@ function Library:Create(Options)
 		CurrentTab = nil;
 		Opened = true;
 		KeyCorrect = false;
-		Closed = false;
+		Loaded = true;
 	}
 	
 	function GUI:Destroy()
@@ -522,7 +522,7 @@ function Library:Create(Options)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 and CloseHover then
 			GUI["1"]:Destroy()
 			GUI.CloseHover = false
-			GUI.Closed = true
+			GUI.Loaded = false
 			if Options.CloseCallback ~= nil then
 				Options.CloseCallback()
 			end
@@ -835,6 +835,7 @@ function Library:Create(Options)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
+						if GUI.Loaded == false then return end
 						if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover then
 							Button.MouseDown = true
 							Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
@@ -1254,6 +1255,7 @@ function Library:Create(Options)
 					end)
 	
 					UserInputService.InputBegan:Connect(function(input)
+						if GUI.Loaded == false then return end
 						if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover then
 							Slider.MouseDown = true
 							Library:tween(Slider["Stoke"],{Color = Color3.fromRGB(255,255,255)})
@@ -1407,6 +1409,7 @@ function Library:Create(Options)
 					end)
 					
 					UserInputService.InputBegan:Connect(function(input)
+						if GUI.Loaded == false then return end
 						if input.UserInputType == Enum.UserInputType.MouseButton1 and Toggle.Hover then
 							
 								if Toggle.State then
@@ -1579,6 +1582,7 @@ function Library:Create(Options)
 	
 							UserInputService.InputBegan:Connect(function(input)
 								if Dropdown.Items[id] == nil then return end
+								if GUI.Loaded == false then return end
 
 								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover and Item.Hover then
 									Item.MouseDown = true
@@ -1606,6 +1610,9 @@ function Library:Create(Options)
 									end
 								end
 							end)
+
+							Dropdown:Toggle()
+							Dropdown:Toggle()
 						end
 	
 						function Dropdown:Remove(id)
@@ -1823,6 +1830,7 @@ function Library:Create(Options)
 						end)
 						
 						UserInputService.InputBegan:Connect(function(input)
+							if GUI.Loaded == false then return end
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Textbox.Hover then
 								
 									Textbox["47"].Text = ""
@@ -1833,6 +1841,7 @@ function Library:Create(Options)
 						end)
 
 						Textbox["47"].FocusLost:Connect(function(enter)
+							if GUI.Loaded == false then return end
 							if Options.RemoveTextOnFocusLost then
 								Textbox["47"].Text = ""
 							end
@@ -1940,6 +1949,7 @@ function Library:Create(Options)
 						end)
 						
 						UserInputService.InputBegan:Connect(function(input,gpe)
+							if GUI.Loaded == false then return end
 							if input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Hover then
 								
 									Keybind.WaitingForInput = true
@@ -1964,7 +1974,6 @@ function Library:Create(Options)
 
 							if input.KeyCode == Options.StartBind then
 								if gpe then return end
-								if GUI.Closed then return end
 								if Keybind.WaitingForInput == true then return end
 								Options.Callback()
 							end
