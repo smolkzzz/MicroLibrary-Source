@@ -1645,7 +1645,7 @@ function Library:Create(Options)
 						end
 						
 						function Dropdown:Find(id)
-							if (Items[id]) and (Items[id] ~= nil) then
+							if (Dropdown.Items[id]) and (Dropdown.Items[id] ~= nil) then
 								return true
 							end
 							return false
