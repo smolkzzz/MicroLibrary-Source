@@ -1644,6 +1644,12 @@ function Library:Create(Options)
 							Dropdown["32"]:Destroy()
 						end
 						
+						function Dropdown:Find(id)
+							if (Items[id]) and (Items[id] ~= nil) then
+								return true
+							end
+							return false
+						end
 					end
 					
 					-- [[ Logic ]]
