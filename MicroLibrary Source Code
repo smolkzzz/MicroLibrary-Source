@@ -1476,11 +1476,7 @@ function Library:Create(Options)
 					},Options or {})
 					
 					local Dropdown = {
-						Items = {
-							["id"] = {
-								"Value";
-							};						
-						};
+						Items = {};
 						Opened = false;
 						Hover = false;
 						MouseDown = false;
