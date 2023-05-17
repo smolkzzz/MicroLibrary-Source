@@ -38,9 +38,9 @@ function Library:Drag(Object,Move,DragSpeed)
 		local delta = input.Position - Start
 		local position = UDim2.new(
 			Pos.X.Scale,
-			Pos.X.Offset + delta,
+			Pos.X.Offset + delta.X,
 			Pos.Y.Scale,
-			Pos.Y.Offset + delta
+			Pos.Y.Offset + delta.Y
 		)
 		TweenService:Create(Move,TweenInfo.new(DragSpeed),{Position = position}):Play()
 	end
