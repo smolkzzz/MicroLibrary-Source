@@ -59,7 +59,7 @@ function Library:Drag(Object,Move,DragSpeed)
 		end
 	end)
 	UserInputService.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement or UserInputType == Enum.UserInputType.Touch then
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 			if Toggle == true then
 				UpdateInput(input)
 			end
@@ -95,6 +95,9 @@ function Library:Create(Options)
 		Opened = true;
 		KeyCorrect = false;
 		Loaded = true;
+		Settings = {
+			DragSpeed = 2;
+		};
 	}
 	
 	function GUI:Destroy()
@@ -377,7 +380,6 @@ function Library:Create(Options)
 		GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
 		GUI["2"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Main]];
 		GUI["2"]["Active"] = true;
-		GUI["2"]["Draggable"] = true;
 
 		task.spawn(function()
 			repeat
@@ -447,7 +449,7 @@ function Library:Create(Options)
 		GUI["8"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
 		GUI["8"]["Size"] = UDim2.new(1, 0, 0, 30);
 		GUI["8"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
-		Library:Drag(GUI["8"],GUI["2"],0.2)
+		Library:Drag(GUI["8"],GUI["2"],GUI.Settings.DragSpeed)
 
 		-- StarterGui.MicroLibrary.Main.TopBar.UICorner
 		GUI["9"] = Instance.new("UICorner", GUI["8"]);
@@ -2428,6 +2430,24 @@ ColorPicker["7c"] = Instance.new("UICorner", ColorPicker["7b"]);
 		return Notify
 	end
 
+	local Settings = GUI:Tab({
+		Name = "Settings"; -- Title
+		Icon = "rbxassetid://2677102625"; -- Icon
+	})
+
+	Settings:Deactivate()
+
+	Settings:Slider({
+		Name = "Drag Speed"; -- Title
+		Description = "Changes your draging speed"; -- Description
+		Minimum = 0; -- Minimum Value
+		Maximum = 10; -- Maximum Value
+		Default = GUI.Settings.DragSpeed; -- Default Value
+		Callback = function(Value) 
+			-- Code Here Will Execute When The Draggable Frame Is Being Held --
+			GUI.Settings.DragSpeed = Value
+		end;
+	})
 	-- [[ Tab Resizer ]]
 
 	do 
