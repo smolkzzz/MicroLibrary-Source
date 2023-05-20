@@ -4021,7 +4021,7 @@ function Library:Create(Options)
 									if Dropdown.Items[id] == nil then return end
 									if GUI.Loaded == false then return end
 	
-									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Item.Hover and Item.Hover then
+									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Item.Hover then
 										Item.MouseDown = true
 										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
 										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
@@ -4033,7 +4033,10 @@ function Library:Create(Options)
 								end)
 		
 								UserInputService.InputEnded:Connect(function(input)
-									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+									if Dropdown.Items[id] == nil then return end
+									if GUI.Loaded == false then return end
+
+									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Item.Hover then
 										Item.MouseDown = false
 		
 										if Item.Hover then
