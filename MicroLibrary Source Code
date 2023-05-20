@@ -2455,7 +2455,7 @@ function Library:Create(Options)
 				Description = "Changes your draging speed"; -- Description
 				Minimum = 0; -- Minimum Value
 				Maximum = 10; -- Maximum Value
-				Default = GUI.Settings.DragSpeed; -- Default Value
+				Default = Library.Settings.DragSpeed; -- Default Value
 				Callback = function(Value) 
 					-- Code Here Will Execute When The Draggable Frame Is Being Held --
 					Library.Settings.DragSpeed = Value
@@ -4830,7 +4830,7 @@ function Library:Create(Options)
 			Description = "Changes your draging speed"; -- Description
 			Minimum = 0; -- Minimum Value
 			Maximum = 10; -- Maximum Value
-			Default = GUI.Settings.DragSpeed; -- Default Value
+			Default = Library.Settings.DragSpeed; -- Default Value
 			Callback = function(Value) 
 				-- Code Here Will Execute When The Draggable Frame Is Being Held --
 				Library.Settings.DragSpeed = Value
