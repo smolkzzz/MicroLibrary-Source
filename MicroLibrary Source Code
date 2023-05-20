@@ -3124,6 +3124,18 @@ function Library:Create(Options)
 					
 					GUI.CurrentTab = Tab
 				end
+			else
+				if GUI.CurrentTab ~= nil then
+					GUI.CurrentTab:Deactivate()
+				end
+				Tab.Active = true
+				Tab.Hover = true
+				Library:tween(Tab["51"],{TextTransparency = 0})
+				Library:tween(Tab["51"],{BackgroundTransparency = 0})
+				Library:tween(Tab["52"],{ImageTransparency = 0})
+				Tab["10"].Visible = true
+				
+				GUI.CurrentTab = Tab
 				end
 			end
 			
@@ -3136,6 +3148,13 @@ function Library:Create(Options)
 					Library:tween(Tab["52"],{ImageTransparency = 0.6})
 					Tab["10"].Visible = false
 				end
+				else
+					Tab.Active = false
+					Tab.Hover = false
+					Library:tween(Tab["51"],{TextTransparency = 0.6})
+					Library:tween(Tab["51"],{BackgroundTransparency = 0.6})
+					Library:tween(Tab["52"],{ImageTransparency = 0.6})
+					Tab["10"].Visible = false
 				end
 			end
 	
