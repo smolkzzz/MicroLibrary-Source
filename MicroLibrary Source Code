@@ -47,7 +47,7 @@ function Library:Drag(Object,Move)
 			Pos.Y.Scale,
 			Pos.Y.Offset + delta.Y
 		)
-		TweenService:Create(Move,TweenInfo.new(Library.SettingsDragSpeed),{Position = position}):Play()
+		TweenService:Create(Move,TweenInfo.new(Library.Settings.DragSpeed),{Position = position}):Play()
 	end
 
 	Object.InputBegan:Connect(function(input)
