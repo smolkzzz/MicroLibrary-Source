@@ -2243,10 +2243,10 @@ function Library:Create(Options)
 								local hsv = Color3.fromHSV(math.clamp(hue,0,1),math.clamp(saturation,0,1),math.clamp(value,0,1))
 
 								ColorPicker["79"].BackgroundColor3 = hsv
-								ColorPicker["76"].Color = ColorSequence.new(
-									ColorSequenceKeypoint.new(0,hsv),
-									ColorSequenceKeypoint.new(1,Color3.new(0,0,0))
-								)
+								ColorPicker["76"].Color = ColorSequence.new({
+									ColorSequenceKeypoint.new(0,hsv);
+									ColorSequenceKeypoint.new(1,Color3.new(0,0,0));
+								})
 							end
 	
 							ColorPicker["7b"].MouseEnter:Connect(function()
