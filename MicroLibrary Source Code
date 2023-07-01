@@ -2289,13 +2289,18 @@ function Library:Create(Options)
 										ColorPicker.DarknessHeld = true
 										elseif ColorPicker.SubmitHover then
 											ColorPicker["6c"].BackgroundColor3 = ColorPicker["79"].BackgroundColor3
-										Options.Callback(ColorPicker["6c"].BackgroundColor3)
+											Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
+											ColorPicker["6f"].Visible = false
+											ColorPicker.Opened = false
+											Options.Callback(ColorPicker["6c"].BackgroundColor3)
 										elseif ColorPicker.Hover then
 											if not ColorPicker.Opened then
 												Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,150)})
+												ColorPicker["6f"].Visible = true
 												ColorPicker.Opened = true
 											else
 												Library:tween(ColorPicker["68"],{Size = UDim2.new(1,0,0,30)})
+												ColorPicker["6f"].Visible = false
 												ColorPicker.Opened = false
 											end
 											elseif input.UserInputType == Enum.UserInputType.MouseButton2 and ColorPicker.Hover then
@@ -2328,9 +2333,9 @@ function Library:Create(Options)
 								elseif ColorPicker.DarknessHeld then
 									ColorPicker["77"].Position = UDim2.new(ColorPicker["77"].Position.X.Scale,0,0,
 										math.clamp(
-											mousePos.Y - ColorPicker["77"].AbsolutePosition.Y,
+											mousePos.Y - ColorPicker["74"].AbsolutePosition.Y,
 											0,
-											ColorPicker["77"].AbsoluteSize.Y
+											ColorPicker["74"].AbsoluteSize.Y
 										)
 									)
 								end
