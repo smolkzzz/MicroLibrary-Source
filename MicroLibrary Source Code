@@ -3,6 +3,58 @@ local Library = {
 		DragSpeed = 2;
 		HasPremium = game.Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium and true or false;
 	};
+	ColourScheme = {
+		Dark = {
+			Window = Color3.fromRGB(43, 43, 43);
+			Text = Color3.fromRGB(255, 255, 255);
+			Split = Color3.fromRGB(179, 179, 179);
+			Interface = Color3.fromRGB(44, 44, 44);
+			Topbar = Color3.fromRGB(39, 39, 39);
+			Navigation = Color3.fromRGB(49, 49, 49);
+			InterfaceStroke = Color3.fromRGB(108, 108, 108);
+			Tabs = Color3.fromRGB(58, 58, 58);
+		};
+		Light = {
+			Window = Color3.fromRGB(143, 143, 143);
+			Text = Color3.fromRGB(55, 55, 55);
+			Split = Color3.fromRGB(79, 79, 79);
+			Interface = Color3.fromRGB(144, 144, 144);
+			Topbar = Color3.fromRGB(138, 138, 138);
+			Navigation = Color3.fromRGB(148, 148, 148);
+			InterfaceStroke = Color3.fromRGB(8, 8, 8);
+			Tabs = Color3.fromRGB(157, 157, 157);
+		};
+		Red = {
+			Window = Color3.fromRGB(43, 0, 0);
+			Text = Color3.fromRGB(155, 0, 0);
+			Split = Color3.fromRGB(79, 0, 0);
+			Interface = Color3.fromRGB(144, 0, 0);
+			Topbar = Color3.fromRGB(138, 0, 0);
+			Navigation = Color3.fromRGB(148, 0, 0);
+			InterfaceStroke = Color3.fromRGB(108, 0, 0);
+			Tabs = Color3.fromRGB(57, 0, 0);
+		};
+		Green = {
+			Window = Color3.fromRGB(0, 43, 0);
+			Text = Color3.fromRGB(0, 155, 0);
+			Split = Color3.fromRGB(0, 79, 0);
+			Interface = Color3.fromRGB(0, 144, 0);
+			Topbar = Color3.fromRGB(0, 138, 0);
+			Navigation = Color3.fromRGB(0, 148, 1048);
+			InterfaceStroke = Color3.fromRGB(0, 108, 0);
+			Tabs = Color3.fromRGB(0, 57, 507);
+		};
+		Blue = {
+			Window = Color3.fromRGB(0, 0, 43);
+			Text = Color3.fromRGB(0, 0, 155);
+			Split = Color3.fromRGB(0, 0, 79);
+			Interface = Color3.fromRGB(0, 0, 144);
+			Topbar = Color3.fromRGB(0, 0, 138);
+			Navigation = Color3.fromRGB(0, 0, 148);
+			InterfaceStroke = Color3.fromRGB(0, 0, 108);
+			Tabs = Color3.fromRGB(0, 0, 57);
+		};
+	};
 }
 
 -- [[ Services ]]
@@ -82,8 +134,8 @@ function Library:RandomString(length)
 	return table.concat(array)
 end
 
-function Library:Create(Options)
-	Options = Library:validate({
+function Library:Create(Window)
+	Window = Library:validate({
 		Name = game.Name .. " Script"; -- When you load up the script, the title will be this string
 		Toggle = Enum.KeyCode.RightShift; -- When this keybind is clicked on a keyboard, the UI will be toggled.
 		CloseCallback = function() end; -- if closed then it will run this code.
@@ -93,8 +145,9 @@ function Library:Create(Options)
 			GetkeyLink = "https://link" -- When the "Getkey" button is clicked, it will copy this string.
 		};
 		Size = UDim2.new(0,400,0,300); -- The size of the UI
+		ColourScheme = "Dark"; -- The Colour Scheme of the UI
 		RequiresPremium = false; -- If the player has Premium then they can enter else, they can't.
-	},Options or {})
+	},Window or {})
 	
 	local GUI = {
 		CurrentTab = nil;
@@ -103,6 +156,10 @@ function Library:Create(Options)
 		Loaded = true;
 	}
 
+	if not Library.ColourSchemes[Window.ColourScheme] then
+		Window.ColourScheme = Library.ColourSchemes[math.random(#Library.ColourSchemes)]
+	end
+
 	local function Create()
 		function GUI:Destroy()
 			GUI["1"]:Destroy()
@@ -110,11 +167,11 @@ function Library:Create(Options)
 	
 		-- [[ KeySystem ]]
 	
-		if not Options.KeySystem then
+		if not Window.KeySystem then
 			GUI.KeyCorrect = true
 		end
 	
-		if Options.KeySystem then
+		if Window.KeySystem and GUI.KeyCorrect == false then
 			local Key = {
 				Close = false;
 				Submit = false;
@@ -124,9 +181,15 @@ function Library:Create(Options)
 			task.wait(1)
 		-- [[ Render ]]
 		do
+				-- StarterGui.MicroLibrary
+				GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Client:WaitForChild("PlayerGui") or CoreGui);
+				GUI["1"]["ResetOnSpawn"] = false;
+				GUI["1"]["IgnoreGuiInset"] = true;
+				GUI["1"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[MicroLibrary]];
+
 				-- StarterGui.MicroLibrary.Keysystem
 				GUI["78"] = Instance.new("Frame", GUI["1"]);
-				GUI["78"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
+				GUI["78"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Window;
 				GUI["78"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 				GUI["78"]["Size"] = UDim2.new(0, 400, 0, 200);
 				GUI["78"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
@@ -188,7 +251,7 @@ function Library:Create(Options)
 				-- StarterGui.MicroLibrary.Keysystem.TopBar
 				GUI["7e"] = Instance.new("Frame", GUI["78"]);
 				GUI["7e"]["BorderSizePixel"] = 0;
-				GUI["7e"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
+				GUI["7e"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Topbar;
 				GUI["7e"]["Size"] = UDim2.new(1, 0, 0, 30);
 				GUI["7e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
 				
@@ -199,7 +262,7 @@ function Library:Create(Options)
 				-- StarterGui.MicroLibrary.Keysystem.TopBar.Hide
 				GUI["80"] = Instance.new("Frame", GUI["7e"]);
 				GUI["80"]["BorderSizePixel"] = 0;
-				GUI["80"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
+				GUI["80"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Topbar;
 				GUI["80"]["AnchorPoint"] = Vector2.new(0, 1);
 				GUI["80"]["Size"] = UDim2.new(1, 0, 0.25, 0);
 				GUI["80"]["Position"] = UDim2.new(0, 0, 1, 0);
@@ -217,10 +280,10 @@ function Library:Create(Options)
 				-- StarterGui.MicroLibrary.Keysystem.TopBar.Title
 				GUI["82"] = Instance.new("TextLabel", GUI["7e"]);
 				GUI["82"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				GUI["82"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["82"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				-- GUI["82"]["FontFace"] = ;
 				GUI["82"]["TextSize"] = 14;
-				GUI["82"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["82"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["82"]["Size"] = UDim2.new(0, 300, 1, -3);
 				GUI["82"]["Text"] = [[Sorry! But you have to do this Keysystem!]];
 				GUI["82"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
@@ -236,8 +299,8 @@ function Library:Create(Options)
 				GUI["84"]["TextWrapped"] = true;
 				GUI["84"]["AutoButtonColor"] = false;
 				GUI["84"]["TextScaled"] = true;
-				GUI["84"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				GUI["84"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["84"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
+				GUI["84"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				-- GUI["84"]["FontFace"] = ;
 				GUI["84"]["AnchorPoint"] = Vector2.new(1, 0);
 				GUI["84"]["Size"] = UDim2.new(0, 27, 1, -3);
@@ -259,9 +322,9 @@ function Library:Create(Options)
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Key
 				GUI["86"] = Instance.new("TextBox", GUI["85"]);
-				GUI["86"]["PlaceholderColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["86"]["PlaceholderColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["86"]["BorderSizePixel"] = 0;
-				GUI["86"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["86"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["86"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				GUI["86"]["TextSize"] = 14;
 				GUI["86"]["TextYAlignment"] = Enum.TextYAlignment.Top;
@@ -290,7 +353,7 @@ function Library:Create(Options)
 				GUI["89"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
 				-- GUI["89"]["FontFace"] = ;
 				GUI["89"]["TextSize"] = 25;
-				GUI["89"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["89"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["89"]["AnchorPoint"] = Vector2.new(1, 0);
 				GUI["89"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
 				GUI["89"]["Text"] = [[Submit Key]];
@@ -307,7 +370,7 @@ function Library:Create(Options)
 				GUI["8b"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
 				-- GUI["8b"]["FontFace"] = ;
 				GUI["8b"]["TextSize"] = 30;
-				GUI["8b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				GUI["8b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["8b"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
 				GUI["8b"]["Text"] = [[Get Key]];
 				GUI["8b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Getkey]];
@@ -350,8 +413,15 @@ function Library:Create(Options)
 					if Key.Getkey then
 						setclipboard(GUI.GetkeyLink)
 					elseif Key.Submit then
-						for i,v in pairs(Options.KeySettings.CorrectKey) do
-							if GUI["86"].Text == tostring(v) then
+						if typeof(Window.GetKey.CorrectKey) == "table" then
+							for i,v in pairs(Window.KeySettings.CorrectKey) do
+								if GUI["86"].Text == tostring(v) then
+									GUI.KeyCorrect = true
+									GUI["78"]:Destroy()
+								end
+							end
+						elseif typeof(Window.GetKey.CorrectKey) == "string" then
+							if GUI["86"].Text == tostring(Window.GetKey.CorrectKey) then
 								GUI.KeyCorrect = true
 								GUI["78"]:Destroy()
 							end
@@ -378,7 +448,7 @@ function Library:Create(Options)
 	
 			-- StarterGui.MicroLibrary.Main
 			GUI["2"] = Instance.new("Frame", GUI["1"]);
-			GUI["2"]["BackgroundColor3"] = Color3.fromRGB(43, 43, 43);
+			GUI["2"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Window;
 			GUI["2"]["AnchorPoint"] = Vector2.new(0,0);
 			GUI["2"]["Size"] = UDim2.new(0,0,0,0);
 			GUI["2"]["Position"] = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2));
@@ -388,9 +458,9 @@ function Library:Create(Options)
 			task.spawn(function()
 				repeat
 					wait()
-					Library:tween(GUI["2"],{Size = Options.Size})
+					Library:tween(GUI["2"],{Size = Window.Size})
 					Library:tween(GUI["2"],{Position = UDim2.fromOffset((Viewport.X /2) - (GUI["2"].Size.X.Offset /2),(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
-				until GUI["2"]["Size"] == Options.Size
+				until GUI["2"]["Size"] == Window.Size
 			end)
 	
 			-- StarterGui.MicroLibrary.Main.UICorner
@@ -450,7 +520,7 @@ function Library:Create(Options)
 			-- StarterGui.MicroLibrary.Main.TopBar
 			GUI["8"] = Instance.new("Frame", GUI["2"]);
 			GUI["8"]["BorderSizePixel"] = 0;
-			GUI["8"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
+			GUI["8"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Topbar;
 			GUI["8"]["Size"] = UDim2.new(1, 0, 0, 30);
 			GUI["8"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[TopBar]];
 			Library:Drag(GUI["8"],GUI["2"])
@@ -463,7 +533,7 @@ function Library:Create(Options)
 			-- StarterGui.MicroLibrary.Main.TopBar.Hide
 			GUI["a"] = Instance.new("Frame", GUI["8"]);
 			GUI["a"]["BorderSizePixel"] = 0;
-			GUI["a"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
+			GUI["a"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Topbar;
 			GUI["a"]["AnchorPoint"] = Vector2.new(0, 1);
 			GUI["a"]["Size"] = UDim2.new(1, 0, 0.25, 0);
 			GUI["a"]["Position"] = UDim2.new(0, 0, 1, 0);
@@ -472,7 +542,7 @@ function Library:Create(Options)
 			-- StarterGui.MicroLibrary.Main.TopBar.Line
 			GUI["b"] = Instance.new("Frame", GUI["8"]);
 			GUI["b"]["BorderSizePixel"] = 0;
-			GUI["b"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
+			GUI["b"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Split
 			GUI["b"]["Size"] = UDim2.new(1, 0, 0.05000000074505806, 0);
 			GUI["b"]["Position"] = UDim2.new(0, 0, 1, 0);
 			GUI["b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Line]];
@@ -480,12 +550,12 @@ function Library:Create(Options)
 			-- StarterGui.MicroLibrary.Main.TopBar.Title
 			GUI["c"] = Instance.new("TextLabel", GUI["8"]);
 			GUI["c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-			GUI["c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["c"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 			-- GUI["c"]["FontFace"] = ;
 			GUI["c"]["TextSize"] = 14;
-			GUI["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["c"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 			GUI["c"]["Size"] = UDim2.new(0, 200, 1, -3);
-			GUI["c"]["Text"] = "MicroLibrary | " .. Options.Name;
+			GUI["c"]["Text"] = "MicroLibrary | " .. Window.Name;
 			GUI["c"]["RichText"] = true;
 			GUI["c"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 			GUI["c"]["Font"] = Enum.Font.Gotham;
@@ -501,8 +571,8 @@ function Library:Create(Options)
 			GUI["e"]["TextWrapped"] = true;
 			GUI["e"]["AutoButtonColor"] = false;
 			GUI["e"]["TextScaled"] = true;
-			GUI["e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-			GUI["e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["e"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
+			GUI["e"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 			-- GUI["e"]["FontFace"] = ;
 			GUI["e"]["AnchorPoint"] = Vector2.new(1, 0);
 			GUI["e"]["Size"] = UDim2.new(0, 27, 1, -3);
@@ -569,10 +639,10 @@ function Library:Create(Options)
 				GUI["1"]:Destroy()
 				GUI.CloseHover = false
 				GUI.Loaded = false
-				if Options.CloseCallback ~= nil then
-					Options.CloseCallback()
+				if Window.CloseCallback ~= nil then
+					Window.CloseCallback()
 				end
-			elseif input.KeyCode == Options.Toggle then
+			elseif input.KeyCode == Window.Toggle then
 				if GUI.Opened then
 					Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
 					repeat wait() until GUI["2"].Position == UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))
@@ -588,7 +658,7 @@ function Library:Create(Options)
 		do
 			-- StarterGui.MicroLibrary.Main.Navigation
 			GUI["49"] = Instance.new("Frame", GUI["2"]);
-			GUI["49"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
+			GUI["49"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Navigation;
 			GUI["49"]["AnchorPoint"] = Vector2.new(0, 1);
 			GUI["49"]["Size"] = UDim2.new(0, 100, 1, -32);
 			GUI["49"]["Position"] = UDim2.new(0, 0, 1, 0);
@@ -597,7 +667,7 @@ function Library:Create(Options)
 			-- StarterGui.MicroLibrary.Main.TopBar.Line
 			GUI["Line"] = Instance.new("Frame", GUI["49"]);
 			GUI["Line"]["BorderSizePixel"] = 0;
-			GUI["Line"]["BackgroundColor3"] = Color3.fromRGB(179,179,179)
+			GUI["Line"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Split
 			GUI["Line"]["AnchorPoint"] = Vector2.new(0,1);
 			GUI["Line"]["Size"] = UDim2.new(0,1,1,1);
 			GUI["Line"]["Position"] = UDim2.new(1, 1, 1, 0);
@@ -610,14 +680,14 @@ function Library:Create(Options)
 			-- StarterGui.MicroLibrary.Main.Navigation.Hide
 			GUI["4b"] = Instance.new("Frame", GUI["49"]);
 			GUI["4b"]["BorderSizePixel"] = 0;
-			GUI["4b"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
+			GUI["4b"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Navigation;
 			GUI["4b"]["Size"] = UDim2.new(1, 0, 0, 5);
 			GUI["4b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Hide]];
 	
 			-- StarterGui.MicroLibrary.Main.Navigation.Hide2
 			GUI["4c"] = Instance.new("Frame", GUI["49"]);
 			GUI["4c"]["BorderSizePixel"] = 0;
-			GUI["4c"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
+			GUI["4c"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Navigation;
 			GUI["4c"]["AnchorPoint"] = Vector2.new(1, 0);
 			GUI["4c"]["Size"] = UDim2.new(0, 5, 1, 0);
 			GUI["4c"]["Position"] = UDim2.new(1, 0, 0, 0);
@@ -628,7 +698,7 @@ function Library:Create(Options)
 			GUI["4d"]["Active"] = true;
 			GUI["4d"]["BorderSizePixel"] = 0;
 			GUI["4d"]["CanvasSize"] = UDim2.new(0, 0, 0, 0);
-			GUI["4d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["4d"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 			GUI["4d"]["BackgroundTransparency"] = 1;
 			GUI["4d"]["Size"] = UDim2.new(1, 0, 1, 0);
 			GUI["4d"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
@@ -645,7 +715,7 @@ function Library:Create(Options)
 		do
 			-- StarterGui.MicroLibrary.Notifications
 			GUI["64"] = Instance.new("Frame", GUI["1"]);
-			GUI["64"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["64"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 			GUI["64"]["AnchorPoint"] = Vector2.new(1, 0.5);
 			GUI["64"]["BackgroundTransparency"] = 1;
 			GUI["64"]["Size"] = UDim2.new(0.2166377753019333, 0, 0.9660326242446899, 0);
@@ -678,13 +748,13 @@ function Library:Create(Options)
 				Tab["51"] = Instance.new("TextLabel", GUI["4d"]);
 				Tab["51"]["TextWrapped"] = true;
 				Tab["51"]["BorderSizePixel"] = 0;
-				Tab["51"]["BackgroundColor3"] = Color3.fromRGB(58, 58, 58);
+				Tab["51"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Tabs;
 				Tab["51"]["TextTransparency"] = 0.6000000238418579;
 				-- Tab["51"]["FontFace"] = ;
 				Tab["51"]["Selectable"] = true;
 				Tab["51"]["TextSize"] = 14;
 				Tab["51"]["TextScaled"] = true;
-				Tab["51"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Tab["51"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				Tab["51"]["Size"] = UDim2.new(1, 0, 0, 25);
 				Tab["51"]["Active"] = true;
 				Tab["51"]["Text"] = Options.Name;
@@ -704,7 +774,7 @@ function Library:Create(Options)
 				Tab["52"] = Instance.new("ImageLabel", Tab["51"]);
 				Tab["52"]["AnchorPoint"] = Vector2.new(1,0);
 				Tab["52"]["ScaleType"] = Enum.ScaleType.Tile;
-				Tab["52"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Tab["52"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				Tab["52"]["ImageTransparency"] = 0.6000000238418579;
 				Tab["52"]["Image"] = Options.Icon;
 				Tab["52"]["Size"] = UDim2.new(0, 25, 1, 0);
@@ -716,7 +786,7 @@ function Library:Create(Options)
 				Tab["10"]["Active"] = true;
 				Tab["10"]["BorderSizePixel"] = 0;
 				Tab["10"]["CanvasSize"] = UDim2.new(0, 0, 10, 0);
-				Tab["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Tab["10"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				Tab["10"]["BackgroundTransparency"] = 1;
 				Tab["10"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Tab["10"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
@@ -826,7 +896,7 @@ function Library:Create(Options)
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button
 						Button["12"] = Instance.new("Frame", Tab["10"]);
-						Button["12"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+						Button["12"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 						Button["12"]["Size"] = UDim2.new(1, 0, 0, 30);
 						Button["12"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Button]];
 		
@@ -836,14 +906,14 @@ function Library:Create(Options)
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.UIStroke
 						Button["14"] = Instance.new("UIStroke", Button["12"]);
-						Button["14"]["Color"] = Color3.fromRGB(108, 108, 108);
+						Button["14"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 						Button["14"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.Icon
 						Button["15"] = Instance.new("ImageLabel", Button["12"]);
-						Button["15"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Button["15"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Button["15"]["AnchorPoint"] = Vector2.new(1, 0);
-						Button["15"]["Image"] = [[rbxassetid://12222922560]];
+						Button["15"]["Image"] = [[rbxassetid://12772734775]];
 						Button["15"]["Size"] = UDim2.new(0, 30, 1, 0);
 						Button["15"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 						Button["15"]["BackgroundTransparency"] = 1;
@@ -852,11 +922,11 @@ function Library:Create(Options)
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.Click
 						Button["16"] = Instance.new("TextLabel", Button["12"]);
 						Button["16"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-						Button["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Button["16"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Button["16"]["FontFace"] = ;
 						Button["16"]["Selectable"] = true;
 						Button["16"]["TextSize"] = 14;
-						Button["16"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Button["16"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Button["16"]["AnchorPoint"] = Vector2.new(0, 0.5);
 						Button["16"]["Size"] = UDim2.new(1, -35, 1, -10);
 						Button["16"]["Active"] = true;
@@ -956,7 +1026,7 @@ function Library:Create(Options)
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Warning.Icon
 						Warning["1b"] = Instance.new("ImageLabel", Warning["18"]);
-						Warning["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Warning["1b"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Warning["1b"]["Image"] = [[rbxassetid://12222946364]];
 						Warning["1b"]["Size"] = UDim2.new(0, 30, 1, 0);
 						Warning["1b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
@@ -966,11 +1036,11 @@ function Library:Create(Options)
 						Warning["1c"] = Instance.new("TextLabel", Warning["18"]);
 						Warning["1c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 						Warning["1c"]["TextYAlignment"] = Enum.TextYAlignment.Top;
-						Warning["1c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Warning["1c"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Warning["1c"]["FontFace"] = ;
 						Warning["1c"]["Selectable"] = true;
 						Warning["1c"]["TextSize"] = 14;
-						Warning["1c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Warning["1c"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Warning["1c"]["AnchorPoint"] = Vector2.new(1, 0.5);
 						Warning["1c"]["Size"] = UDim2.new(1, 0, 1, -10);
 						Warning["1c"]["Active"] = true;
@@ -1034,7 +1104,7 @@ function Library:Create(Options)
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Info.Icon
 						Info["20"] = Instance.new("ImageLabel", Info["1d"]);
-						Info["20"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Info["20"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Info["20"]["Image"] = [[rbxassetid://12222971215]];
 						Info["20"]["Size"] = UDim2.new(0, 30, 1, 0);
 						Info["20"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
@@ -1044,11 +1114,11 @@ function Library:Create(Options)
 						Info["21"] = Instance.new("TextLabel", Info["1d"]);
 						Info["21"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 						Info["21"]["TextYAlignment"] = Enum.TextYAlignment.Top;
-						Info["21"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Info["21"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Info["21"]["FontFace"] = ;
 						Info["21"]["Selectable"] = true;
 						Info["21"]["TextSize"] = 14;
-						Info["21"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Info["21"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Info["21"]["AnchorPoint"] = Vector2.new(0, 0);
 						Info["21"]["Size"] = UDim2.new(1, 0, 1, -10);
 						Info["21"]["Active"] = true;
@@ -1096,7 +1166,7 @@ function Library:Create(Options)
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label
 						Label["22"] = Instance.new("Frame", Tab["10"]);
-						Label["22"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+						Label["22"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 						Label["22"]["Size"] = UDim2.new(1, 0, 0, 30);
 						Label["22"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Label]];
 		
@@ -1106,12 +1176,12 @@ function Library:Create(Options)
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.UIStroke
 						Label["24"] = Instance.new("UIStroke", Label["22"]);
-						Label["24"]["Color"] = Color3.fromRGB(108, 108, 108);
+						Label["24"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 						Label["24"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Label.Icon
 						Label["25"] = Instance.new("ImageLabel", Label["22"]);
-						Label["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Label["25"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Label["25"]["Image"] = [[rbxassetid://12222991501]];
 						Label["25"]["Size"] = UDim2.new(0, 30, 1, 0);
 						Label["25"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
@@ -1121,11 +1191,11 @@ function Library:Create(Options)
 						Label["26"] = Instance.new("TextLabel", Label["22"]);
 						Label["26"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 						Label["26"]["TextYAlignment"] = Enum.TextYAlignment.Top;
-						Label["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Label["26"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Label["26"]["FontFace"] = ;
 						Label["26"]["Selectable"] = true;
 						Label["26"]["TextSize"] = 14;
-						Label["26"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Label["26"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Label["26"]["AnchorPoint"] = Vector2.new(1, 0.5);
 						Label["26"]["Size"] = UDim2.new(1, 0, 1, -10);
 						Label["26"]["Text"] = Options.Message;
@@ -1184,7 +1254,7 @@ function Library:Create(Options)
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider
 						Slider["27"] = Instance.new("Frame", Tab["10"]);
-						Slider["27"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+						Slider["27"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 						Slider["27"]["Size"] = UDim2.new(1, 0, 0, 40);
 						Slider["27"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Slider]];
 		
@@ -1194,17 +1264,17 @@ function Library:Create(Options)
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.UIStroke
 						Slider["29"] = Instance.new("UIStroke", Slider["27"]);
-						Slider["29"]["Color"] = Color3.fromRGB(108, 108, 108);
+						Slider["29"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 						Slider["29"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.Text
 						Slider["2a"] = Instance.new("TextLabel", Slider["27"]);
 						Slider["2a"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-						Slider["2a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Slider["2a"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Slider["2a"]["FontFace"] = ;
 						Slider["2a"]["Selectable"] = true;
 						Slider["2a"]["TextSize"] = 14;
-						Slider["2a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Slider["2a"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Slider["2a"]["Size"] = UDim2.new(0, 253, 0, 20);
 						Slider["2a"]["Active"] = true;
 						Slider["2a"]["Text"] = Options.Name;
@@ -1219,11 +1289,11 @@ function Library:Create(Options)
 						Slider["2b"]["TextWrapped"] = true;
 						Slider["2b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 						Slider["2b"]["TextScaled"] = true;
-						Slider["2b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Slider["2b"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Slider["2b"]["FontFace"] = ;
 						Slider["2b"]["Selectable"] = true;
 						Slider["2b"]["TextSize"] = 14;
-						Slider["2b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Slider["2b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Slider["2b"]["AnchorPoint"] = Vector2.new(1, 0);
 						Slider["2b"]["Size"] = UDim2.new(0, 20, 0, 20);
 						Slider["2b"]["Active"] = true;
@@ -1247,7 +1317,7 @@ function Library:Create(Options)
 						
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.UIStroke
 						Slider["Stoke"] = Instance.new("UIStroke", Slider["2c"]);
-						Slider["Stoke"]["Color"] = Color3.fromRGB(255, 255, 255);
+						Slider["Stoke"]["Color"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Slider["Stoke"]["Thickness"] = 1
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable
@@ -1378,7 +1448,7 @@ function Library:Create(Options)
 					do
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive)
 						Toggle["51"] = Instance.new("Frame", Tab["10"]);
-						Toggle["51"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+						Toggle["51"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 						Toggle["51"]["Size"] = UDim2.new(1, 0, 0, 30);
 						Toggle["51"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Toggle]];
 		
@@ -1388,17 +1458,17 @@ function Library:Create(Options)
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).UIStroke
 						Toggle["53"] = Instance.new("UIStroke", Toggle["51"]);
-						Toggle["53"]["Color"] = Color3.fromRGB(108, 108, 108);
+						Toggle["53"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 						Toggle["53"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Toggle (Inactive).Title
 						Toggle["54"] = Instance.new("TextLabel", Toggle["51"]);
 						Toggle["54"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-						Toggle["54"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Toggle["54"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						-- Toggle["54"]["FontFace"] = ;
 						Toggle["54"]["Selectable"] = true;
 						Toggle["54"]["TextSize"] = 14;
-						Toggle["54"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Toggle["54"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Toggle["54"]["AnchorPoint"] = Vector2.new(0, 0.5);
 						Toggle["54"]["Size"] = UDim2.new(1, -35, 1, -10);
 						Toggle["54"]["Active"] = true;
@@ -1514,7 +1584,7 @@ function Library:Create(Options)
 						do
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown
 							Dropdown["32"] = Instance.new("Frame", Tab["10"]);
-							Dropdown["32"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+							Dropdown["32"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 							Dropdown["32"]["Size"] = UDim2.new(1, 0, 0, 30);
 							Dropdown["32"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Dropdown]];
 		
@@ -1524,12 +1594,12 @@ function Library:Create(Options)
 		
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.UIStroke
 							Dropdown["34"] = Instance.new("UIStroke", Dropdown["32"]);
-							Dropdown["34"]["Color"] = Color3.fromRGB(108, 108, 108);
+							Dropdown["34"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 							Dropdown["34"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Icon
 							Dropdown["35"] = Instance.new("ImageLabel", Dropdown["32"]);
-							Dropdown["35"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Dropdown["35"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Dropdown["35"]["Selectable"] = true;
 							Dropdown["35"]["AnchorPoint"] = Vector2.new(1, 0);
 							Dropdown["35"]["Image"] = [[rbxassetid://10889644850]];
@@ -1543,7 +1613,7 @@ function Library:Create(Options)
 							Dropdown["36"] = Instance.new("Frame", Dropdown["32"]);
 							Dropdown["36"]["Active"] = true;
 							Dropdown["36"]["BorderSizePixel"] = 0;
-							Dropdown["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Dropdown["36"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Dropdown["36"]["AnchorPoint"] = Vector2.new(0, 1);
 							Dropdown["36"]["BackgroundTransparency"] = 1;
 							Dropdown["36"]["Size"] = UDim2.new(1, -10, 1, -35);
@@ -1565,11 +1635,11 @@ function Library:Create(Options)
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Click
 							Dropdown["42"] = Instance.new("TextLabel", Dropdown["32"]);
 							Dropdown["42"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-							Dropdown["42"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Dropdown["42"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							-- Dropdown["42"]["FontFace"] = ;
 							Dropdown["42"]["Selectable"] = true;
 							Dropdown["42"]["TextSize"] = 14;
-							Dropdown["42"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+							Dropdown["42"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Dropdown["42"]["Size"] = UDim2.new(1, -35, 0, 20);
 							Dropdown["42"]["Active"] = true;
 							Dropdown["42"]["Text"] = Options.Name;
@@ -1601,7 +1671,7 @@ function Library:Create(Options)
 								-- Dropdown.Items[id].Instance["3f"]["FontFace"] = ;
 								Dropdown.Items[id].instance["3f"]["Selectable"] = true;
 								Dropdown.Items[id].instance["3f"]["TextSize"] = 16;
-								Dropdown.Items[id].instance["3f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+								Dropdown.Items[id].instance["3f"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 								Dropdown.Items[id].instance["3f"]["Size"] = UDim2.new(1, 0, 0, 16);
 								Dropdown.Items[id].instance["3f"]["Active"] = true;
 								Dropdown.Items[id].instance["3f"]["Text"] = id;
@@ -1611,7 +1681,7 @@ function Library:Create(Options)
 		
 								-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Dropdown.Items[id].Instance.OptionHolder.Inactive.UIStroke
 								Dropdown.Items[id].instance["40"] = Instance.new("UIStroke", Dropdown.Items[id].instance["3f"]);
-								Dropdown.Items[id].instance["40"]["Color"] = Color3.fromRGB(255, 255, 255);
+								Dropdown.Items[id].instance["40"]["Color"] = Library.ColourScheme[Window.ColourScheme].Text;
 								Dropdown.Items[id].instance["40"]["Transparency"] = 0.800000011920929;
 								Dropdown.Items[id].instance["40"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
@@ -1816,7 +1886,7 @@ function Library:Create(Options)
 						do
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox
 							Textbox["43"] = Instance.new("Frame", Tab["10"]);
-							Textbox["43"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+							Textbox["43"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 							Textbox["43"]["Size"] = UDim2.new(1, 0, 0, 50);
 							Textbox["43"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Textbox]];
 		
@@ -1826,17 +1896,17 @@ function Library:Create(Options)
 		
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.UIStroke
 							Textbox["45"] = Instance.new("UIStroke", Textbox["43"]);
-							Textbox["45"]["Color"] = Color3.fromRGB(108, 108, 108);
+							Textbox["45"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 							Textbox["45"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Text
 							Textbox["46"] = Instance.new("TextLabel", Textbox["43"]);
 							Textbox["46"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-							Textbox["46"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Textbox["46"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							-- Textbox["46"]["FontFace"] = ;
 							Textbox["46"]["Selectable"] = true;
 							Textbox["46"]["TextSize"] = 14;
-							Textbox["46"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+							Textbox["46"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Textbox["46"]["Size"] = UDim2.new(1, -10, 0, 20);
 							Textbox["46"]["Active"] = true;
 							Textbox["46"]["Text"] = Options.Name;
@@ -1849,8 +1919,8 @@ function Library:Create(Options)
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Textbox.Box
 							Textbox["47"] = Instance.new("TextBox", Textbox["43"]);
 							Textbox["47"]["Active"] = false;
-							Textbox["47"]["PlaceholderColor3"] = Color3.fromRGB(255, 255, 255);
-							Textbox["47"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+							Textbox["47"]["PlaceholderColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
+							Textbox["47"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Textbox["47"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 							Textbox["47"]["TextWrapped"] = true;
 							Textbox["47"]["TextSize"] = 10;
@@ -1882,7 +1952,7 @@ function Library:Create(Options)
 							Textbox["4a"]["BackgroundColor3"] = Color3.fromRGB(156, 0, 0);
 							-- Textbox["4a"]["FontFace"] = ;
 							Textbox["4a"]["TextSize"] = 14;
-							Textbox["4a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+							Textbox["4a"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Textbox["4a"]["AnchorPoint"] = Vector2.new(1, 0);
 							Textbox["4a"]["Size"] = UDim2.new(0, 40, 0, 15);
 							Textbox["4a"]["Text"] = [[Clear]];
@@ -1949,7 +2019,7 @@ function Library:Create(Options)
 						do
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind
 							Keybind["5a"] = Instance.new("Frame", Tab["10"]);
-							Keybind["5a"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+							Keybind["5a"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 							Keybind["5a"]["Size"] = UDim2.new(1, 0, 0, 30);
 							Keybind["5a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Keybind]];
 		
@@ -1959,17 +2029,17 @@ function Library:Create(Options)
 		
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.UIStroke
 							Keybind["5c"] = Instance.new("UIStroke", Keybind["5a"]);
-							Keybind["5c"]["Color"] = Color3.fromRGB(108, 108, 108);
+							Keybind["5c"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 							Keybind["5c"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 		
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.Click
 							Keybind["5d"] = Instance.new("TextLabel", Keybind["5a"]);
 							Keybind["5d"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-							Keybind["5d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Keybind["5d"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							-- Keybind["5d"]["FontFace"] = ;
 							Keybind["5d"]["Selectable"] = true;
 							Keybind["5d"]["TextSize"] = 14;
-							Keybind["5d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+							Keybind["5d"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Keybind["5d"]["AnchorPoint"] = Vector2.new(0, 0.5);
 							Keybind["5d"]["Size"] = UDim2.new(1, -35, 1, -10);
 							Keybind["5d"]["Active"] = true;
@@ -1983,9 +2053,9 @@ function Library:Create(Options)
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Keybind.Input
 							Keybind["5e"] = Instance.new("TextLabel", Keybind["5a"]);
 							Keybind["5e"]["TextWrapped"] = true;
-							Keybind["5e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Keybind["5e"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Keybind["5e"]["TextSize"] = 10;
-							Keybind["5e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+							Keybind["5e"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 							Keybind["5e"]["AnchorPoint"] = Vector2.new(1, 0);
 							Keybind["5e"]["Size"] = UDim2.new(0, 30, 1, 0);
 							Keybind["5e"]["Text"] = string.sub(tostring(Options.StartBind),14,#tostring(Options.StartBind));
@@ -2084,7 +2154,7 @@ function Library:Create(Options)
 						do
 							-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker
 	ColorPicker["68"] = Instance.new("Frame", Tab["10"]);
-	ColorPicker["68"]["BackgroundColor3"] = Color3.fromRGB(45, 45, 45);
+	ColorPicker["68"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 	ColorPicker["68"]["Size"] = UDim2.new(1, 0, 0, 30);
 	ColorPicker["68"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ColorPicker]];
 	
@@ -2094,17 +2164,17 @@ function Library:Create(Options)
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.UIStroke
 	ColorPicker["6a"] = Instance.new("UIStroke", ColorPicker["68"]);
-	ColorPicker["6a"]["Color"] = Color3.fromRGB(108, 108, 108);
+	ColorPicker["6a"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 	ColorPicker["6a"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Title
 	ColorPicker["6b"] = Instance.new("TextLabel", ColorPicker["68"]);
 	ColorPicker["6b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-	ColorPicker["6b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["6b"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	-- ColorPicker["6b"]["FontFace"] = ;
 	ColorPicker["6b"]["Selectable"] = true;
 	ColorPicker["6b"]["TextSize"] = 14;
-	ColorPicker["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["6b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	ColorPicker["6b"]["Size"] = UDim2.new(1, -35, 0, 20);
 	ColorPicker["6b"]["Active"] = true;
 	ColorPicker["6b"]["Text"] = Options.Name;
@@ -2128,18 +2198,18 @@ function Library:Create(Options)
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container
 	ColorPicker["6f"] = Instance.new("Frame", ColorPicker["68"]);
-	ColorPicker["6f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["6f"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	ColorPicker["6f"]["AnchorPoint"] = Vector2.new(0, 1);
 	ColorPicker["6f"]["BackgroundTransparency"] = 1;
 	ColorPicker["6f"]["Size"] = UDim2.new(1, -10, 1, -40);
 	ColorPicker["6f"]["ClipsDescendants"] = true;
 	ColorPicker["6f"]["Position"] = UDim2.new(0, 5, 1, -5);
-	ColorPicker["6f"]["Visible"] = true;
+	ColorPicker["6f"]["Visible"] = false;
 	ColorPicker["6f"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Container]];
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.ColourWheel
 	ColorPicker["70"] = Instance.new("ImageLabel", ColorPicker["6f"]);
-	ColorPicker["70"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["70"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	ColorPicker["70"]["Image"] = [[rbxassetid://6020299385]];
 	ColorPicker["70"]["Size"] = UDim2.new(0, 110, 1, 0);
 	ColorPicker["70"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[ColourWheel]];
@@ -2163,7 +2233,7 @@ function Library:Create(Options)
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker
 	ColorPicker["74"] = Instance.new("Frame", ColorPicker["6f"]);
-	ColorPicker["74"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["74"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	ColorPicker["74"]["Size"] = UDim2.new(0, 30, 1, 0);
 	ColorPicker["74"]["Position"] = UDim2.new(0, 120, 0, 0);
 	ColorPicker["74"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[DarknessPicker]];
@@ -2175,7 +2245,7 @@ function Library:Create(Options)
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.UIGradient
 	ColorPicker["76"] = Instance.new("UIGradient", ColorPicker["74"]);
 	ColorPicker["76"]["Rotation"] = 90;
-	ColorPicker["76"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 0, 0))};
+	ColorPicker["76"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Library.ColourScheme[Window.ColourScheme].Text),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 0, 0))};
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.DarknessPicker.Picker
 	ColorPicker["77"] = Instance.new("Frame", ColorPicker["74"]);
@@ -2191,7 +2261,7 @@ function Library:Create(Options)
 	
 	-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.ColorPicker.Container.Result
 	ColorPicker["79"] = Instance.new("Frame", ColorPicker["6f"]);
-	ColorPicker["79"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["79"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	ColorPicker["79"]["AnchorPoint"] = Vector2.new(1, 0);
 	ColorPicker["79"]["Size"] = UDim2.new(0, 60, 0, 60);
 	ColorPicker["79"]["Position"] = UDim2.new(1, -50, 0, 10);
@@ -2206,7 +2276,7 @@ function Library:Create(Options)
 	ColorPicker["7b"]["BackgroundColor3"] = Color3.fromRGB(0, 156, 0);
 	-- ColorPicker["7b"]["FontFace"] = ;
 	ColorPicker["7b"]["TextSize"] = 14;
-	ColorPicker["7b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	ColorPicker["7b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 	ColorPicker["7b"]["AnchorPoint"] = Vector2.new(1, 1);
 	ColorPicker["7b"]["Size"] = UDim2.new(0, 100, 0, 25);
 	ColorPicker["7b"]["Text"] = [[Submit]];
@@ -2362,8 +2432,6 @@ function Library:Create(Options)
 			local Notify = {
 				Items = {
 					["id"] = {
-						TextColor = Color3.fromRGB(255,255,255);
-						BackgroundColor = Color3.fromRGB(54,54,54);
 						Callback = function() end;
 					};						
 				};
@@ -2373,7 +2441,7 @@ function Library:Create(Options)
 			do
 				-- StarterGui.MicroLibrary.Notifications.Notification
 				Notify["66"] = Instance.new("Frame", GUI["64"]);
-				Notify["66"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+				Notify["66"]["BackgroundColor3"] = Library.ColourSchemes[Window.ColourScheme].Window;
 				Notify["66"]["Size"] = UDim2.new(1, 0, 0, 175);
 				Notify["66"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Notification]];
 				
@@ -2385,10 +2453,10 @@ function Library:Create(Options)
 				Notify["68"] = Instance.new("TextLabel", Notify["66"]);
 				Notify["68"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Notify["68"]["TextYAlignment"] = Enum.TextYAlignment.Top;
-				Notify["68"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Notify["68"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 				-- Notify["68"]["FontFace"] = ;
 				Notify["68"]["TextSize"] = 13;
-				Notify["68"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Notify["68"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				Notify["68"]["Size"] = UDim2.new(0, 200, 0, 20);
 				Notify["68"]["Text"] = Options.Title;
 				Notify["68"]["RichText"] = true;
@@ -2405,13 +2473,13 @@ function Library:Create(Options)
 				Notify["6a"] = Instance.new("TextLabel", Notify["66"]);
 				Notify["6a"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Notify["6a"]["TextYAlignment"] = Enum.TextYAlignment.Top;
-				Notify["6a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Notify["6a"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 				Notify["6a"]["TextTransparency"] = 0.30000001192092896;
 				-- Notify["6a"]["FontFace"] = ;
 				Notify["6a"]["TextSize"] = 13;
-				Notify["6a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Notify["6a"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				Notify["6a"]["Size"] = UDim2.new(0, 200, 0, 20);
-				Notify["6a"]["Text"] = Options.Question .. "?";
+				Notify["6a"]["Text"] = Options.Question;
 				Notify["6a"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Question]];
 				Notify["6a"]["Font"] = Enum.Font.Ubuntu;
 				Notify["6a"]["BackgroundTransparency"] = 1;
@@ -2425,7 +2493,7 @@ function Library:Create(Options)
 				-- StarterGui.MicroLibrary.Notifications.Notification.Answers
 				Notify["6c"] = Instance.new("ScrollingFrame", Notify["66"]);
 				Notify["6c"]["CanvasSize"] = UDim2.new(0, 0, 5, 0);
-				Notify["6c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Notify["6c"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				Notify["6c"]["AnchorPoint"] = Vector2.new(1, 1);
 				Notify["6c"]["BackgroundTransparency"] = 1;
 				Notify["6c"]["Size"] = UDim2.new(1, -20, 1, -60);
@@ -2443,7 +2511,7 @@ function Library:Create(Options)
 			end
 			
 			-- [[ Methods ]]
-			function Notify:Add(id,TextColor3,BackgroundColor3,Callbackfunc)
+			function Notify:Add(id,Callbackfunc)
 				local Item = {
 					Hover = false;
 				}
@@ -2453,19 +2521,17 @@ function Library:Create(Options)
 				end
 				Notify.Items[id] = {
 					instance = {};
-					TextColor = TextColor3;
-					BackgroundColor = BackgroundColor3;
 					Callback = Callbackfunc
 				}
 				-- [[ Render ]]
 				do
 					-- StarterGui.MicroLibrary.Notifications.Notification.Answers.Answer
 					Notify.Items[id].instance["6e"] = Instance.new("TextLabel", Notify["6c"]);
-					Notify.Items[id].instance["6e"]["BackgroundColor3"] = BackgroundColor3;
+					Notify.Items[id].instance["6e"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 					-- Item["6e"]["FontFace"] = ;
 					Notify.Items[id].instance["6e"]["Selectable"] = true;
 					Notify.Items[id].instance["6e"]["TextSize"] = 16;
-					Notify.Items[id].instance["6e"]["TextColor3"] = TextColor3;
+					Notify.Items[id].instance["6e"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 					Notify.Items[id].instance["6e"]["Size"] = UDim2.new(0, 200, 0, 50);
 					Notify.Items[id].instance["6e"]["Active"] = true;
 					Notify.Items[id].instance["6e"]["Text"] = id;
@@ -2522,6 +2588,7 @@ function Library:Create(Options)
 			Description = "Changes your draging speed"; -- Description
 			Minimum = 0; -- Minimum Value
 			Maximum = 10; -- Maximum Value
+			RemoveDecimals = false; -- If true then It will return a Whole Number else it will return the exact number
 			Default = Library.Settings.DragSpeed; -- Default Value
 			Callback = function(Value) 
 				-- Code Here Will Execute When The Draggable Frame Is Being Held --
@@ -2543,7 +2610,7 @@ function Library:Create(Options)
 		end
 	end
 	
-	if Options.RequiresPremium == true then
+	if Window.RequiresPremium == true then
 		if Library.Settings.HasPremium == true then
 			Create()
 		end
