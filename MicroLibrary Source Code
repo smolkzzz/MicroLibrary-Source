@@ -156,10 +156,6 @@ function Library:Create(Window)
 		Loaded = true;
 	}
 
-	if not Library.ColourSchemes[Window.ColourScheme] then
-		Window.ColourScheme = Library.ColourSchemes[math.random(#Library.ColourSchemes)]
-	end
-
 	local function Create()
 		function GUI:Destroy()
 			GUI["1"]:Destroy()
