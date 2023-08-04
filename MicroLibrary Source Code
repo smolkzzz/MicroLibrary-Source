@@ -9,9 +9,11 @@ local Library = {
 			Text = Color3.fromRGB(255, 255, 255);
 			Split = Color3.fromRGB(179, 179, 179);
 			Interface = Color3.fromRGB(44, 44, 44);
+			NextInterface = Color3.fromRGB(136,136,136);
 			Topbar = Color3.fromRGB(39, 39, 39);
 			Navigation = Color3.fromRGB(49, 49, 49);
 			InterfaceStroke = Color3.fromRGB(108, 108, 108);
+			NextInterfaceStroke = Color3.fromRGB(45, 45, 45);
 			Tabs = Color3.fromRGB(58, 58, 58);
 		};
 		Light = {
@@ -664,7 +666,7 @@ function Library:Create(Window)
 					repeat wait() until GUI["2"].Position == UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))
 					Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),1,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
 				else
-					Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2))})
+					Library:tween(GUI["2"],{Position = UDim2.new(0,(Viewport.X /2) - (GUI["2"].Size.X.Offset /2),0,(Viewport.Y /2) - (GUI["2"].Size.Y.Offset /2)),Size = Window.Size})
 				end
 				GUI.Opened = not GUI.Opened
 			end
@@ -979,7 +981,7 @@ function Library:Create(Window)
 							Button.Hover = false
 							
 							if not Button.MouseDown then
-								Library:tween(Button["14"],{Color = Color3.fromRGB(108,108,108)})
+								Library:tween(Button["14"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
 							end
 						end)
 						
@@ -1007,7 +1009,7 @@ function Library:Create(Window)
 								else
 									-- [[ Reset ]]
 									Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-									Library:tween(Button["14"],{Color = Color3.fromRGB(108,108,108)})
+									Library:tween(Button["14"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
 								end
 							end
 						end)
@@ -1721,7 +1723,7 @@ function Library:Create(Window)
 									Dropdown.HoverItem = false
 		
 									if not Item.MouseDown then
-										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
+										Library:tween(Dropdown.Items[id].instance["40"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
 									end
 								end)
 		
@@ -1754,7 +1756,7 @@ function Library:Create(Window)
 										else
 											-- [[ Reset ]]
 											Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-											Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(108,108,108)})
+											Library:tween(Dropdown.Items[id].instance["40"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
 										end
 									end
 								end)
@@ -1837,7 +1839,7 @@ function Library:Create(Window)
 								Dropdown.Hover = false
 		
 								if not Dropdown.MouseDown then
-									Library:tween(Dropdown["34"],{Color = Color3.fromRGB(108,108,108)})
+									Library:tween(Dropdown["34"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
 								end
 							end)
 		
@@ -1865,7 +1867,7 @@ function Library:Create(Window)
 									else
 										-- [[ Reset ]]
 										Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-										Library:tween(Dropdown["34"],{Color = Color3.fromRGB(108,108,108)})
+										Library:tween(Dropdown["34"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
 									end
 								end
 							end)
