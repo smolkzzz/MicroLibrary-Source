@@ -24,9 +24,9 @@ local Library = {
 			InterfaceStroke = Color3.fromRGB(8, 8, 8);
 			Tabs = Color3.fromRGB(157, 157, 157);
 		};
-		Red = {
+		Fire = {
 			Window = Color3.fromRGB(43, 0, 0);
-			Text = Color3.fromRGB(155, 0, 0);
+			Text = Color3.fromRGB(255, 0, 0);
 			Split = Color3.fromRGB(79, 0, 0);
 			Interface = Color3.fromRGB(144, 0, 0);
 			Topbar = Color3.fromRGB(138, 0, 0);
@@ -34,25 +34,35 @@ local Library = {
 			InterfaceStroke = Color3.fromRGB(108, 0, 0);
 			Tabs = Color3.fromRGB(57, 0, 0);
 		};
-		Green = {
+		Grass = {
 			Window = Color3.fromRGB(0, 43, 0);
-			Text = Color3.fromRGB(0, 155, 0);
+			Text = Color3.fromRGB(0, 255, 0);
 			Split = Color3.fromRGB(0, 79, 0);
 			Interface = Color3.fromRGB(0, 144, 0);
 			Topbar = Color3.fromRGB(0, 138, 0);
-			Navigation = Color3.fromRGB(0, 148, 1048);
+			Navigation = Color3.fromRGB(0, 148, 0);
 			InterfaceStroke = Color3.fromRGB(0, 108, 0);
-			Tabs = Color3.fromRGB(0, 57, 507);
+			Tabs = Color3.fromRGB(0, 57, 0);
 		};
-		Blue = {
+		Ocean = {
 			Window = Color3.fromRGB(0, 0, 43);
-			Text = Color3.fromRGB(0, 0, 155);
+			Text = Color3.fromRGB(0, 0, 255);
 			Split = Color3.fromRGB(0, 0, 79);
 			Interface = Color3.fromRGB(0, 0, 144);
 			Topbar = Color3.fromRGB(0, 0, 138);
 			Navigation = Color3.fromRGB(0, 0, 148);
 			InterfaceStroke = Color3.fromRGB(0, 0, 108);
 			Tabs = Color3.fromRGB(0, 0, 57);
+		};
+		SunShine = {
+			Window = Color3.fromRGB(0, 43, 43);
+			Text = Color3.fromRGB(0, 255, 255);
+			Split = Color3.fromRGB(0, 79, 79);
+			Interface = Color3.fromRGB(0, 144, 144);
+			Topbar = Color3.fromRGB(0, 138, 138);
+			Navigation = Color3.fromRGB(0, 148, 148);
+			InterfaceStroke = Color3.fromRGB(0, 108, 108);
+			Tabs = Color3.fromRGB(0, 57, 57);
 		};
 	};
 }
