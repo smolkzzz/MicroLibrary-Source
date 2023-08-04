@@ -930,10 +930,10 @@ function Library:Create(Window)
 						Button["15"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 						Button["15"]["AnchorPoint"] = Vector2.new(1, 0);
 						Button["15"]["Image"] = [[rbxassetid://12772734775]];
-						Button["15"]["Size"] = UDim2.new(0, 30, 1, 0);
+						Button["15"]["Size"] = UDim2.new(0, 20, 0, 20);
 						Button["15"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Icon]];
 						Button["15"]["BackgroundTransparency"] = 1;
-						Button["15"]["Position"] = UDim2.new(1, 0, 0, 0);
+						Button["15"]["Position"] = UDim2.new(1, -5, 0, 5);
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Button.Click
 						Button["16"] = Instance.new("TextLabel", Button["12"]);
