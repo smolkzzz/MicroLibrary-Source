@@ -1754,7 +1754,7 @@ function Library:Create(Window)
 									if Dropdown.Items[id] == nil then return end
 									if GUI.Loaded == false then return end
 
-									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Item.Hover then
+									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
 										Item.MouseDown = false
 		
 										if Item.Hover then
