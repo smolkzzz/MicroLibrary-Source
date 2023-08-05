@@ -1844,7 +1844,7 @@ function Library:Create(Window)
 						do
 							Dropdown["32"].MouseEnter:Connect(function()
 								Dropdown.Hover = true
-								Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
+								Library:tween(Dropdown["34"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 							end)
 		
 							Dropdown["32"].MouseLeave:Connect(function()
@@ -1859,8 +1859,6 @@ function Library:Create(Window)
 								if Dropdown.HoverItem then return end
 								if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Dropdown.Hover then
 									Dropdown.MouseDown = true
-									Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-									Library:tween(Dropdown["34"],{Color = Color3.fromRGB(200,200,200)})
 									Dropdown:Toggle()
 									elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Dropdown.Hover then
 								if Options.Description == nil then return end
@@ -1874,12 +1872,12 @@ function Library:Create(Window)
 		
 									if Dropdown.Hover then
 										-- [[ Hovering State ]]
-										Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-										Library:tween(Dropdown["34"],{Color = Color3.fromRGB(180,180,180)})
+										Library:tween(Dropdown["32"],{BackgroundColor3 = Library.ColourScheme[Window.ColourScheme].NextInterface})
+										Library:tween(Dropdown["34"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 									else
 										-- [[ Reset ]]
-										Library:tween(Dropdown["32"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-										Library:tween(Dropdown["34"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
+										Library:tween(Dropdown["32"],{BackgroundColor3 = Library.ColourScheme[Window.ColourScheme].NextInterface})
+										Library:tween(Dropdown["34"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 									end
 								end
 							end)
