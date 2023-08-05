@@ -9,11 +9,11 @@ local Library = {
 			Text = Color3.fromRGB(255, 255, 255);
 			Split = Color3.fromRGB(179, 179, 179);
 			Interface = Color3.fromRGB(44, 44, 44);
-			NextInterface = Color3.fromRGB(136,136,136);
+			NextInterface = Color3.fromRGB(45, 45, 45);
 			Topbar = Color3.fromRGB(39, 39, 39);
 			Navigation = Color3.fromRGB(49, 49, 49);
 			InterfaceStroke = Color3.fromRGB(108, 108, 108);
-			NextInterfaceStroke = Color3.fromRGB(45, 45, 45);
+			NextInterfaceStroke = Color3.fromRGB(180, 180, 180);
 			Tabs = Color3.fromRGB(58, 58, 58);
 		};
 		Light = {
@@ -21,59 +21,71 @@ local Library = {
 			Text = Color3.fromRGB(55, 55, 55);
 			Split = Color3.fromRGB(79, 79, 79);
 			Interface = Color3.fromRGB(144, 144, 144);
+			NextInterface = Color3.fromRGB(145, 145, 145);
 			Topbar = Color3.fromRGB(138, 138, 138);
 			Navigation = Color3.fromRGB(148, 148, 148);
 			InterfaceStroke = Color3.fromRGB(8, 8, 8);
+			NextInterfaceStroke = Color3.fromRGB(80, 80, 80);
 			Tabs = Color3.fromRGB(157, 157, 157);
 		};
 		Fire = {
 			Window = Color3.fromRGB(43, 0, 0);
 			Text = Color3.fromRGB(255, 0, 0);
 			Split = Color3.fromRGB(79, 0, 0);
-			Interface = Color3.fromRGB(144, 0, 0);
+			Interface = Color3.fromRGB(44, 0, 0);
+			NextInterface = Color3.fromRGB(145, 0, 0);
 			Topbar = Color3.fromRGB(138, 0, 0);
 			Navigation = Color3.fromRGB(148, 0, 0);
-			InterfaceStroke = Color3.fromRGB(108, 0, 0);
+			InterfaceStroke = Color3.fromRGB(80, 0, 0);
+			NextInterfaceStroke = Color3.fromRGB(180, 0, 0);
 			Tabs = Color3.fromRGB(57, 0, 0);
 		};
 		Grass = {
 			Window = Color3.fromRGB(0, 43, 0);
 			Text = Color3.fromRGB(0, 255, 0);
 			Split = Color3.fromRGB(0, 79, 0);
-			Interface = Color3.fromRGB(0, 144, 0);
+			Interface = Color3.fromRGB(0, 44, 0);
+			NextInterface = Color3.fromRGB(0, 145, 0);
 			Topbar = Color3.fromRGB(0, 138, 0);
 			Navigation = Color3.fromRGB(0, 148, 0);
-			InterfaceStroke = Color3.fromRGB(0, 108, 0);
+			InterfaceStroke = Color3.fromRGB(0, 80, 0);
+			NextInterfaceStroke = Color3.fromRGB(0, 180, 0);
 			Tabs = Color3.fromRGB(0, 57, 0);
 		};
 		Ocean = {
 			Window = Color3.fromRGB(0, 0, 43);
 			Text = Color3.fromRGB(0, 0, 255);
 			Split = Color3.fromRGB(0, 0, 79);
-			Interface = Color3.fromRGB(0, 0, 144);
+			Interface = Color3.fromRGB(0, 0, 44);
+			NextInterface = Color3.fromRGB(0, 0, 145);
 			Topbar = Color3.fromRGB(0, 0, 138);
 			Navigation = Color3.fromRGB(0, 0, 148);
-			InterfaceStroke = Color3.fromRGB(0, 0, 108);
+			InterfaceStroke = Color3.fromRGB(0, 0, 80);
+			NextInterfaceStroke = Color3.fromRGB(0, 0, 180);
 			Tabs = Color3.fromRGB(0, 0, 57);
 		};
 		Aqua = {
 			Window = Color3.fromRGB(0, 43, 43);
 			Text = Color3.fromRGB(0, 255, 255);
 			Split = Color3.fromRGB(0, 79, 79);
-			Interface = Color3.fromRGB(0, 144, 144);
+			Interface = Color3.fromRGB(0, 44, 44);
+			NextInterface = Color3.fromRGB(0, 145, 145);
 			Topbar = Color3.fromRGB(0, 138, 138);
 			Navigation = Color3.fromRGB(0, 148, 148);
-			InterfaceStroke = Color3.fromRGB(0, 108, 108);
+			InterfaceStroke = Color3.fromRGB(0, 80, 80);
+			NextInterfaceStroke = Color3.fromRGB(0, 180, 180);
 			Tabs = Color3.fromRGB(0, 57, 57);
 		};
 		Sunshine = {
 			Window = Color3.fromRGB(43, 43, 0);
 			Text = Color3.fromRGB(255, 255, 0);
 			Split = Color3.fromRGB(79, 79, 0);
-			Interface = Color3.fromRGB(144, 144, 0);
+			Interface = Color3.fromRGB(44, 44, 0);
+			NextInterface = Color3.fromRGB(145, 145, 0);
 			Topbar = Color3.fromRGB(138, 138, 0);
 			Navigation = Color3.fromRGB(148, 148, 0);
-			InterfaceStroke = Color3.fromRGB(108, 108, 0);
+			InterfaceStroke = Color3.fromRGB(80, 80, 0);
+			NextInterfaceStroke = Color3.fromRGB(0, 180, 180);
 			Tabs = Color3.fromRGB(57, 57, 0);
 		};
 	};
@@ -974,7 +986,7 @@ function Library:Create(Window)
 					do
 						Button["12"].MouseEnter:Connect(function()
 							Button.Hover = true
-							Library:tween(Button["14"],{Color = Color3.fromRGB(180,180,180)})
+							Library:tween(Button["14"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 						end)
 						
 						Button["12"].MouseLeave:connect(function()
@@ -989,8 +1001,6 @@ function Library:Create(Window)
 							if GUI.Loaded == false then return end
 							if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Button.Hover then
 								Button.MouseDown = true
-								Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-								Library:tween(Button["14"],{Color = Color3.fromRGB(200,200,200)})
 								Options.Callback()
 							elseif input.UserInputType == Enum.UserInputType.MouseButton2 and Button.Hover then
 								if Options.Description == nil then return end
@@ -1004,12 +1014,12 @@ function Library:Create(Window)
 								
 								if Button.Hover then
 									-- [[ Hovering State ]]
-									Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-									Library:tween(Button["14"],{Color = Color3.fromRGB(180,180,180)})
+									Library:tween(Button["12"],{BackgroundColor3 = Library.ColourScheme[Window.ColourScheme].NextInterface})
+									Library:tween(Button["14"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 								else
 									-- [[ Reset ]]
-									Library:tween(Button["12"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-									Library:tween(Button["14"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
+									Library:tween(Button["12"],{BackgroundColor3 = Library.ColourScheme[Window.ColourScheme].NextInterface})
+									Library:tween(Button["14"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 								end
 							end
 						end)
@@ -1713,7 +1723,7 @@ function Library:Create(Window)
 									Item.Hover = true
 									Dropdown.HoverItem = true
 	
-									Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
+									Library:tween(Dropdown.Items[id].instance["40"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 								end)
 		
 								Dropdown.Items[id].instance["3f"].MouseLeave:Connect(function()
@@ -1733,8 +1743,6 @@ function Library:Create(Window)
 	
 									if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Item.Hover then
 										Item.MouseDown = true
-										Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(136, 136, 136)})
-										Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(200,200,200)})
 										Options.Callback(value)
 										if Dropdown.AutoClose then
 											Dropdown:Toggle()
@@ -1751,18 +1759,20 @@ function Library:Create(Window)
 		
 										if Item.Hover then
 											-- [[ Hovering State ]]
-											Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-											Library:tween(Dropdown.Items[id].instance["40"],{Color = Color3.fromRGB(180,180,180)})
+											Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Library.ColourScheme[Window.ColourScheme].NextInterface})
+											Library:tween(Dropdown.Items[id].instance["40"],{Color =  Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 										else
 											-- [[ Reset ]]
-											Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Color3.fromRGB(45,45,45)})
-											Library:tween(Dropdown.Items[id].instance["40"],{Color = Library.ColourScheme[Window.ColourScheme].InterfaceStroke})
+											Library:tween(Dropdown.Items[id].instance["3f"],{BackgroundColor3 = Library.ColourScheme[Window.ColourScheme].NextInterface})
+											Library:tween(Dropdown.Items[id].instance["40"],{Color = Library.ColourScheme[Window.ColourScheme].NextInterfaceStroke})
 										end
 									end
 								end)
 	
-								Dropdown:Toggle()
-								Dropdown:Toggle()
+								if Dropdown.Opened then
+									Dropdown:Toggle()
+									Dropdown:Toggle()
+								end
 							end
 		
 							function Dropdown:Remove(id)
@@ -1773,8 +1783,10 @@ function Library:Create(Window)
 										end
 									end
 									Dropdown.Items[id] = nil
-									Dropdown:Toggle()
-									Dropdown:Toggle()
+									if Dropdown.Opened then
+										Dropdown:Toggle()
+										Dropdown:Toggle()
+									end
 								end
 							end
 		
