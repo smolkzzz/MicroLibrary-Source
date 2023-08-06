@@ -402,8 +402,8 @@ function Library:Create(Window)
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UIPadding
 				GUI["SubmitPadding"] = Instance.new("UIPadding", GUI["89"]);
-				GUI["SubmitPadding"]["PaddingLeft"] = 1;
-				GUI["SubmitPadding"]["PaddingRight"] = 1;
+				GUI["SubmitPadding"]["PaddingLeft"] = UDim.new(0,1);
+				GUI["SubmitPadding"]["PaddingRight"] = UDim.new(0,1);
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey
 				GUI["8b"] = Instance.new("TextLabel", GUI["85"]);
@@ -427,8 +427,8 @@ function Library:Create(Window)
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UIPadding
 				GUI["GetkeyPadding"] = Instance.new("UIPadding", GUI["8b"]);
-				GUI["GetkeyPadding"]["PaddingLeft"] = 1;
-				GUI["GetkeyPadding"]["PaddingRight"] = 1;
+				GUI["GetkeyPadding"]["PaddingLeft"] = UDim.new(0,1);
+				GUI["GetkeyPadding"]["PaddingRight"] = UDim.new(0,1);
 		end
 	
 		-- [[ Logic ]]
