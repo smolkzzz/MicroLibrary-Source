@@ -401,7 +401,7 @@ function Library:Create(Window)
 				GUI["SubmitStroke"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UIPadding
-				GUI["SubmitPadding"] = Instance.new("UIStroke", GUI["89"]);
+				GUI["SubmitPadding"] = Instance.new("UIPadding", GUI["89"]);
 				GUI["SubmitPadding"]["PaddingLeft"] = 1;
 				GUI["SubmitPadding"]["PaddingRight"] = 1;
 				
@@ -426,7 +426,7 @@ function Library:Create(Window)
 				GUI["GetkeyStroke"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UIPadding
-				GUI["GetkeyPadding"] = Instance.new("UIStroke", GUI["8b"]);
+				GUI["GetkeyPadding"] = Instance.new("UIPadding", GUI["8b"]);
 				GUI["GetkeyPadding"]["PaddingLeft"] = 1;
 				GUI["GetkeyPadding"]["PaddingRight"] = 1;
 		end
