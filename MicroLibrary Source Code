@@ -495,8 +495,6 @@ function Library:Create(Window)
 				end
 			end)
 		end
-	
-		return Key
 		end
 	
 			repeat wait() until GUI.KeyCorrect == true
