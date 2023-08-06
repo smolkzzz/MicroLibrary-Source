@@ -441,17 +441,17 @@ function Library:Create(Window)
 			UserInputService.InputBegan:Connect(function(input)
 				if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
 					if Key.Getkey then
-						setclipboard(GUI.GetkeyLink)
+						setclipboard(Window.KeySettings.GetkeyLink)
 					elseif Key.Submit then
-						if typeof(Window.GetKey.CorrectKey) == "table" then
+						if typeof(Window.KeySettings.CorrectKey) == "table" then
 							for i,v in pairs(Window.KeySettings.CorrectKey) do
 								if GUI["86"].Text == tostring(v) then
 									GUI.KeyCorrect = true
 									GUI["78"]:Destroy()
 								end
 							end
-						elseif typeof(Window.GetKey.CorrectKey) == "string" then
-							if GUI["86"].Text == tostring(Window.GetKey.CorrectKey) then
+						elseif typeof(Window.KeySettings.CorrectKey) == "string" then
+							if GUI["86"].Text == tostring(Window.KeySettings.CorrectKey) then
 								GUI.KeyCorrect = true
 								GUI["78"]:Destroy()
 							end
