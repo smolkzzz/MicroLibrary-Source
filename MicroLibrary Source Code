@@ -174,11 +174,11 @@ function Library:Create(Window)
 		Toggle = Enum.KeyCode.RightShift; -- When this keybind is clicked on a keyboard, the UI will be toggled.
 		CloseCallback = function() end; -- if closed then it will run this code.
 		KeySystem = false; -- If this boolean is true then it will bring a popup telling you that you need a key.
-		KeySettings = { -- If the "KeySystem" boolean is true then it will use the settings in this table.
+		KeySettings = Library:validate({ -- If the "KeySystem" boolean is true then it will use the settings in this table.
 			CorrectKey = {"Hello World!"}; -- Put strings in the table for a list of options to choose your key.
 			GetkeyLink = "https://link"; -- When the "Getkey" button is clicked, it will copy this string.
 			WarningText = "Sorry! You need to do a key system"; -- The Title When doing the key system
-		};
+		},Window.KeySettings or {});
 		Size = UDim2.new(0,400,0,300); -- The size of the UI
 		ColourScheme = "Dark"; -- The Colour Scheme of the UI
 		RequiresPremium = false; -- If the player has Premium then they can enter else, they can't.
