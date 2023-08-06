@@ -177,6 +177,7 @@ function Library:Create(Window)
 		KeySettings = { -- If the "KeySystem" boolean is true then it will use the settings in this table.
 			CorrectKey = {"Hello World!"}, -- Put strings in the table for a list of options to choose your key.
 			GetkeyLink = "https://link" -- When the "Getkey" button is clicked, it will copy this string.
+			WarningText = "Sorry! You need to do a key system"
 		};
 		Size = UDim2.new(0,400,0,300); -- The size of the UI
 		ColourScheme = "Dark"; -- The Colour Scheme of the UI
@@ -315,7 +316,7 @@ function Library:Create(Window)
 				GUI["82"]["TextSize"] = 14;
 				GUI["82"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["82"]["Size"] = UDim2.new(0, 300, 1, -3);
-				GUI["82"]["Text"] = Window.KeySettings.Title;
+				GUI["82"]["Text"] = Window.KeySettings.WarningText;
 				GUI["82"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Title]];
 				GUI["82"]["Font"] = Enum.Font.Gotham;
 				GUI["82"]["BackgroundTransparency"] = 1;
