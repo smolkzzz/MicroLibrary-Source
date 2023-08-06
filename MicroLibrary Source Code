@@ -389,16 +389,16 @@ function Library:Create(Window)
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit
 				GUI["89"] = Instance.new("TextLabel", GUI["85"]);
-				GUI["89"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+				GUI["89"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 				-- GUI["89"]["FontFace"] = ;
 				GUI["89"]["TextSize"] = 25;
 				GUI["89"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["89"]["AnchorPoint"] = Vector2.new(1, 0);
-				GUI["89"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
+				GUI["89"]["Size"] = UDim2.new(0.45, 0, 0, 0);
 				GUI["89"]["Text"] = [[Submit Key]];
 				GUI["89"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Submit]];
 				GUI["89"]["Font"] = Enum.Font.Ubuntu;
-				GUI["89"]["Position"] = UDim2.new(1, -60, 0.5, 0);
+				GUI["89"]["Position"] = UDim2.new(1, 0, 0.5, 0);
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UICorner
 				GUI["8a"] = Instance.new("UICorner", GUI["89"]);
@@ -408,11 +408,6 @@ function Library:Create(Window)
 				GUI["SubmitStroke"] = Instance.new("UIStroke", GUI["89"]);
 				GUI["SubmitStroke"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 				GUI["SubmitStroke"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
-
-				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UIPadding
-				GUI["SubmitPadding"] = Instance.new("UIPadding", GUI["89"]);
-				GUI["SubmitPadding"]["PaddingLeft"] = UDim.new(0,1);
-				GUI["SubmitPadding"]["PaddingRight"] = UDim.new(0,1);
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey
 				GUI["8b"] = Instance.new("TextLabel", GUI["85"]);
@@ -420,11 +415,11 @@ function Library:Create(Window)
 				-- GUI["8b"]["FontFace"] = ;
 				GUI["8b"]["TextSize"] = 30;
 				GUI["8b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
-				GUI["8b"]["Size"] = UDim2.new(0.3499999940395355, 0, 0, 60);
+				GUI["8b"]["Size"] = UDim2.new(0.45, 0, 0, 0);
 				GUI["8b"]["Text"] = [[Get Key]];
 				GUI["8b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Getkey]];
 				GUI["8b"]["Font"] = Enum.Font.Ubuntu;
-				GUI["8b"]["Position"] = UDim2.new(0, 60, 0.5, 0);
+				GUI["8b"]["Position"] = UDim2.new(0, 0, 0.5, 0);
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UICorner
 				GUI["8c"] = Instance.new("UICorner", GUI["8b"]);
@@ -434,11 +429,6 @@ function Library:Create(Window)
 				GUI["GetkeyStroke"] = Instance.new("UIStroke", GUI["8b"]);
 				GUI["GetkeyStroke"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 				GUI["GetkeyStroke"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
-
-				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UIPadding
-				GUI["GetkeyPadding"] = Instance.new("UIPadding", GUI["8b"]);
-				GUI["GetkeyPadding"]["PaddingLeft"] = UDim.new(0,1);
-				GUI["GetkeyPadding"]["PaddingRight"] = UDim.new(0,1);
 		end
 	
 		-- [[ Logic ]]
@@ -480,12 +470,18 @@ function Library:Create(Window)
 							for i,v in pairs(Window.KeySettings.CorrectKey) do
 								if GUI["86"].Text == tostring(v) then
 									GUI.KeyCorrect = true
+									Key.Close = false
+									Key.Submit = false
+									Key.Getkey = false
 									GUI["1"]:Destroy()
 								end
 							end
 						elseif typeof(Window.KeySettings.CorrectKey) == "string" then
 							if GUI["86"].Text == tostring(Window.KeySettings.CorrectKey) then
 								GUI.KeyCorrect = true
+								Key.Close = false
+								Key.Submit = false
+								Key.Getkey = false
 								GUI["1"]:Destroy()
 							end
 						end
