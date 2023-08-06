@@ -183,6 +183,12 @@ function Library:Create(Window)
 		ColourScheme = "Dark"; -- The Colour Scheme of the UI
 		RequiresPremium = false; -- If the player has Premium then they can enter else, they can't.
 	},Window or {})
+
+	Window.KeySettings = Library:validate({
+		CorrectKey = Window.KeySettings.CorrectKey;
+		GetkeyLink = Window.KeySettings.GetkeyLink;
+		WarningText = Window.KeySettings.WarningText;
+	},Window.KeySettings or {})
 	
 	local GUI = {
 		CurrentTab = nil;
@@ -378,6 +384,8 @@ function Library:Create(Window)
 				GUI["88"] = Instance.new("UIPadding", GUI["86"]);
 				GUI["88"]["PaddingTop"] = UDim.new(0, 2);
 				GUI["88"]["PaddingLeft"] = UDim.new(0, 2);
+				GUI["88"]["PaddingRight"] = UDim.new(0, 2);
+				GUI["88"]["PaddingBottom"] = UDim.new(0, 2);
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit
 				GUI["89"] = Instance.new("TextLabel", GUI["85"]);
@@ -398,6 +406,7 @@ function Library:Create(Window)
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UIStroke
 				GUI["SubmitStroke"] = Instance.new("UIStroke", GUI["89"]);
+				GUI["SubmitStroke"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 				GUI["SubmitStroke"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Submit.UIPadding
@@ -407,7 +416,7 @@ function Library:Create(Window)
 				
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey
 				GUI["8b"] = Instance.new("TextLabel", GUI["85"]);
-				GUI["8b"]["BackgroundColor3"] = Color3.fromRGB(32, 32, 32);
+				GUI["8b"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Interface;
 				-- GUI["8b"]["FontFace"] = ;
 				GUI["8b"]["TextSize"] = 30;
 				GUI["8b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
@@ -423,6 +432,7 @@ function Library:Create(Window)
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UIStroke
 				GUI["GetkeyStroke"] = Instance.new("UIStroke", GUI["8b"]);
+				GUI["GetkeyStroke"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 				GUI["GetkeyStroke"]["Color"] = Library.ColourScheme[Window.ColourScheme].InterfaceStroke;
 
 				-- StarterGui.MicroLibrary.Keysystem.ContentContainer.Getkey.UIPadding
@@ -2492,7 +2502,7 @@ function Library:Create(Window)
 			do
 				-- StarterGui.MicroLibrary.Notifications.Notification
 				Notify["66"] = Instance.new("Frame", GUI["64"]);
-				Notify["66"]["BackgroundColor3"] = Library.ColourSchemes[Window.ColourScheme].Window;
+				Notify["66"]["BackgroundColor3"] = Library.ColourScheme[Window.ColourScheme].Window;
 				Notify["66"]["Size"] = UDim2.new(1, 0, 0, 175);
 				Notify["66"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Notification]];
 				
