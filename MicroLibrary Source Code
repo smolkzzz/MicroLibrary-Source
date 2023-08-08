@@ -394,7 +394,7 @@ function Library:Create(Window)
 				GUI["89"]["TextSize"] = 25;
 				GUI["89"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
 				GUI["89"]["AnchorPoint"] = Vector2.new(1, 0);
-				GUI["89"]["Size"] = UDim2.new(0.45, 0, 0, 0);
+				GUI["89"]["Size"] = UDim2.new(0.45, 0, 0, 60);
 				GUI["89"]["Text"] = [[Submit Key]];
 				GUI["89"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Submit]];
 				GUI["89"]["Font"] = Enum.Font.Ubuntu;
@@ -415,7 +415,7 @@ function Library:Create(Window)
 				-- GUI["8b"]["FontFace"] = ;
 				GUI["8b"]["TextSize"] = 30;
 				GUI["8b"]["TextColor3"] = Library.ColourScheme[Window.ColourScheme].Text;
-				GUI["8b"]["Size"] = UDim2.new(0.45, 0, 0, 0);
+				GUI["8b"]["Size"] = UDim2.new(0.45, 0, 0, 60);
 				GUI["8b"]["Text"] = [[Get Key]];
 				GUI["8b"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Getkey]];
 				GUI["8b"]["Font"] = Enum.Font.Ubuntu;
@@ -1378,7 +1378,7 @@ function Library:Create(Window)
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable
 						Slider["2e"] = Instance.new("Frame", Slider["2c"]);
 						Slider["2e"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
-						Slider["2e"]["Size"] = UDim2.new(0, 100, 1, 0);
+						Slider["2e"]["Size"] = UDim2.fromScale(Slider:_Update(Options.Default)[1],1)
 						Slider["2e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Draggable]];
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable.UICorner
@@ -1389,19 +1389,25 @@ function Library:Create(Window)
 					-- [[ Methods ]]
 					function Slider:SetValue(Value)
 						if Value == nil then
-							local percentage = math.clamp((Mouse.X - Slider["27"].AbsolutePosition.X) / (Slider["27"].AbsoluteSize.X),0,1)
-							local value = ((Options.Maximum - Options.Minimum) * percentage) + Options.Minimum
+							local tab = Slider:_Percentages(Value)
 							if Options.RemoveDecimals then
-								value = math.floor(value)
+								tab[2] = math.floor(tab[2])
 							end
 		
-							Slider["2b"].Text = tostring(value)
-							Slider["2e"].Size = UDim2.fromScale(percentage,1)
+							Slider["2b"].Text = tostring(tab[2])
+							Slider["2e"].Size = UDim2.fromScale(tab[1],1)
 						else
 							Slider["2b"].Text = tostring(Value)
 							Slider["2e"].Size = UDim2.fromScale(((Value - Options.Minimum) / (Options.Maximum - Options.Minimum)),1)
 						end
 						Options.Callback(Slider:GetValue())
+					end
+
+					function Slider:_Percentages(Value)
+						local percentage = math.clamp((Mouse.X - Slider["27"].AbsolutePosition.X) / (Slider["27"].AbsoluteSize.X),0,1)
+						local value = ((Options.Maximum - Options.Minimum) * percentage) + Options.Minimum
+
+						return {percentage,value}
 					end
 					
 					function Slider:GetValue()
