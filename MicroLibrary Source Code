@@ -2064,7 +2064,8 @@ function Library:Create(Window)
 							Name = [[Keybind Preview]];
 							Description = nil;
 							StartBind = Enum.KeyCode.F;
-							Callback = function() end
+							ChangedEvent = function end;
+							Callback = function() end;
 						},Options or {})
 						
 						local Keybind = {
@@ -2142,8 +2143,16 @@ function Library:Create(Window)
 						function Keybind:SetCallback(func)
 							Options.Callback = func
 						end
+
+						function Keybind:SetChangedEvent(func)
+							Options.ChangedEvent = func
+						end
 		
 						function Keybind:Delete()
+							for i,v in pairs(Keybind) do
+								if typeof(v) ~= "boolean" then continue end
+								v = false
+							end
 							Keybind["5a"]:Destroy()
 						end
 						
@@ -2170,6 +2179,7 @@ function Library:Create(Window)
 										Options.StartBind = input.KeyCode
 										Keybind.WaitingForInput = false
 										Keybind["5e"].Text = UserInputService:GetStringForKeyCode(input.KeyCode)
+										Options.ChangedEvent(input.KeyCode)
 									end
 								elseif (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Keybind.Hover then
 									if Keybind.WaitingForInput then
@@ -2659,6 +2669,15 @@ function Library:Create(Window)
 			end;
 		})
 
+		Settings:Keybind({
+			Name = "Keybind";
+			Description = nil;
+			StartBind = Window.Toggle;
+			ChangedEvent = function(key)
+				Window.Toggle = key
+			end;
+			Callback = function() end
+		})
 
 		-- [[ Tab Resizer ]]
 	
