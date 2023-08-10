@@ -1378,7 +1378,7 @@ function Library:Create(Window)
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable
 						Slider["2e"] = Instance.new("Frame", Slider["2c"]);
 						Slider["2e"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
-						Slider["2e"]["Size"] = UDim2.fromScale(Slider:_Update(Options.Default)[1],1)
+						Slider["2e"]["Size"] = UDim2.fromScale(Slider:_Percentages(Options.Default)[1],1)
 						Slider["2e"]["Name"] = Library:RandomString(math.random(10,100)); -- = [[Draggable]];
 		
 						-- StarterGui.MicroLibrary.Main.ContentContainer.HomeTab.Slider.SliderBack.Draggable.UICorner
