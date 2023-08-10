@@ -877,6 +877,7 @@ function Library:Create(Window)
 					Library:tween(Tab["52"],{ImageTransparency = 0})
 					Tab["10"].Visible = true
 					
+					if Options.Name == "GUI Settings" then return end
 					GUI.CurrentTab = Tab
 				end
 			else
@@ -890,6 +891,7 @@ function Library:Create(Window)
 				Library:tween(Tab["52"],{ImageTransparency = 0})
 				Tab["10"].Visible = true
 				
+				if Options.Name == "GUI Settings" then return end
 				GUI.CurrentTab = Tab
 				end
 			end
@@ -2128,6 +2130,7 @@ function Library:Create(Window)
 						
 						-- [[ Methods ]]
 						function Keybind:SetBind(func)
+							if not Enum.KeyCode[func] then return end
 							Options.StartBind = func
 							Keybind["5e"].Text = string.sub(tostring(func.KeyCode),14,#tostring(func.KeyCode))
 						end
@@ -2168,12 +2171,13 @@ function Library:Create(Window)
 										Keybind["5e"].Text = "[..]"
 									
 								elseif input.UserInputType == Enum.UserInputType.Keyboard then
+									if gpe then return end
 									if Keybind.WaitingForInput then
 										Options.StartBind = input.KeyCode
 										Keybind.WaitingForInput = false
 										Keybind["5e"].Text = UserInputService:GetStringForKeyCode(input.KeyCode)
 									end
-								elseif input.UserInputType == Enum.UserInputType.Touch or (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) or input.UserInputType == Enum.UserInputType.MouseButton2 then
+								elseif (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Keybind.Hover then
 									if Keybind.WaitingForInput then
 										Options.StartBind = nil
 										Keybind.WaitingForInput = false
@@ -2186,6 +2190,7 @@ function Library:Create(Window)
 	
 								if input.KeyCode == Options.StartBind then
 									if gpe then return end
+									wait()
 									if Keybind.WaitingForInput == true then return end
 									Options.Callback()
 								end
@@ -2639,11 +2644,9 @@ function Library:Create(Window)
 		end
 	
 		local Settings = GUI:Tab({
-			Name = "Settings"; -- Title
+			Name = "GUI Settings"; -- Title
 			Icon = "rbxassetid://2677102625"; -- Icon
 		})
-	
-		Settings:Deactivate()
 	
 		Settings:Slider({
 			Name = "Drag Speed"; -- Title
@@ -2657,6 +2660,8 @@ function Library:Create(Window)
 				Library.Settings.DragSpeed = Value
 			end;
 		})
+
+
 		-- [[ Tab Resizer ]]
 	
 		do 
