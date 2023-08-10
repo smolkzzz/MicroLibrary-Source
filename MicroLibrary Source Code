@@ -877,7 +877,6 @@ function Library:Create(Window)
 					Library:tween(Tab["52"],{ImageTransparency = 0})
 					Tab["10"].Visible = true
 					
-					if Options.Name == "GUI Settings" then return end
 					GUI.CurrentTab = Tab
 				end
 			else
@@ -891,7 +890,6 @@ function Library:Create(Window)
 				Library:tween(Tab["52"],{ImageTransparency = 0})
 				Tab["10"].Visible = true
 				
-				if Options.Name == "GUI Settings" then return end
 				GUI.CurrentTab = Tab
 				end
 			end
@@ -932,7 +930,9 @@ function Library:Create(Window)
 				end)
 				
 				if GUI.CurrentTab == nil then
-					Tab:Activate()
+					if Options.Name ~= "GUI Settings" then
+						Tab:Activate()
+					end
 				end
 			end		
 			
