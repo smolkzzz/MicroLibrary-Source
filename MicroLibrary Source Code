@@ -928,12 +928,6 @@ function Library:Create(Window)
 						
 					end
 				end)
-				
-				if GUI.CurrentTab == nil then
-					if Options.Name ~= "GUI Settings" then
-						Tab:Activate()
-					end
-				end
 			end		
 			
 			-- [[ Render UI Interface ]]
@@ -2484,6 +2478,10 @@ function Library:Create(Window)
 	
 						
 					end
+			end
+			if GUI.CurrentTab == nil then
+				if Options.Name == "GUI Settings" then return Tab end
+					Tab:Activate()
 			end
 			return Tab
 		end
