@@ -2064,7 +2064,7 @@ function Library:Create(Window)
 							Name = [[Keybind Preview]];
 							Description = nil;
 							StartBind = Enum.KeyCode.F;
-							ChangedEvent = function end;
+							ChangedEvent = function() end;
 							Callback = function() end;
 						},Options or {})
 						
